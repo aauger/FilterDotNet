@@ -14,7 +14,7 @@ namespace NET6ImageFilter
         {
             ApplicationConfiguration.Initialize();         
             List<IFilter> filters = new(){
-                new Glass(),
+                new Glass(new WinformIntConfigurator("Maximum distance: ")),
                 new Invert(),
                 new Threshold(new WinformIntConfigurator("Threshold: ")),
             };

@@ -98,7 +98,7 @@
             this.Controls.Add(this.imageViewer);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Name = "MainForm";
-            this.Text = "MainForm";
+            this.Text = "AAImageFilter Test Application";
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.imageViewer)).EndInit();
             this.flowLayoutPanel1.ResumeLayout(false);
