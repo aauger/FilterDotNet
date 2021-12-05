@@ -12,7 +12,7 @@ namespace AAImageFilter.Filters
 {
     public class Solarize : IFilter, IConfigurableFilter
     {
-        private IPluginConfigurator<int> _pluginConfigurator;
+        private readonly IPluginConfigurator<int> _pluginConfigurator;
         private int _solarizeThreshold;
         private bool _ready = false;
 

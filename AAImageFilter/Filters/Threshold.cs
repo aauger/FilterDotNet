@@ -11,7 +11,7 @@ namespace AAImageFilter.Filters
 {
     public class Threshold : IFilter, IConfigurableFilter
     {
-        private IPluginConfigurator<int> _pluginConfigurator;
+        private readonly IPluginConfigurator<int> _pluginConfigurator;
         private int _threshold;
 
         private bool _ready = false;

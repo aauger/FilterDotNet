@@ -11,7 +11,7 @@ namespace AAImageFilter.Filters
 {
     public class Glass : IFilter, IConfigurableFilter
     {
-        private IPluginConfigurator<int> _pluginConfigurator;
+        private readonly IPluginConfigurator<int> _pluginConfigurator;
         private int _glassDistance;
 
         public Glass(IPluginConfigurator<int> pluginConfigurator)
