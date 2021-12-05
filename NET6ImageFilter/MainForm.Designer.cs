@@ -50,7 +50,7 @@
             // 
             // loadButton
             // 
-            this.loadButton.Location = new System.Drawing.Point(84, 3);
+            this.loadButton.Location = new System.Drawing.Point(3, 3);
             this.loadButton.Name = "loadButton";
             this.loadButton.Size = new System.Drawing.Size(75, 23);
             this.loadButton.TabIndex = 1;
@@ -60,7 +60,7 @@
             // 
             // saveButton
             // 
-            this.saveButton.Location = new System.Drawing.Point(3, 3);
+            this.saveButton.Location = new System.Drawing.Point(84, 3);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(75, 23);
             this.saveButton.TabIndex = 1;
@@ -81,8 +81,8 @@
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.AutoSize = true;
-            this.flowLayoutPanel1.Controls.Add(this.saveButton);
             this.flowLayoutPanel1.Controls.Add(this.loadButton);
+            this.flowLayoutPanel1.Controls.Add(this.saveButton);
             this.flowLayoutPanel1.Controls.Add(this.applyFilterButton);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
