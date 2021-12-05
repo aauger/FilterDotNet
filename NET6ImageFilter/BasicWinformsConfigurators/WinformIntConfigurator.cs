@@ -23,7 +23,11 @@ namespace NET6ImageFilter
         {
             if (this.ShowDialog() == DialogResult.OK)
             {
-                return int.Parse(inputBox.Text);
+                bool parsed = int.TryParse(inputBox.Text, out int value);
+                if (parsed)
+                    return value;
+                else
+                    return default(int);
             }
             return default(int);
         }
