@@ -39,9 +39,12 @@
             // 
             // imageViewer
             // 
-            this.imageViewer.Location = new System.Drawing.Point(122, 56);
+            this.imageViewer.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.imageViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.imageViewer.Location = new System.Drawing.Point(0, 29);
             this.imageViewer.Name = "imageViewer";
-            this.imageViewer.Size = new System.Drawing.Size(513, 348);
+            this.imageViewer.Size = new System.Drawing.Size(800, 421);
+            this.imageViewer.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.imageViewer.TabIndex = 0;
             this.imageViewer.TabStop = false;
             // 

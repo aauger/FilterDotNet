@@ -8,12 +8,23 @@ using AAImageFilter.Interfaces;
 
 namespace AAImageFilter.Filters
 {
-    public class Threshold : IFilter, IConfigurableFilter<int>
+    public class Threshold : IFilter, IConfigurableFilter
     {
+        private IPluginConfigurator<int> _pluginConfigurator;
         private int _threshold;
+
+        private bool _ready = false;
+
+        public Threshold(IPluginConfigurator<int> pluginConfigurator)
+        { 
+            this._pluginConfigurator = pluginConfigurator;
+        }
 
         public Image Apply(Image input)
         {
+            if (!_ready)
+                throw new Exception("Not ready");
+
             Bitmap b = (Bitmap)input;
 
             for (int x = 0; x < b.Width; x++)
@@ -36,9 +47,10 @@ namespace AAImageFilter.Filters
             return "Threshold";
         }
 
-        public IFilter Initialize(int value)
+        public IFilter Initialize()
         {
-            _threshold = value;
+            _threshold = _pluginConfigurator.GetPluginConfiguration();
+            _ready = true;
             return this;
         }
     }

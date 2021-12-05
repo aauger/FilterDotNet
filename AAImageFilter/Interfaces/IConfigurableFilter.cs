@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace AAImageFilter.Interfaces
 {
-    public interface IConfigurableFilter<T>
+    public interface IConfigurableFilter
     {
-        IFilter Initialize(T value);
+        IFilter Initialize();
     }
 }

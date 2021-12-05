@@ -1,4 +1,6 @@
 using AAImageFilter.Filters;
+using AAImageFilter.Interfaces;
+using NET6ImageFilter.Dialogs;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -8,6 +10,8 @@ namespace NET6ImageFilter
     {
         public event EventHandler ImageChanged;
         private Image _image = new Bitmap(1, 1);
+        private List<IFilter> _filters = new List<IFilter>();
+
         public Image Image
         {
             get { return _image; }
@@ -21,8 +25,9 @@ namespace NET6ImageFilter
             }
         }
 
-        public MainForm()
+        public MainForm(List<IFilter> filters)
         {
+            this._filters = filters;
             InitializeComponent();
         }
 
@@ -37,8 +42,30 @@ namespace NET6ImageFilter
 
         private void applyFilterButton_Click(object sender, EventArgs e)
         {
-            Threshold thresh = (Threshold)new Threshold().Initialize(new WinformIntConfigurator("Threshold value:").GetPluginConfiguration());
-            Image = thresh.Apply(Image);
+            IFilter? filter = null;
+
+            using FilterDialog dialog = new(_filters);
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                if (dialog.SelectedFilter != null)
+                { 
+                    filter = dialog.SelectedFilter;
+                }
+            }
+
+            if (filter == null)
+                return;
+
+            //if our selected filter is configurable, initialize it.
+            if (filter is IConfigurableFilter icf)
+            {
+                icf.Initialize();
+            }
+
+            Image = filter.Apply(Image);
+            //this ought to be invoked by the data binding, but it isn't.
+            imageViewer.Invalidate();
         }
 
         private void MainForm_Load(object sender, EventArgs e)

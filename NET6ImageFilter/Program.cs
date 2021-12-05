@@ -1,4 +1,6 @@
 using AAImageFilter;
+using AAImageFilter.Interfaces;
+using AAImageFilter.Filters;
 
 namespace NET6ImageFilter
 {
@@ -10,8 +12,12 @@ namespace NET6ImageFilter
         [STAThread]
         static void Main()
         {
-            ApplicationConfiguration.Initialize();
-            Application.Run(new MainForm());
+            ApplicationConfiguration.Initialize();         
+            List<IFilter> filters = new(){
+                new Invert(),
+                new Threshold(new WinformIntConfigurator("Threshold: "))
+            };
+            Application.Run(new MainForm(filters));
         }
     }
 }
