@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AAImageFilter.Exceptions;
 using AAImageFilter.Interfaces;
 
 namespace AAImageFilter.Filters
@@ -23,7 +24,7 @@ namespace AAImageFilter.Filters
         public Image Apply(Image input)
         {
             if (!_ready)
-                throw new Exception("Not ready");
+                throw new NotReadyException();
 
             Bitmap b = (Bitmap)input;
 
