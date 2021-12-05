@@ -17,6 +17,7 @@ namespace NET6ImageFilter
                 new Glass(new WinformIntConfigurator("Maximum distance: ")),
                 new Invert(),
                 new Threshold(new WinformIntConfigurator("Threshold: ")),
+                new Solarize(new WinformIntConfigurator("Solarize threshold: ")),
             };
             Application.Run(new MainForm(filters));
         }
