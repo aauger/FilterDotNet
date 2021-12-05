@@ -8,7 +8,7 @@ namespace NET6ImageFilter
 {
     public partial class MainForm : Form
     {
-        public event EventHandler ImageChanged;
+        public event EventHandler? ImageChanged;
         private Image _image = new Bitmap(1, 1);
         private List<IFilter> _filters = new List<IFilter>();
 
@@ -35,8 +35,15 @@ namespace NET6ImageFilter
         {
             using OpenFileDialog ofd = new OpenFileDialog();
             if (ofd.ShowDialog() == DialogResult.OK)
-            { 
-                Image = Image.FromFile(ofd.FileName);
+            {
+                try
+                {
+                    Image = Image.FromFile(ofd.FileName);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error opening image");
+                }
             }
         }
 
@@ -71,6 +78,15 @@ namespace NET6ImageFilter
         private void MainForm_Load(object sender, EventArgs e)
         {
             imageViewer.DataBindings.Add("Image", this, "Image", true);
+        }
+
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+            using SaveFileDialog saveFileDialog = new SaveFileDialog();
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            { 
+                Image.Save(saveFileDialog.FileName, System.Drawing.Imaging.ImageFormat.Png);
+            }
         }
     }
 }

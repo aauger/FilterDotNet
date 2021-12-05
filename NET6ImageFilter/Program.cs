@@ -14,8 +14,9 @@ namespace NET6ImageFilter
         {
             ApplicationConfiguration.Initialize();         
             List<IFilter> filters = new(){
+                new Glass(),
                 new Invert(),
-                new Threshold(new WinformIntConfigurator("Threshold: "))
+                new Threshold(new WinformIntConfigurator("Threshold: ")),
             };
             Application.Run(new MainForm(filters));
         }
