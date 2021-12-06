@@ -14,10 +14,11 @@ namespace NET6ImageFilter
         {
             ApplicationConfiguration.Initialize();         
             List<IFilter> filters = new(){
-                new Glass(new WinformIntConfigurator("Maximum distance: ")),
+                new Glass(new WinformIntConfigurator("Maximum distance:")),
                 new Invert(),
-                new Threshold(new WinformIntConfigurator("Threshold: ")),
-                new Solarize(new WinformIntConfigurator("Solarize threshold: ")),
+                new Threshold(new WinformIntConfigurator("Threshold:")),
+                new Solarize(new WinformIntConfigurator("Solarize threshold:")),
+                new Posterize(new WinformIntConfigurator("Levels:"))
             };
             Application.Run(new MainForm(filters));
         }
