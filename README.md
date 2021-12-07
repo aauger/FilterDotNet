@@ -6,8 +6,8 @@ The contrived example given here is for Winforms, but no doubt you could conceiv
 
 ```csharp
 var filter = new Sharpen(new WinformIntConfigurator("Sharpening level: "));
-if (filter is IConfigurableFilter)
-  filter.Initialize();
+if (filter is IConfigurableFilter icf)
+  icf.Initialize();
 filter.Apply(inputImage);
 ```
 
