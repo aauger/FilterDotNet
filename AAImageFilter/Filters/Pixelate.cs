@@ -55,6 +55,7 @@ namespace AAImageFilter.Filters
         public IFilter Initialize()
         {
             (_width, _height) = _pluginConfigurator.GetPluginConfiguration();
+            _ready = true;
             return this;
         }
     }
