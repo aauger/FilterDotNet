@@ -17,4 +17,4 @@ For a console program, you might do:
 new Sharpen(new ConsoleIntConfigurator(args[1])).Initialize().Apply(Image.FromFile(args[0]).Save(...)
 ```
 
-and so on.
+and so on. Note that `Initialize` returns the filter itself to make chaining operations of this nature easier.
