@@ -1,4 +1,4 @@
-﻿namespace NET6ImageFilter
+﻿namespace NET6ImageFilter.BasicWinformsConfigurators
 {
     partial class WinformIntConfigurator
     {

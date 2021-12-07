@@ -11,25 +11,22 @@ using AAImageFilter.Interfaces;
 
 namespace NET6ImageFilter.BasicWinformsConfigurators
 {
-    public partial class WinformIntConfigurator : Form, IPluginConfigurator<int>
+    public partial class WinformTwoIntConfigurator : Form, IPluginConfigurator<(int, int)>
     {
-        public WinformIntConfigurator(string message)
+        public WinformTwoIntConfigurator(string firstMessage, string secondMessage)
         {
             InitializeComponent();
-            this.Text = message;
+            this.fLabel.Text = firstMessage;
+            this.sLabel.Text = secondMessage;
         }
 
-        public int GetPluginConfiguration()
+        public (int, int) GetPluginConfiguration()
         {
             if (this.ShowDialog() == DialogResult.OK)
-            {
-                bool parsed = int.TryParse(inputBox.Text, out int value);
-                if (parsed)
-                    return value;
-                else
-                    return default(int);
+            { 
+                return (int.Parse(fInput.Text), int.Parse(sInput.Text));
             }
-            return default(int);
+            return (default, default);
         }
 
         private void okButton_Click(object sender, EventArgs e)
