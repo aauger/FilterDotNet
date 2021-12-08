@@ -1,4 +1,5 @@
-﻿using AAImageFilter.Interfaces;
+﻿using AAImageFilter.Exceptions;
+using AAImageFilter.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -10,7 +11,7 @@ namespace AAImageFilter.Generators
 {
     public class XyModGen : IGenerator, IConfigurableGenerator
     {
-        private IGeneratorConfigurator<(int, int, int)> _generatorConfigurator;
+        private readonly IGeneratorConfigurator<(int, int, int)> _generatorConfigurator;
         private bool _ready = false;
         private int _width = 0, _height = 0, _mod = 0;
 
@@ -22,6 +23,9 @@ namespace AAImageFilter.Generators
 
         public Image Generate()
         {
+            if (!_ready)
+                throw new NotReadyException();
+
             Bitmap bmp = new Bitmap(this._width, this._height);
 
             for (int x = 0; x < this._width; x++)
