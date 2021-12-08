@@ -26,7 +26,8 @@ namespace NET6ImageFilter
             };
             List<IGenerator> generators = new()
             {
-                new XyModGen(new WinformsGeneratorConfigurators.GeneratorThreeIntConfigurator())
+                new XyModGenerator(new WinformsGeneratorConfigurators.GeneratorThreeIntConfigurator()),
+                new MandelbrotGenerator(new WinformsGeneratorConfigurators.GeneratorThreeIntConfigurator())
             };
             Application.Run(new MainForm(filters, generators));
         }

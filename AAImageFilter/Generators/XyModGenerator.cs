@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace AAImageFilter.Generators
 {
-    public class XyModGen : IGenerator, IConfigurableGenerator
+    public class XyModGenerator : IGenerator, IConfigurableGenerator
     {
         private readonly IGeneratorConfigurator<(int, int, int)> _generatorConfigurator;
         private bool _ready = false;
         private int _width = 0, _height = 0, _mod = 0;
 
 
-        public XyModGen(IGeneratorConfigurator<(int, int, int)> generatorConfigurator)
+        public XyModGenerator(IGeneratorConfigurator<(int, int, int)> generatorConfigurator)
         { 
             this._generatorConfigurator = generatorConfigurator;
         }
