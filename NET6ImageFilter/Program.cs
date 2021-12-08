@@ -2,6 +2,7 @@ using AAImageFilter;
 using AAImageFilter.Interfaces;
 using AAImageFilter.Filters;
 using NET6ImageFilter.BasicWinformsConfigurators;
+using AAImageFilter.Generators;
 
 namespace NET6ImageFilter
 {
@@ -13,8 +14,9 @@ namespace NET6ImageFilter
         [STAThread]
         static void Main()
         {
-            ApplicationConfiguration.Initialize();
-            List<IFilter> filters = new() {
+            ApplicationConfiguration.Initialize();            
+            List<IFilter> filters = new() 
+            {
                 new Glass(new WinformIntConfigurator("Maximum distance:")),
                 new Invert(),
                 new Threshold(new WinformIntConfigurator("Threshold:")),
@@ -22,7 +24,11 @@ namespace NET6ImageFilter
                 new Posterize(new WinformIntConfigurator("Levels:")),
                 new Pixelate(new WinformTwoIntConfigurator("Block width:", "Block height:"))
             };
-            Application.Run(new MainForm(filters));
+            List<IGenerator> generators = new()
+            {
+                new XyModGen(new WinformsGeneratorConfigurators.GeneratorThreeIntConfigurator())
+            };
+            Application.Run(new MainForm(filters, generators));
         }
     }
 }

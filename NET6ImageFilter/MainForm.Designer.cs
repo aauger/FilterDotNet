@@ -33,6 +33,7 @@
             this.saveButton = new System.Windows.Forms.Button();
             this.applyFilterButton = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.useGeneratorButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.imageViewer)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -84,11 +85,22 @@
             this.flowLayoutPanel1.Controls.Add(this.loadButton);
             this.flowLayoutPanel1.Controls.Add(this.saveButton);
             this.flowLayoutPanel1.Controls.Add(this.applyFilterButton);
+            this.flowLayoutPanel1.Controls.Add(this.useGeneratorButton);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(800, 29);
             this.flowLayoutPanel1.TabIndex = 2;
+            // 
+            // useGeneratorButton
+            // 
+            this.useGeneratorButton.Location = new System.Drawing.Point(246, 3);
+            this.useGeneratorButton.Name = "useGeneratorButton";
+            this.useGeneratorButton.Size = new System.Drawing.Size(99, 23);
+            this.useGeneratorButton.TabIndex = 2;
+            this.useGeneratorButton.Text = "Use Generator";
+            this.useGeneratorButton.UseVisualStyleBackColor = true;
+            this.useGeneratorButton.Click += new System.EventHandler(this.useGeneratorButton_Click);
             // 
             // MainForm
             // 
@@ -114,5 +126,6 @@
         private Button saveButton;
         private Button applyFilterButton;
         private FlowLayoutPanel flowLayoutPanel1;
+        private Button useGeneratorButton;
     }
 }

@@ -11,22 +11,22 @@ using System.Windows.Forms;
 
 namespace NET6ImageFilter.Dialogs
 {
-    public partial class FilterDialog : Form
+    public partial class GeneratorDialog : Form
     {
-        private List<IFilter> _filters;
-        public IFilter? SelectedFilter { get; set; }
+        private List<IGenerator> _generators;
+        public IGenerator? SelectedGenerator;
 
-        public FilterDialog(List<IFilter> filters)
+        public GeneratorDialog(List<IGenerator> generators)
         {
-            _filters = filters;
+            _generators = generators;
             InitializeComponent();
-            filterListBox.Items.AddRange(_filters.Select(f => f.GetFilterName()).ToArray());
+            generatorListBox.Items.AddRange(_generators.Select(g => g.GetName()).ToArray());
         }
 
         private void applyButton_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.OK;
-            this.SelectedFilter = _filters[filterListBox.SelectedIndex];
+            this.SelectedGenerator = _generators[generatorListBox.SelectedIndex];
             this.Close();
         }
 

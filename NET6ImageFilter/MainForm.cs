@@ -11,6 +11,7 @@ namespace NET6ImageFilter
         public event EventHandler? ImageChanged;
         private Image _image = new Bitmap(1, 1);
         private List<IFilter> _filters = new List<IFilter>();
+        private List<IGenerator> _generators = new List<IGenerator>();
 
         public Image Image
         {
@@ -25,9 +26,10 @@ namespace NET6ImageFilter
             }
         }
 
-        public MainForm(List<IFilter> filters)
+        public MainForm(List<IFilter> filters, List<IGenerator> generators)
         {
             this._filters = filters;
+            this._generators = generators;
             InitializeComponent();
         }
 
@@ -75,6 +77,33 @@ namespace NET6ImageFilter
             imageViewer.Invalidate();
         }
 
+        private void useGeneratorButton_Click(object sender, EventArgs e)
+        {
+            IGenerator? generator = null;
+
+            using GeneratorDialog dialog = new(_generators);
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                if (dialog.SelectedGenerator is not null)
+                {
+                    generator = dialog.SelectedGenerator;
+                }
+            }
+
+            if (generator is null)
+                return;
+
+            if (generator is IConfigurableGenerator icg)
+            {
+                icg.Initialize();
+            }
+
+            Image = generator.Generate();
+            imageViewer.Invalidate();
+
+        }
+
         private void MainForm_Load(object sender, EventArgs e)
         {
             imageViewer.DataBindings.Add("Image", this, "Image", true);
@@ -88,5 +117,6 @@ namespace NET6ImageFilter
                 Image.Save(saveFileDialog.FileName, System.Drawing.Imaging.ImageFormat.Png);
             }
         }
+
     }
 }
