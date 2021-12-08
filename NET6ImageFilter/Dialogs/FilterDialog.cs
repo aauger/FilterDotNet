@@ -26,7 +26,8 @@ namespace NET6ImageFilter.Dialogs
         private void applyButton_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.OK;
-            this.SelectedFilter = _filters[filterListBox.SelectedIndex];
+            if(this.filterListBox.SelectedIndex != -1)
+                this.SelectedFilter = _filters[filterListBox.SelectedIndex];
             this.Close();
         }
 

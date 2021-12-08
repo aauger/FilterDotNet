@@ -118,5 +118,9 @@ namespace NET6ImageFilter
             }
         }
 
+        private void copyToClipboardButton_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetImage(Image);
+        }
     }
 }

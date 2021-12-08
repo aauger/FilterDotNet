@@ -26,7 +26,8 @@ namespace NET6ImageFilter.Dialogs
         private void applyButton_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.OK;
-            this.SelectedGenerator = _generators[generatorListBox.SelectedIndex];
+            if(this.generatorListBox.SelectedIndex != -1)
+                this.SelectedGenerator = _generators[generatorListBox.SelectedIndex];
             this.Close();
         }
 
