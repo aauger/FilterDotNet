@@ -13,6 +13,7 @@ namespace AAImageFilter.Filters
     {
         private readonly IPluginConfigurator<int> _pluginConfigurator;
         private int _glassDistance;
+        private bool _ready = false;
 
         public GlassFilter(IPluginConfigurator<int> pluginConfigurator)
         { 
@@ -49,6 +50,7 @@ namespace AAImageFilter.Filters
         public IFilter Initialize()
         {
             _glassDistance = _pluginConfigurator.GetPluginConfiguration();
+            _ready = true;
             return this;
         }
     }
