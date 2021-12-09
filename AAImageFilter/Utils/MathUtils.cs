@@ -31,5 +31,10 @@ namespace AAImageFilter.Utils
         {
             return Clamp(input, 0, 255);
         }
+
+        public static double DegToRad(double degrees)
+        {
+            return (degrees * Math.PI) / 180.0;
+        }
     }
 }

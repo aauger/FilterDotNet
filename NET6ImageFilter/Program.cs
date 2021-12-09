@@ -23,6 +23,7 @@ namespace NET6ImageFilter
                 new PixelateFilter(new WinformTwoIntConfigurator("Block width:", "Block height:")),
                 new SolarizeFilter(new WinformIntConfigurator("Solarize threshold:")),
                 new ThresholdFilter(new WinformIntConfigurator("Threshold:")),
+                new CirclePaintingFilter(new WinformThreeIntConfigurator())
             };
             List<IGenerator> generators = new()
             {
