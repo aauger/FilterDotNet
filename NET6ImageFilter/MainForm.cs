@@ -10,8 +10,8 @@ namespace NET6ImageFilter
     {
         public event EventHandler? ImageChanged;
         private Image _image = new Bitmap(1, 1);
-        private List<IFilter> _filters = new List<IFilter>();
-        private List<IGenerator> _generators = new List<IGenerator>();
+        private List<IFilter> _filters = new();
+        private List<IGenerator> _generators = new();
 
         public Image Image
         {
@@ -35,7 +35,7 @@ namespace NET6ImageFilter
 
         private void loadButton_Click(object sender, EventArgs e)
         {
-            using OpenFileDialog ofd = new OpenFileDialog();
+            using OpenFileDialog ofd = new();
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 try
@@ -72,9 +72,15 @@ namespace NET6ImageFilter
                 icf.Initialize();
             }
 
-            Image = filter.Apply(Image);
-            //this ought to be invoked by the data binding, but it isn't.
-            imageViewer.Invalidate();
+            //show processing wait dialog
+            using ProcessingDialog pd = new();
+            Task.Factory.StartNew(() =>
+            {
+                Image = filter.Apply(Image);
+                pd.CloseForm();
+                imageViewer.Invalidate();
+            });
+            pd.ShowDialog();
         }
 
         private void useGeneratorButton_Click(object sender, EventArgs e)
@@ -99,9 +105,15 @@ namespace NET6ImageFilter
                 icg.Initialize();
             }
 
-            Image = generator.Generate();
-            imageViewer.Invalidate();
-
+            //show processing wait dialog
+            using ProcessingDialog pd = new();
+            Task.Factory.StartNew(() =>
+            {
+                Image = generator.Generate();
+                pd.CloseForm();
+                imageViewer.Invalidate();
+            });
+            pd.ShowDialog();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
