@@ -76,7 +76,14 @@ namespace NET6ImageFilter
             using ProcessingDialog pd = new();
             Task.Factory.StartNew(() =>
             {
-                Image = filter.Apply(Image);
+                try
+                {
+                    Image = filter.Apply(Image);
+                }
+                catch
+                {
+                    MessageBox.Show("There was an error applying the filter.");
+                }
                 pd.CloseForm();
                 imageViewer.Invalidate();
             });
@@ -109,7 +116,14 @@ namespace NET6ImageFilter
             using ProcessingDialog pd = new();
             Task.Factory.StartNew(() =>
             {
-                Image = generator.Generate();
+                try
+                {
+                    Image = generator.Generate();
+                }
+                catch 
+                {
+                    MessageBox.Show("There was an error running the generator.");
+                }
                 pd.CloseForm();
                 imageViewer.Invalidate();
             });
