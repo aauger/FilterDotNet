@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AAImageFilter.Exceptions;
 using AAImageFilter.Interfaces;
 using AAImageFilter.Utils;
 
@@ -22,6 +23,9 @@ namespace AAImageFilter.Filters
 
         public Image Apply(Image input)
         {
+            if (!_ready)
+                throw new NotReadyException();
+
             Random rnd = new Random();
             Bitmap bmp = (Bitmap)input;
 
