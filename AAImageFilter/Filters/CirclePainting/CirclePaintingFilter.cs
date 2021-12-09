@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AAImageFilter.Filters;
+using AAImageFilter.Exceptions;
 
 namespace AAImageFilter.Filters
 {
@@ -25,6 +26,9 @@ namespace AAImageFilter.Filters
 
         public Image Apply(Image input)
         {
+            if (!_ready)
+                throw new NotReadyException();
+
             FastImage src = new FastImage(input);
             FastImage ret = new FastImage(src.Width, src.Height);
             for (int x = 0; x < src.Width; x++)
