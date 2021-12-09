@@ -39,8 +39,8 @@
             this.loadingImage.InitialImage = null;
             this.loadingImage.Location = new System.Drawing.Point(0, 0);
             this.loadingImage.Name = "loadingImage";
-            this.loadingImage.Size = new System.Drawing.Size(63, 48);
-            this.loadingImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.loadingImage.Size = new System.Drawing.Size(269, 194);
+            this.loadingImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.loadingImage.TabIndex = 0;
             this.loadingImage.TabStop = false;
             // 
@@ -48,9 +48,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(63, 48);
+            this.ClientSize = new System.Drawing.Size(269, 194);
             this.Controls.Add(this.loadingImage);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "ProcessingDialog";
             this.Text = "Processing ...";
             ((System.ComponentModel.ISupportInitialize)(this.loadingImage)).EndInit();

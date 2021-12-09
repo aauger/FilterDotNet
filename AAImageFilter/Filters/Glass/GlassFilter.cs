@@ -9,12 +9,12 @@ using AAImageFilter.Utils;
 
 namespace AAImageFilter.Filters
 {
-    public class Glass : IFilter, IConfigurableFilter
+    public class GlassFilter : IFilter, IConfigurableFilter
     {
         private readonly IPluginConfigurator<int> _pluginConfigurator;
         private int _glassDistance;
 
-        public Glass(IPluginConfigurator<int> pluginConfigurator)
+        public GlassFilter(IPluginConfigurator<int> pluginConfigurator)
         { 
             this._pluginConfigurator = pluginConfigurator;
         }

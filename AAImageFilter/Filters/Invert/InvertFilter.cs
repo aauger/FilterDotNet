@@ -8,7 +8,7 @@ using AAImageFilter.Interfaces;
 
 namespace AAImageFilter.Filters
 {
-    public class Invert : IFilter
+    public class InvertFilter : IFilter
     {
         public Image Apply(Image input)
         {

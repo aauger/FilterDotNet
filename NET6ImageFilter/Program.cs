@@ -17,17 +17,17 @@ namespace NET6ImageFilter
             ApplicationConfiguration.Initialize();            
             List<IFilter> filters = new() 
             {
-                new Glass(new WinformIntConfigurator("Maximum distance:")),
-                new Invert(),
-                new Threshold(new WinformIntConfigurator("Threshold:")),
-                new Solarize(new WinformIntConfigurator("Solarize threshold:")),
-                new Posterize(new WinformIntConfigurator("Levels:")),
-                new Pixelate(new WinformTwoIntConfigurator("Block width:", "Block height:"))
+                new GlassFilter(new WinformIntConfigurator("Maximum distance:")),
+                new InvertFilter(),
+                new PosterizeFilter(new WinformIntConfigurator("Levels:")),
+                new PixelateFilter(new WinformTwoIntConfigurator("Block width:", "Block height:")),
+                new SolarizeFilter(new WinformIntConfigurator("Solarize threshold:")),
+                new ThresholdFilter(new WinformIntConfigurator("Threshold:")),
             };
             List<IGenerator> generators = new()
             {
                 new XyModGenerator(new WinformsGeneratorConfigurators.GeneratorThreeIntConfigurator()),
-                new MandelbrotGenerator(new WinformsGeneratorConfigurators.GeneratorThreeIntConfigurator())
+                new MandelbrotGenerator(new WinformsGeneratorConfigurators.GeneratorThreeIntConfigurator()),
             };
             Application.Run(new MainForm(filters, generators));
         }

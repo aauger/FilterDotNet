@@ -42,7 +42,7 @@ namespace NET6ImageFilter
                 {
                     Image = Image.FromFile(ofd.FileName);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     MessageBox.Show("Error opening image");
                 }

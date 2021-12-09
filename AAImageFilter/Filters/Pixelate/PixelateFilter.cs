@@ -9,14 +9,14 @@ using AAImageFilter.Interfaces;
 
 namespace AAImageFilter.Filters
 {
-    public class Pixelate : IFilter, IConfigurableFilter
+    public class PixelateFilter : IFilter, IConfigurableFilter
     {
         private readonly IPluginConfigurator<(int, int)> _pluginConfigurator;
         private int _width = 0;
         private int _height = 0;
         private bool _ready = false;
 
-        public Pixelate(IPluginConfigurator<(int, int)> pluginConfigurator)
+        public PixelateFilter(IPluginConfigurator<(int, int)> pluginConfigurator)
         { 
             this._pluginConfigurator = pluginConfigurator;
         }

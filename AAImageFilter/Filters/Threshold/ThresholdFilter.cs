@@ -9,14 +9,14 @@ using AAImageFilter.Interfaces;
 
 namespace AAImageFilter.Filters
 {
-    public class Threshold : IFilter, IConfigurableFilter
+    public class ThresholdFilter : IFilter, IConfigurableFilter
     {
         private readonly IPluginConfigurator<int> _pluginConfigurator;
         private int _threshold;
 
         private bool _ready = false;
 
-        public Threshold(IPluginConfigurator<int> pluginConfigurator)
+        public ThresholdFilter(IPluginConfigurator<int> pluginConfigurator)
         { 
             this._pluginConfigurator = pluginConfigurator;
         }
