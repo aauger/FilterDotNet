@@ -70,7 +70,14 @@ namespace NET6ImageFilter
             //if our selected filter is configurable, initialize it.
             if (filter is IConfigurableFilter icf)
             {
-                icf.Initialize();
+                try
+                {
+                    icf.Initialize();
+                }
+                catch
+                {
+                    MessageBox.Show("An error occurred during plugin initialization");
+                }
             }
 
             GDIDrawingImage di = GDIDrawingImage.WrapBitmap((Bitmap)Image);
@@ -79,18 +86,24 @@ namespace NET6ImageFilter
             using ProcessingDialog pd = new();
             Task.Factory.StartNew(() =>
             {
-                var result = (filter.Apply(di));
-
-                if (result is FIDrawingImage fdi)
+                try
                 {
-                    Image = fdi.UnwrapFastImage().ToBitmap();
-                }
+                    var result = (filter.Apply(di));
 
-                if (result is GDIDrawingImage gdi)
+                    if (result is FIDrawingImage fdi)
+                    {
+                        Image = fdi.UnwrapFastImage().ToBitmap();
+                    }
+
+                    if (result is GDIDrawingImage gdi)
+                    {
+                        Image = gdi.UnwrapBitmap();
+                    }
+                }
+                catch
                 {
-                    Image = gdi.UnwrapBitmap();
+                    MessageBox.Show("There was an error applying the filter.");
                 }
-
                 pd.CloseForm();
                 imageViewer.Invalidate();
             });
@@ -116,7 +129,14 @@ namespace NET6ImageFilter
 
             if (generator is IConfigurableGenerator icg)
             {
-                icg.Initialize();
+                try
+                {
+                    icg.Initialize();
+                }
+                catch
+                {
+                    MessageBox.Show("There was an error during initialization");
+                }
             }
 
             //show processing wait dialog

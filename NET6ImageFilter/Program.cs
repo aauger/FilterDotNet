@@ -25,7 +25,7 @@ namespace NET6ImageFilter
                 new InvertFilter(GdiColorCreator),
                 new PosterizeFilter(new WinformIntConfigurator("Levels:"), GdiImageCreator, GdiColorCreator),
                 new PixelateFilter(new WinformTwoIntConfigurator("Block width:", "Block height:")),
-                //new SolarizeFilter(new WinformIntConfigurator("Solarize threshold:")),
+                new SolarizeFilter(new WinformIntConfigurator("Solarize threshold:"), GdiColorCreator),
                 new ThresholdFilter(new WinformIntConfigurator("Threshold:"), GdiColorCreator),
             };
             List<IGenerator> generators = new()
