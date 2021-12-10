@@ -12,34 +12,37 @@ namespace AAImageFilter.Filters
     public class PosterizeFilter : IFilter, IConfigurableFilter
     {
         private readonly IPluginConfigurator<int> _pluginConfigurator;
+        private readonly Func<int, int, IImage> _imageCreator;
+        private readonly Func<int, int, int, int, IColor> _colorCreator;
         private int _levels;
         private bool _ready = false;
 
-        public PosterizeFilter(IPluginConfigurator<int> pluginConfigurator)
-        { 
-            this._pluginConfigurator = pluginConfigurator;
+        public PosterizeFilter(IPluginConfigurator<int> pluginConfigurator, Func<int, int, IImage> imageCreator, Func<int, int, int, int, IColor> colorCreator)
+        {
+            _pluginConfigurator = pluginConfigurator;
+            _imageCreator = imageCreator;
+            _colorCreator = colorCreator;
         }
 
-        public Image Apply(Image input)
+        public IImage Apply(IImage input)
         {
             if (!_ready)
                 throw new NotReadyException();
 
-            Bitmap b = (Bitmap)input;
-            Bitmap ret = new Bitmap(b.Width, b.Height);
+            IImage ret = _imageCreator(input.Width, input.Height);
             int bs = 255 / _levels;
 
-            for (int x = 0; x < b.Width; x++)
+            for (int x = 0; x < input.Width; x++)
             {
-                for (int y = 0; y < b.Height; y++)
+                for (int y = 0; y < input.Height; y++)
                 {
                     int nr, nb, ng;
-                    Color c = b.GetPixel(x, y);
+                    IColor c = input.GetPixel(x, y);
                     // ((i / n) * n) will get the nearest n to i
                     nr = (int)(Math.Round(c.R / (float)bs) * bs);
                     ng = (int)(Math.Round(c.G / (float)bs) * bs);
                     nb = (int)(Math.Round(c.B / (float)bs) * bs);
-                    ret.SetPixel(x, y, Color.FromArgb(nr, ng, nb));
+                    ret.SetPixel(x, y, _colorCreator(nr, ng, nb, 255));
                 }
             }
 

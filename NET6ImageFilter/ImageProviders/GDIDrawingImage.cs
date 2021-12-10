@@ -9,13 +9,13 @@ namespace NET6ImageFilter.ImageProviders
 {
     public class DrawingImage : IImage
     {
-        private Bitmap _bitmap;
+        private readonly Bitmap _bitmap;
 
-        public int Width => throw new NotImplementedException();
+        public int Width => _bitmap.Width;
 
-        public int Height => throw new NotImplementedException();
+        public int Height => _bitmap.Height;
 
-        private DrawingImage(int x, int y)
+        public DrawingImage(int x, int y)
         {
             _bitmap = new Bitmap(x, y);
         }
@@ -55,12 +55,12 @@ namespace NET6ImageFilter.ImageProviders
             _bitmap.SetPixel(x, y, Color.FromArgb(color.A, color.R, color.G, color.B));
         }
 
-        public Bitmap GetBitmap()
+        public Bitmap UnwrapBitmap()
         {
             return _bitmap;
         }
 
-        public static DrawingImage EncapsulateBitmap(Bitmap bitmap)
+        public static DrawingImage WrapBitmap(Bitmap bitmap)
         {
             return new DrawingImage(bitmap);
         }

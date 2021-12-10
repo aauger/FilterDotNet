@@ -3,6 +3,7 @@ using AAImageFilter.Interfaces;
 using AAImageFilter.Filters;
 using NET6ImageFilter.BasicWinformsConfigurators;
 using AAImageFilter.Generators;
+using NET6ImageFilter.ImageProviders;
 
 namespace NET6ImageFilter
 {
@@ -14,16 +15,20 @@ namespace NET6ImageFilter
         [STAThread]
         static void Main()
         {
-            ApplicationConfiguration.Initialize();            
+            ApplicationConfiguration.Initialize();
+            static IImage imageCreator(int x, int y) => new GDIDrawingImage(x, y);
+            static IColor colorCreator(int r, int g, int b, int a) => new GDIDrawingColor(r, g, b, a);
+
+
             List<IFilter> filters = new() 
             {
-                new GlassFilter(new WinformIntConfigurator("Maximum distance:")),
-                new InvertFilter(),
-                new PosterizeFilter(new WinformIntConfigurator("Levels:")),
+                new GlassFilter(new WinformIntConfigurator("Maximum distance:"), imageCreator),
+                new InvertFilter(colorCreator),
+                new PosterizeFilter(new WinformIntConfigurator("Levels:"), imageCreator, colorCreator),
                 new PixelateFilter(new WinformTwoIntConfigurator("Block width:", "Block height:")),
-                new SolarizeFilter(new WinformIntConfigurator("Solarize threshold:")),
-                new ThresholdFilter(new WinformIntConfigurator("Threshold:")),
-                new CirclePaintingFilter(new WinformThreeIntConfigurator())
+                //new SolarizeFilter(new WinformIntConfigurator("Solarize threshold:")),
+                new ThresholdFilter(new WinformIntConfigurator("Threshold:"), colorCreator),
+                //new CirclePaintingFilter(new WinformThreeIntConfigurator())
             };
             List<IGenerator> generators = new()
             {

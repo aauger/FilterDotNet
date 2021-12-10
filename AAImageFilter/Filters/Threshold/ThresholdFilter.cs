@@ -12,35 +12,35 @@ namespace AAImageFilter.Filters
     public class ThresholdFilter : IFilter, IConfigurableFilter
     {
         private readonly IPluginConfigurator<int> _pluginConfigurator;
+        private readonly Func<int, int, int, int, IColor> _colorCreator;
         private int _threshold;
 
         private bool _ready = false;
 
-        public ThresholdFilter(IPluginConfigurator<int> pluginConfigurator)
-        { 
+        public ThresholdFilter(IPluginConfigurator<int> pluginConfigurator, Func<int, int, int, int, IColor> colorCreator)
+        {
             this._pluginConfigurator = pluginConfigurator;
+            this._colorCreator = colorCreator;
         }
 
-        public Image Apply(Image input)
+        public IImage Apply(IImage input)
         {
             if (!_ready)
                 throw new NotReadyException();
 
-            Bitmap b = (Bitmap)input;
-
-            for (int x = 0; x < b.Width; x++)
+            for (int x = 0; x < input.Width; x++)
             {
-                for (int y = 0; y < b.Height; y++)
+                for (int y = 0; y < input.Height; y++)
                 {
-                    Color here = b.GetPixel(x, y);
+                    IColor here = input.GetPixel(x, y);
                     int avg = (here.R + here.G + here.B) / 3;
-                    Color nColor = avg > _threshold ? Color.White : Color.Black;
+                    IColor nColor = avg > _threshold ? _colorCreator(255,255,255,255) : _colorCreator(0,0,0,255);
 
-                    b.SetPixel(x, y, nColor);
+                    input.SetPixel(x, y, nColor);
                 }
             }
 
-            return b;
+            return input;
         }
 
         public string GetFilterName()

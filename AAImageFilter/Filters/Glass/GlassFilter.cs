@@ -13,37 +13,39 @@ namespace AAImageFilter.Filters
     public class GlassFilter : IFilter, IConfigurableFilter
     {
         private readonly IPluginConfigurator<int> _pluginConfigurator;
+        private readonly Func<int, int, IImage> _imageCreator;
         private int _glassDistance;
         private bool _ready = false;
 
-        public GlassFilter(IPluginConfigurator<int> pluginConfigurator)
+        public GlassFilter(IPluginConfigurator<int> pluginConfigurator, Func<int,int,IImage> imageCreator)
         { 
             this._pluginConfigurator = pluginConfigurator;
+            this._imageCreator = imageCreator;
         }
 
-        public Image Apply(Image input)
+        public IImage Apply(IImage input)
         {
             if (!_ready)
                 throw new NotReadyException();
 
             Random rnd = new Random();
-            Bitmap bmp = (Bitmap)input;
+            IImage ret = _imageCreator(input.Width, input.Height);
 
-            for (int x = 0; x < bmp.Width; x++)
+            for (int x = 0; x < ret.Width; x++)
             {
-                for (int y = 0; y < bmp.Height; y++)
+                for (int y = 0; y < ret.Height; y++)
                 {
-                    int x2 = MathUtils.Clamp(x + rnd.Next(-_glassDistance, _glassDistance), 0, bmp.Width - 1);
-                    int y2 = MathUtils.Clamp(y + rnd.Next(-_glassDistance, _glassDistance), 0, bmp.Height - 1);
-                    Color here = bmp.GetPixel(x, y);
-                    Color there = bmp.GetPixel(x2, y2);
+                    int x2 = MathUtils.Clamp(x + rnd.Next(-_glassDistance, _glassDistance), 0, input.Width - 1);
+                    int y2 = MathUtils.Clamp(y + rnd.Next(-_glassDistance, _glassDistance), 0, input.Height - 1);
+                    IColor here = ret.GetPixel(x, y);
+                    IColor there = ret.GetPixel(x2, y2);
 
-                    bmp.SetPixel(x, y, there);
-                    bmp.SetPixel(x2, y2, here);
+                    ret.SetPixel(x, y, there);
+                    ret.SetPixel(x2, y2, here);
                 }
             }
 
-            return bmp;
+            return ret;
         }
 
         public string GetFilterName()

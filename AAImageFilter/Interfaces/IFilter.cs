@@ -9,7 +9,7 @@ namespace AAImageFilter.Interfaces
 {
     public interface IFilter
     {
-        Image Apply(Image input);
+        IImage Apply(IImage input);
         string GetFilterName();
     }
 }

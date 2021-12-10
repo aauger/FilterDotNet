@@ -10,25 +10,32 @@ namespace AAImageFilter.Filters
 {
     public class InvertFilter : IFilter
     {
-        public Image Apply(Image input)
-        {
-            Bitmap i = (Bitmap)input;
+        private readonly Func<int, int, int, int, IColor> _colorCreator;
 
-            for (int x = 0; x < i.Width; x++)
+        public InvertFilter(Func<int, int, int, int, IColor> colorCreator)
+        {
+            _colorCreator = colorCreator;
+        }
+
+        public IImage Apply(IImage input)
+        {
+            for (int x = 0; x < input.Width; x++)
             {
-                for (int y = 0; y < i.Height; y++)
+                for (int y = 0; y < input.Height; y++)
                 {
-                    Color here = i.GetPixel(x, y);
+                    IColor here = input.GetPixel(x, y);
 
                     int r = 255 - here.R;
                     int g = 255 - here.G;
                     int b = 255 - here.B;
 
-                    i.SetPixel(x, y, Color.FromArgb(r, g, b));
+                    IColor nColor = _colorCreator(r, g, b, 255);
+
+                    input.SetPixel(x, y, nColor);
                 }
             }
 
-            return i;
+            return input;
         }
 
         public string GetFilterName()
