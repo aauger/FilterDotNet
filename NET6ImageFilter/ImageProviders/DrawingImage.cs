@@ -20,7 +20,12 @@ namespace NET6ImageFilter.ImageProviders
             _bitmap = new Bitmap(x, y);
         }
 
-        public IImage Create(int x, int y)
+        private DrawingImage(Bitmap bitmap)
+        { 
+            _bitmap = bitmap;
+        }
+
+        public static IImage Create(int x, int y)
         {
             return new DrawingImage(x, y);
         }
@@ -53,6 +58,11 @@ namespace NET6ImageFilter.ImageProviders
         public Bitmap GetBitmap()
         {
             return _bitmap;
+        }
+
+        public static DrawingImage EncapsulateBitmap(Bitmap bitmap)
+        {
+            return new DrawingImage(bitmap);
         }
     }
 }

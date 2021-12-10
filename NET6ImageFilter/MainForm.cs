@@ -1,6 +1,7 @@
 using AAImageFilter.Filters;
 using AAImageFilter.Interfaces;
 using NET6ImageFilter.Dialogs;
+using NET6ImageFilter.ImageProviders;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -71,6 +72,8 @@ namespace NET6ImageFilter
             {
                 icf.Initialize();
             }
+
+            DrawingImage di = DrawingImage.EncapsulateBitmap((Bitmap)Image);
 
             //show processing wait dialog
             using ProcessingDialog pd = new();
