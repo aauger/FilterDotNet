@@ -7,11 +7,11 @@ using AAImageFilter.Interfaces;
 
 namespace AAImageFilter.LibraryConfigurators
 {
-    public class LambdaConfigurator<T> : IPluginConfigurator<T>
+    public class LambdaPluginConfigurator<T> : IPluginConfigurator<T>
     {
         private readonly Func<T> _lambda;
 
-        public LambdaConfigurator(Func<T> lambda)
+        public LambdaPluginConfigurator(Func<T> lambda)
         {
             _lambda = lambda;
         }
