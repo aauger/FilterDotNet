@@ -18,3 +18,9 @@ new Sharpen(new ConsoleIntConfigurator(args[1])).Initialize().Apply(Image.FromFi
 ```
 
 and so on. Note that `Initialize` returns the filter itself to make chaining operations of this nature easier.
+
+This project also contains a Generator interface that creates new images from a set of parameters.
+
+Included is a UI that flexes each of the currently included filters & generators
+
+![UI example](https://raw.githubusercontent.com/aauger/AAImageFilter/master/Screenshot.PNG)
