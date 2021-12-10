@@ -12,11 +12,11 @@ namespace NET6ImageFilter
     public class Injectables
     {
         /* gdi creators */
-        public static IImage gdiImageCreator(int x, int y) => new GDIDrawingImage(x, y);
-        public static IColor gdiColorCreator(int r, int g, int b, int a) => new GDIDrawingColor(r, g, b, a);
+        public static IImage GdiImageCreator(int x, int y) => new GDIDrawingImage(x, y);
+        public static IColor GdiColorCreator(int r, int g, int b, int a) => new GDIDrawingColor(r, g, b, a);
 
         /* fast image input & output adaptors */
-        public static FastImage fastImageAdaptor(IImage a)
+        public static FastImage FastImageAdaptor(IImage a)
         {
             if (a is FIDrawingImage fid)
             {
@@ -33,6 +33,6 @@ namespace NET6ImageFilter
             }
             return fidn.UnwrapFastImage();
         }
-        public static IImage fastImageOutdaptor(FastImage fastImage) => new FIDrawingImage(fastImage);
+        public static IImage FastImageOutdaptor(FastImage fastImage) => new FIDrawingImage(fastImage);
     }
 }

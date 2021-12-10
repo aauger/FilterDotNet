@@ -20,13 +20,13 @@ namespace NET6ImageFilter
             ApplicationConfiguration.Initialize();
             List<IFilter> filters = new() 
             {
-                new CirclePaintingFilter(new WinformThreeIntConfigurator(), fastImageAdaptor, fastImageOutdaptor),
-                new GlassFilter(new WinformIntConfigurator("Maximum distance:"), gdiImageCreator),
-                new InvertFilter(gdiColorCreator),
-                new PosterizeFilter(new WinformIntConfigurator("Levels:"), gdiImageCreator, gdiColorCreator),
+                new CirclePaintingFilter(new WinformThreeIntConfigurator(), FastImageAdaptor, FastImageOutdaptor),
+                new GlassFilter(new WinformIntConfigurator("Maximum distance:"), GdiImageCreator),
+                new InvertFilter(GdiColorCreator),
+                new PosterizeFilter(new WinformIntConfigurator("Levels:"), GdiImageCreator, GdiColorCreator),
                 new PixelateFilter(new WinformTwoIntConfigurator("Block width:", "Block height:")),
                 //new SolarizeFilter(new WinformIntConfigurator("Solarize threshold:")),
-                new ThresholdFilter(new WinformIntConfigurator("Threshold:"), gdiColorCreator),
+                new ThresholdFilter(new WinformIntConfigurator("Threshold:"), GdiColorCreator),
             };
             List<IGenerator> generators = new()
             {
