@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.imageViewer = new System.Windows.Forms.PictureBox();
             this.loadButton = new System.Windows.Forms.Button();
             this.saveButton = new System.Windows.Forms.Button();
@@ -133,8 +134,9 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.imageViewer);
             this.Controls.Add(this.flowLayoutPanel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
-            this.Text = "AAImageFilter Test Application";
+            this.Text = "Filter Workshop";
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.imageViewer)).EndInit();
             this.flowLayoutPanel1.ResumeLayout(false);

@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <PackageIcon>fwico.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -29,6 +30,13 @@
 
   <ItemGroup>
     <Folder Include="SpecificConfigurators\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="fwico.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
