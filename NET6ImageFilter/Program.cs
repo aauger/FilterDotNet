@@ -16,18 +16,18 @@ namespace NET6ImageFilter
         static void Main()
         {
             ApplicationConfiguration.Initialize();
-            static IImage imageCreator(int x, int y) => new GDIDrawingImage(x, y);
-            static IColor colorCreator(int r, int g, int b, int a) => new GDIDrawingColor(r, g, b, a);
+            static IImage gdiImageCreator(int x, int y) => new GDIDrawingImage(x, y);
+            static IColor gdiColorCreator(int r, int g, int b, int a) => new GDIDrawingColor(r, g, b, a);
 
 
             List<IFilter> filters = new() 
             {
-                new GlassFilter(new WinformIntConfigurator("Maximum distance:"), imageCreator),
-                new InvertFilter(colorCreator),
-                new PosterizeFilter(new WinformIntConfigurator("Levels:"), imageCreator, colorCreator),
+                new GlassFilter(new WinformIntConfigurator("Maximum distance:"), gdiImageCreator),
+                new InvertFilter(gdiColorCreator),
+                new PosterizeFilter(new WinformIntConfigurator("Levels:"), gdiImageCreator, gdiColorCreator),
                 new PixelateFilter(new WinformTwoIntConfigurator("Block width:", "Block height:")),
                 //new SolarizeFilter(new WinformIntConfigurator("Solarize threshold:")),
-                new ThresholdFilter(new WinformIntConfigurator("Threshold:"), colorCreator),
+                new ThresholdFilter(new WinformIntConfigurator("Threshold:"), gdiColorCreator),
                 //new CirclePaintingFilter(new WinformThreeIntConfigurator())
             };
             List<IGenerator> generators = new()

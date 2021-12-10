@@ -73,13 +73,13 @@ namespace NET6ImageFilter
                 icf.Initialize();
             }
 
-            DrawingImage di = DrawingImage.WrapBitmap((Bitmap)Image);
+            GDIDrawingImage di = GDIDrawingImage.WrapBitmap((Bitmap)Image);
 
             //show processing wait dialog
             using ProcessingDialog pd = new();
             Task.Factory.StartNew(() =>
             {
-                Image = ((DrawingImage)filter.Apply(di)).UnwrapBitmap();
+                Image = ((GDIDrawingImage)filter.Apply(di)).UnwrapBitmap();
                 pd.CloseForm();
                 imageViewer.Invalidate();
             });
