@@ -35,6 +35,7 @@
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.useGeneratorButton = new System.Windows.Forms.Button();
             this.copyToClipboardButton = new System.Windows.Forms.Button();
+            this.fromClipboardButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.imageViewer)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -88,6 +89,7 @@
             this.flowLayoutPanel1.Controls.Add(this.applyFilterButton);
             this.flowLayoutPanel1.Controls.Add(this.useGeneratorButton);
             this.flowLayoutPanel1.Controls.Add(this.copyToClipboardButton);
+            this.flowLayoutPanel1.Controls.Add(this.fromClipboardButton);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -113,6 +115,16 @@
             this.copyToClipboardButton.Text = "Copy To Clipboard";
             this.copyToClipboardButton.UseVisualStyleBackColor = true;
             this.copyToClipboardButton.Click += new System.EventHandler(this.copyToClipboardButton_Click);
+            // 
+            // fromClipboardButton
+            // 
+            this.fromClipboardButton.Location = new System.Drawing.Point(470, 3);
+            this.fromClipboardButton.Name = "fromClipboardButton";
+            this.fromClipboardButton.Size = new System.Drawing.Size(142, 23);
+            this.fromClipboardButton.TabIndex = 4;
+            this.fromClipboardButton.Text = "Image From Clipboard";
+            this.fromClipboardButton.UseVisualStyleBackColor = true;
+            this.fromClipboardButton.Click += new System.EventHandler(this.fromClipboardButton_Click);
             // 
             // MainForm
             // 
@@ -140,5 +152,6 @@
         private FlowLayoutPanel flowLayoutPanel1;
         private Button useGeneratorButton;
         private Button copyToClipboardButton;
+        private Button fromClipboardButton;
     }
 }

@@ -57,13 +57,13 @@ namespace NET6ImageFilter
 
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                if (dialog.SelectedFilter != null)
+                if (dialog.SelectedFilter is not null)
                 { 
                     filter = dialog.SelectedFilter;
                 }
             }
 
-            if (filter == null)
+            if (filter is null)
                 return;
 
             //if our selected filter is configurable, initialize it.
@@ -147,6 +147,12 @@ namespace NET6ImageFilter
         private void copyToClipboardButton_Click(object sender, EventArgs e)
         {
             Clipboard.SetImage(Image);
+        }
+
+        private void fromClipboardButton_Click(object sender, EventArgs e)
+        {
+            if (Clipboard.ContainsImage())
+                Image = Clipboard.GetImage();
         }
     }
 }
