@@ -101,7 +101,7 @@ namespace AAImageFilter.Common
             this.B = B;
         }
 
-        public void SetA(int A)
+        public void SetA(double A)
         {
             Debug.Assert(A >= 0 && A <= 1);
             this.A = A;

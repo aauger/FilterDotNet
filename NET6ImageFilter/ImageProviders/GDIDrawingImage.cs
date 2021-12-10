@@ -46,7 +46,7 @@ namespace NET6ImageFilter.ImageProviders
         public IColor GetPixel(int x, int y)
         {
             Color c = _bitmap.GetPixel(x,y);
-            GDIDrawingColor dc = new GDIDrawingColor(c.R, c.G, c.B, c.A);
+            GDIDrawingColor dc = new(c.R, c.G, c.B, c.A);
             return dc;
         }
 

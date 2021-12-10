@@ -79,7 +79,18 @@ namespace NET6ImageFilter
             using ProcessingDialog pd = new();
             Task.Factory.StartNew(() =>
             {
-                Image = ((GDIDrawingImage)filter.Apply(di)).UnwrapBitmap();
+                var result = (filter.Apply(di));
+
+                if (result is FIDrawingImage fdi)
+                {
+                    Image = fdi.UnwrapFastImage().ToBitmap();
+                }
+
+                if (result is GDIDrawingImage gdi)
+                {
+                    Image = gdi.UnwrapBitmap();
+                }
+
                 pd.CloseForm();
                 imageViewer.Invalidate();
             });
