@@ -80,7 +80,7 @@ namespace NET6ImageFilter
                 }
             }
 
-            GDIDrawingImage di = new GDIDrawingImage(Image);
+            GDIDrawingImage di = new GDIDrawingImage((Bitmap)Image);
 
             //show processing wait dialog
             using ProcessingDialog pd = new();
