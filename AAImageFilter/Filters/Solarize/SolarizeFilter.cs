@@ -13,34 +13,34 @@ namespace AAImageFilter.Filters
     public class SolarizeFilter : IFilter, IConfigurableFilter
     {
         private readonly IPluginConfigurator<int> _pluginConfigurator;
+        private readonly Func<int, int, int, int, IColor> _colorCreator;
         private int _solarizeThreshold;
         private bool _ready = false;
 
-        public SolarizeFilter(IPluginConfigurator<int> pluginConfigurator)
-        { 
+        public SolarizeFilter(IPluginConfigurator<int> pluginConfigurator, Func<int, int, int, int, IColor> colorCreator)
+        {
             this._pluginConfigurator = pluginConfigurator;
+            _colorCreator = colorCreator;
         }
 
-        public Image Apply(Image input)
+        public IImage Apply(IImage input)
         {
             if (!_ready)
                 throw new NotReadyException();
 
-            Bitmap b = (Bitmap)input;
-
-            for (int x = 0; x < b.Width; x++)
+            for (int x = 0; x < input.Width; x++)
             {
-                for (int y = 0; y < b.Height; y++)
+                for (int y = 0; y < input.Height; y++)
                 {
-                    Color here = b.GetPixel(x, y);
+                    IColor here = input.GetPixel(x, y);
                     int avg = (here.R + here.G + here.B) / 3;
-                    Color nColor = avg > _solarizeThreshold ? here.Inverse() : here;
+                    IColor nColor = avg > _solarizeThreshold ? here.Inverse(_colorCreator) : here;
 
-                    b.SetPixel(x, y, nColor);
+                    input.SetPixel(x, y, nColor);
                 }
             }
 
-            return b;
+            return input;
         }
 
         public string GetFilterName()

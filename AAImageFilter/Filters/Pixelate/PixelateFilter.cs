@@ -21,30 +21,28 @@ namespace AAImageFilter.Filters
             this._pluginConfigurator = pluginConfigurator;
         }
 
-        public Image Apply(Image input)
+        public IImage Apply(IImage input)
         {
             if (!_ready)
                 throw new NotReadyException();
 
-            Bitmap bmp = (Bitmap)input;
-
-            for (int x = 0; x < bmp.Width; x += _width)
+            for (int x = 0; x < input.Width; x += _width)
             {
-                for (int y = 0; y < bmp.Height; y += _height)
+                for (int y = 0; y < input.Height; y += _height)
                 {
-                    Color r = bmp.GetPixel(x, y);
+                    IColor r = input.GetPixel(x, y);
 
-                    for (int xi = x; xi < (x + _width) && xi < bmp.Width; xi++)
+                    for (int xi = x; xi < (x + _width) && xi < input.Width; xi++)
                     {
-                        for (int yi = y; yi < (y + _height) && yi < bmp.Height; yi++)
+                        for (int yi = y; yi < (y + _height) && yi < input.Height; yi++)
                         {
-                            bmp.SetPixel(xi, yi, r);
+                            input.SetPixel(xi, yi, r);
                         }
                     }
                 }
             }
 
-            return bmp;
+            return input;
         }
 
         public string GetFilterName()

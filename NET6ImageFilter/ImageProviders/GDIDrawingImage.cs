@@ -7,27 +7,32 @@ using System.Threading.Tasks;
 
 namespace NET6ImageFilter.ImageProviders
 {
-    public class DrawingImage : IImage
+    public class GDIDrawingImage : IImage
     {
-        private Bitmap _bitmap;
+        private readonly Bitmap _bitmap;
 
-        public int Width => throw new NotImplementedException();
+        public int Width => _bitmap.Width;
 
-        public int Height => throw new NotImplementedException();
+        public int Height => _bitmap.Height;
 
-        private DrawingImage(int x, int y)
+        public GDIDrawingImage(int x, int y)
         {
             _bitmap = new Bitmap(x, y);
         }
 
-        public IImage Create(int x, int y)
+        public GDIDrawingImage(Bitmap bitmap)
+        { 
+            _bitmap = bitmap;
+        }
+
+        public static IImage Create(int x, int y)
         {
-            return new DrawingImage(x, y);
+            return new GDIDrawingImage(x, y);
         }
 
         public IImage From(IImage image)
         {
-            IImage ret = new DrawingImage(image.Width, image.Height);
+            IImage ret = new GDIDrawingImage(image.Width, image.Height);
             for (int x = 0; x < image.Width; x++)
             {
                 for (int y = 0; y < image.Height; y++)
@@ -41,7 +46,7 @@ namespace NET6ImageFilter.ImageProviders
         public IColor GetPixel(int x, int y)
         {
             Color c = _bitmap.GetPixel(x,y);
-            DrawingColor dc = new DrawingColor(c.R, c.G, c.B, c.A);
+            GDIDrawingColor dc = new(c.R, c.G, c.B, c.A);
             return dc;
         }
 
@@ -50,7 +55,7 @@ namespace NET6ImageFilter.ImageProviders
             _bitmap.SetPixel(x, y, Color.FromArgb(color.A, color.R, color.G, color.B));
         }
 
-        public Bitmap GetBitmap()
+        public Bitmap UnwrapBitmap()
         {
             return _bitmap;
         }

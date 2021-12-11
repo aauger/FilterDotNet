@@ -1,6 +1,7 @@
 using AAImageFilter.Filters;
 using AAImageFilter.Interfaces;
 using NET6ImageFilter.Dialogs;
+using NET6ImageFilter.ImageProviders;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -69,8 +70,17 @@ namespace NET6ImageFilter
             //if our selected filter is configurable, initialize it.
             if (filter is IConfigurableFilter icf)
             {
-                icf.Initialize();
+                try
+                {
+                    icf.Initialize();
+                }
+                catch
+                {
+                    MessageBox.Show("An error occurred during plugin initialization");
+                }
             }
+
+            GDIDrawingImage di = new GDIDrawingImage(Image);
 
             //show processing wait dialog
             using ProcessingDialog pd = new();
@@ -78,7 +88,17 @@ namespace NET6ImageFilter
             {
                 try
                 {
-                    Image = filter.Apply(Image);
+                    var result = (filter.Apply(di));
+
+                    if (result is FIDrawingImage fdi)
+                    {
+                        Image = fdi.UnwrapFastImage().ToBitmap();
+                    }
+
+                    if (result is GDIDrawingImage gdi)
+                    {
+                        Image = gdi.UnwrapBitmap();
+                    }
                 }
                 catch
                 {
@@ -109,7 +129,14 @@ namespace NET6ImageFilter
 
             if (generator is IConfigurableGenerator icg)
             {
-                icg.Initialize();
+                try
+                {
+                    icg.Initialize();
+                }
+                catch
+                {
+                    MessageBox.Show("There was an error during initialization");
+                }
             }
 
             //show processing wait dialog

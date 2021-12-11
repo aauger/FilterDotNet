@@ -3,6 +3,9 @@ using AAImageFilter.Interfaces;
 using AAImageFilter.Filters;
 using NET6ImageFilter.BasicWinformsConfigurators;
 using AAImageFilter.Generators;
+using NET6ImageFilter.ImageProviders;
+using AAImageFilter.Common;
+using static NET6ImageFilter.Injectables;
 
 namespace NET6ImageFilter
 {
@@ -14,21 +17,22 @@ namespace NET6ImageFilter
         [STAThread]
         static void Main()
         {
-            ApplicationConfiguration.Initialize();            
+            ApplicationConfiguration.Initialize();
             List<IFilter> filters = new() 
             {
-                new GlassFilter(new WinformIntConfigurator("Maximum distance:")),
-                new InvertFilter(),
-                new PosterizeFilter(new WinformIntConfigurator("Levels:")),
+                new CirclePaintingFilter(new WinformThreeIntConfigurator(), FastImageAdaptor, FastImageOutdaptor),
+                new ColorOverlayFilter(new WinformGetImageDialog(), GdiImageCreator, GdiColorCreator),
+                new GlassFilter(new WinformIntConfigurator("Maximum distance:"), GdiImageCreator),
+                new InvertFilter(GdiColorCreator),
+                new PosterizeFilter(new WinformIntConfigurator("Levels:"), GdiImageCreator, GdiColorCreator),
                 new PixelateFilter(new WinformTwoIntConfigurator("Block width:", "Block height:")),
-                new SolarizeFilter(new WinformIntConfigurator("Solarize threshold:")),
-                new ThresholdFilter(new WinformIntConfigurator("Threshold:")),
-                new CirclePaintingFilter(new WinformThreeIntConfigurator())
+                new SolarizeFilter(new WinformIntConfigurator("Solarize threshold:"), GdiColorCreator),
+                new ThresholdFilter(new WinformIntConfigurator("Threshold:"), GdiColorCreator),
             };
             List<IGenerator> generators = new()
             {
-                new XyModGenerator(new WinformsGeneratorConfigurators.GeneratorThreeIntConfigurator()),
                 new MandelbrotGenerator(new WinformsGeneratorConfigurators.GeneratorThreeIntConfigurator()),
+                new XyModGenerator(new WinformsGeneratorConfigurators.GeneratorThreeIntConfigurator()),
             };
             Application.Run(new MainForm(filters, generators));
         }

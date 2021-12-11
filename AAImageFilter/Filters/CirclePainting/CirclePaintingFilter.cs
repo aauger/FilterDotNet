@@ -16,20 +16,24 @@ namespace AAImageFilter.Filters
     public class CirclePaintingFilter : IFilter, IConfigurableFilter
     {
         private readonly IPluginConfigurator<(int, int, int)> _pluginConfigurator;
+        private readonly Func<IImage, FastImage> _imageAdaptor;
+        private readonly Func<FastImage, IImage> _imageOutdaptor;
         private bool _ready = false;
         private int _maxDiff = 0, _minRad = 0, _maxRad = 0;
 
-        public CirclePaintingFilter(IPluginConfigurator<(int, int, int)> pluginConfigurator)
+        public CirclePaintingFilter(IPluginConfigurator<(int, int, int)> pluginConfigurator, Func<IImage,FastImage> imageAdaptor, Func<FastImage, IImage> imageOutdaptor)
         {
             this._pluginConfigurator = pluginConfigurator;
+            this._imageAdaptor = imageAdaptor;
+            this._imageOutdaptor = imageOutdaptor;
         }
 
-        public Image Apply(Image input)
+        public IImage Apply(IImage input)
         {
             if (!_ready)
                 throw new NotReadyException();
 
-            FastImage src = new FastImage(input);
+            FastImage src = _imageAdaptor(input);
             FastImage ret = new FastImage(src.Width, src.Height);
             for (int x = 0; x < src.Width; x++)
             {
@@ -90,7 +94,7 @@ namespace AAImageFilter.Filters
                 }
             }
 
-            return ret.ToBitmap();
+            return _imageOutdaptor(ret);
         }
 
         public string GetFilterName()
