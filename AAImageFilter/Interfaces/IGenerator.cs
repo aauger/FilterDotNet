@@ -9,7 +9,7 @@ namespace AAImageFilter.Interfaces
 {
     public interface IGenerator
     {
-        public Image Generate();
+        public IImage Generate();
         public string GetName();
     }
 }
