@@ -12,21 +12,28 @@ namespace AAImageFilter.Generators
     public class XyModGenerator : IGenerator, IConfigurableGenerator
     {
         private readonly IGeneratorConfigurator<(int, int, int)> _generatorConfigurator;
+        private readonly Func<int, int, IImage> _imageCreator;
+        private readonly Func<int, int, int, int, IColor> _colorCreator;
         private bool _ready = false;
         private int _width = 0, _height = 0, _mod = 0;
 
 
-        public XyModGenerator(IGeneratorConfigurator<(int, int, int)> generatorConfigurator)
-        { 
+        public XyModGenerator(IGeneratorConfigurator<(int, int, int)> generatorConfigurator, Func<int, int, IImage> imageCreator, Func<int, int, int, int, IColor> colorCreator)
+        {
             this._generatorConfigurator = generatorConfigurator;
+            this._imageCreator = imageCreator;
+            this._colorCreator = colorCreator;
         }
 
-        public Image Generate()
+        public IImage Generate()
         {
             if (!_ready)
                 throw new NotReadyException();
 
-            Bitmap bmp = new Bitmap(this._width, this._height);
+            IColor black = _colorCreator(0, 0, 0, 255);
+            IColor white = _colorCreator(255, 255, 255, 255);
+
+            IImage image = _imageCreator(this._width, this._height);
 
             for (int x = 0; x < this._width; x++)
             {
@@ -34,16 +41,16 @@ namespace AAImageFilter.Generators
                 {
                     if ((x ^ y) % _mod != 0)
                     {
-                        bmp.SetPixel(x, y, Color.White);
+                        image.SetPixel(x, y, white);
                     }
                     else
                     {
-                        bmp.SetPixel(x, y, Color.Black);
+                        image.SetPixel(x, y, black);
                     }
                 }
             }
 
-            return bmp;
+            return image;
         }
 
         public string GetName()

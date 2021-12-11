@@ -13,27 +13,32 @@ namespace AAImageFilter.Generators
     public class MandelbrotGenerator : IGenerator, IConfigurableGenerator
     {
         private readonly IGeneratorConfigurator<(int, int, int)> _generatorConfigurator;
+        private readonly Func<int, int, IImage> _imageCreator;
+        private readonly Func<int, int, int, int, IColor> _colorCreator;
         private bool _ready = false;
         private int _width = 0, _height = 0, _iters = 0;
-        private readonly Random _random = new Random();
+        private readonly Random _random = new();
 
-        public MandelbrotGenerator(IGeneratorConfigurator<(int, int, int)> generatorConfigurator)
+        public MandelbrotGenerator(IGeneratorConfigurator<(int, int, int)> generatorConfigurator, Func<int,int,IImage> imageCreator, Func<int,int,int,int,IColor> colorCreator)
         {
             this._generatorConfigurator = generatorConfigurator;
+            this._imageCreator = imageCreator;
+            this._colorCreator = colorCreator;
         }
 
-        public Image Generate()
+        public IImage Generate()
         {
             if (!_ready)
                 throw new NotReadyException();
 
-            Bitmap bmp = new Bitmap(this._width, this._height);
+            IImage image = _imageCreator(this._width, this._height);
 
-            List<Color> colors = new List<Color>();
-            for (int i = 0; i <= this._iters; i++) colors.Add(Color.FromArgb(
+            List<IColor> colors = new List<IColor>();
+            for (int i = 0; i <= this._iters; i++) colors.Add(_colorCreator(
                      _random.Next(0, 256),
                      _random.Next(0, 256),
-                     _random.Next(0, 256)
+                     _random.Next(0, 256),
+                     255
                  ));
 
             for (int x = 0; x < this._width; x++)
@@ -52,12 +57,12 @@ namespace AAImageFilter.Generators
                         zx = xtemp;
                     }
 
-                    Color px = colors[iter];
-                    bmp.SetPixel(x, y, px);
+                    IColor px = colors[iter];
+                    image.SetPixel(x, y, px);
                 }
             }
 
-            return bmp;
+            return image;
         }
 
         public string GetName()

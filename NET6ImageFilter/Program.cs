@@ -31,8 +31,8 @@ namespace NET6ImageFilter
             };
             List<IGenerator> generators = new()
             {
-                new MandelbrotGenerator(new WinformsGeneratorConfigurators.GeneratorThreeIntConfigurator()),
-                new XyModGenerator(new WinformsGeneratorConfigurators.GeneratorThreeIntConfigurator()),
+                new MandelbrotGenerator(new WinformsGeneratorConfigurators.GeneratorThreeIntConfigurator(), GdiImageCreator, GdiColorCreator),
+                new XyModGenerator(new WinformsGeneratorConfigurators.GeneratorThreeIntConfigurator(), GdiImageCreator, GdiColorCreator),
             };
             Application.Run(new MainForm(filters, generators));
         }

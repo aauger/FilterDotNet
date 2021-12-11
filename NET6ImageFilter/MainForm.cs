@@ -145,7 +145,12 @@ namespace NET6ImageFilter
             {
                 try
                 {
-                    Image = generator.Generate();
+                    var result = generator.Generate();
+
+                    if (result is GDIDrawingImage gdi)
+                    {
+                        Image = gdi.UnwrapBitmap();
+                    }
                 }
                 catch 
                 {
