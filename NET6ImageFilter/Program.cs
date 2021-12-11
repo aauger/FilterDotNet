@@ -21,6 +21,7 @@ namespace NET6ImageFilter
             List<IFilter> filters = new() 
             {
                 new CirclePaintingFilter(new WinformThreeIntConfigurator(), FastImageAdaptor, FastImageOutdaptor),
+                new ColorOverlayFilter(new WinformGetImageDialog(), GdiImageCreator, GdiColorCreator),
                 new GlassFilter(new WinformIntConfigurator("Maximum distance:"), GdiImageCreator),
                 new InvertFilter(GdiColorCreator),
                 new PosterizeFilter(new WinformIntConfigurator("Levels:"), GdiImageCreator, GdiColorCreator),

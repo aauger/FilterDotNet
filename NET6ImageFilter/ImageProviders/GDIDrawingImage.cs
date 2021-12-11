@@ -20,7 +20,7 @@ namespace NET6ImageFilter.ImageProviders
             _bitmap = new Bitmap(x, y);
         }
 
-        private GDIDrawingImage(Bitmap bitmap)
+        public GDIDrawingImage(Bitmap bitmap)
         { 
             _bitmap = bitmap;
         }
@@ -58,11 +58,6 @@ namespace NET6ImageFilter.ImageProviders
         public Bitmap UnwrapBitmap()
         {
             return _bitmap;
-        }
-
-        public static GDIDrawingImage WrapBitmap(Bitmap bitmap)
-        {
-            return new GDIDrawingImage(bitmap);
         }
     }
 }
