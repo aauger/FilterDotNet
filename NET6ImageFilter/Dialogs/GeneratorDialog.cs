@@ -20,7 +20,7 @@ namespace NET6ImageFilter.Dialogs
         {
             _generators = generators;
             InitializeComponent();
-            generatorListBox.Items.AddRange(_generators.Select(g => g.GetName()).ToArray());
+            generatorListBox.Items.AddRange(_generators.Select(g => g.Name).ToArray());
         }
 
         private void applyButton_Click(object sender, EventArgs e)

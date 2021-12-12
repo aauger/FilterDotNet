@@ -15,11 +15,17 @@ namespace AAImageFilter.Filters
 {
     public class CirclePaintingFilter : IFilter, IConfigurableFilter
     {
+        /* DI */
         private readonly IPluginConfigurator<(int, int, int)> _pluginConfigurator;
         private readonly Func<IImage, FastImage> _imageAdaptor;
         private readonly Func<FastImage, IImage> _imageOutdaptor;
+        
+        /* Internals */
         private bool _ready = false;
         private int _maxDiff = 0, _minRad = 0, _maxRad = 0;
+
+        /* Properties */
+        public string Name => "Circle Painting";
 
         public CirclePaintingFilter(IPluginConfigurator<(int, int, int)> pluginConfigurator, Func<IImage,FastImage> imageAdaptor, Func<FastImage, IImage> imageOutdaptor)
         {
@@ -27,6 +33,7 @@ namespace AAImageFilter.Filters
             this._imageAdaptor = imageAdaptor;
             this._imageOutdaptor = imageOutdaptor;
         }
+
 
         public IImage Apply(IImage input)
         {
@@ -95,11 +102,6 @@ namespace AAImageFilter.Filters
             }
 
             return _imageOutdaptor(ret);
-        }
-
-        public string GetFilterName()
-        {
-            return "Circle Painting";
         }
 
         public IFilter Initialize()

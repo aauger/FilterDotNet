@@ -11,12 +11,17 @@ namespace AAImageFilter.Generators
 {
     public class XyModGenerator : IGenerator, IConfigurableGenerator
     {
+        /* DI */
         private readonly IGeneratorConfigurator<(int, int, int)> _generatorConfigurator;
         private readonly Func<int, int, IImage> _imageCreator;
         private readonly Func<int, int, int, int, IColor> _colorCreator;
+
+        /* Internals */
         private bool _ready = false;
         private int _width = 0, _height = 0, _mod = 0;
 
+        /* Properties */
+        public string Name => "XY Mod Generator";
 
         public XyModGenerator(IGeneratorConfigurator<(int, int, int)> generatorConfigurator, Func<int, int, IImage> imageCreator, Func<int, int, int, int, IColor> colorCreator)
         {
@@ -51,11 +56,6 @@ namespace AAImageFilter.Generators
             }
 
             return image;
-        }
-
-        public string GetName()
-        {
-            return "XY Mod Generator";
         }
 
         public IGenerator Initialize()

@@ -20,7 +20,7 @@ namespace NET6ImageFilter.Dialogs
         {
             _filters = filters;
             InitializeComponent();
-            filterListBox.Items.AddRange(_filters.Select(f => f.GetFilterName()).ToArray());
+            filterListBox.Items.AddRange(_filters.Select(f => f.Name).ToArray());
         }
 
         private void applyButton_Click(object sender, EventArgs e)

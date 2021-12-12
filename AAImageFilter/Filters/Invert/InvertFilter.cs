@@ -10,7 +10,11 @@ namespace AAImageFilter.Filters
 {
     public class InvertFilter : IFilter
     {
+        /* DI */
         private readonly Func<int, int, int, int, IColor> _colorCreator;
+
+        /* Properties */
+        public string Name => throw new NotImplementedException();
 
         public InvertFilter(Func<int, int, int, int, IColor> colorCreator)
         {
@@ -36,11 +40,6 @@ namespace AAImageFilter.Filters
             }
 
             return input;
-        }
-
-        public string GetFilterName()
-        {
-            return "Invert";
         }
     }
 }

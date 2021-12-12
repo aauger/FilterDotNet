@@ -11,10 +11,16 @@ namespace AAImageFilter.Filters
 {
     public class PixelateFilter : IFilter, IConfigurableFilter
     {
+        /* DI */
         private readonly IPluginConfigurator<(int, int)> _pluginConfigurator;
+
+        /* Internals */
         private int _width = 0;
         private int _height = 0;
         private bool _ready = false;
+
+        /* Properties */
+        public string Name => "Pixelate";
 
         public PixelateFilter(IPluginConfigurator<(int, int)> pluginConfigurator)
         { 
@@ -43,11 +49,6 @@ namespace AAImageFilter.Filters
             }
 
             return input;
-        }
-
-        public string GetFilterName()
-        {
-            return "Pixelate";
         }
 
         public IFilter Initialize()

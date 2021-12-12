@@ -11,11 +11,16 @@ namespace AAImageFilter.Filters
 {
     public class ThresholdFilter : IFilter, IConfigurableFilter
     {
+        /* DI */
         private readonly IPluginConfigurator<int> _pluginConfigurator;
         private readonly Func<int, int, int, int, IColor> _colorCreator;
-        private int _threshold;
 
+        /* Internals */
+        private int _threshold;
         private bool _ready = false;
+
+        /* Properties */
+        public string Name => "Threshold";
 
         public ThresholdFilter(IPluginConfigurator<int> pluginConfigurator, Func<int, int, int, int, IColor> colorCreator)
         {
@@ -41,11 +46,6 @@ namespace AAImageFilter.Filters
             }
 
             return input;
-        }
-
-        public string GetFilterName()
-        {
-            return "Threshold";
         }
 
         public IFilter Initialize()

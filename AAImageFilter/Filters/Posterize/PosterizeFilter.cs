@@ -11,11 +11,17 @@ namespace AAImageFilter.Filters
 {
     public class PosterizeFilter : IFilter, IConfigurableFilter
     {
+        /* DI */
         private readonly IPluginConfigurator<int> _pluginConfigurator;
         private readonly Func<int, int, IImage> _imageCreator;
         private readonly Func<int, int, int, int, IColor> _colorCreator;
+
+        /* Internals */
         private int _levels;
         private bool _ready = false;
+
+        /* Properties */
+        public string Name => "Posterize";
 
         public PosterizeFilter(IPluginConfigurator<int> pluginConfigurator, Func<int, int, IImage> imageCreator, Func<int, int, int, int, IColor> colorCreator)
         {
@@ -23,6 +29,7 @@ namespace AAImageFilter.Filters
             _imageCreator = imageCreator;
             _colorCreator = colorCreator;
         }
+
 
         public IImage Apply(IImage input)
         {
@@ -47,11 +54,6 @@ namespace AAImageFilter.Filters
             }
 
             return ret;
-        }
-
-        public string GetFilterName()
-        {
-            return "Posterize";
         }
 
         public IFilter Initialize()

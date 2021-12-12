@@ -10,11 +10,17 @@ namespace AAImageFilter.Filters
 {
     public class ColorOverlayFilter : IFilter, IConfigurableFilter
     {
+        /* DI */
         private readonly IPluginConfigurator<IImage> _pluginConfigurator;
         private Func<int, int, IImage> _imageCreator;
         private Func<int, int, int, int, IColor> _colorCreator;
+
+        /* Internals */
         private IImage? _mask;
-        private bool _ready;
+        private bool _ready = false;
+
+        /* Properties */
+        public string Name => "Color Overlay";
 
         public ColorOverlayFilter(IPluginConfigurator<IImage> pluginConfigurator, Func<int, int, IImage> imageCreator, Func<int, int, int, int, IColor> colorCreator)
         {
@@ -22,6 +28,7 @@ namespace AAImageFilter.Filters
             _imageCreator = imageCreator;
             _colorCreator = colorCreator;
         }
+
 
         public IImage Apply(IImage input)
         {
@@ -44,11 +51,6 @@ namespace AAImageFilter.Filters
             }
 
             return output;
-        }
-
-        public string GetFilterName()
-        {
-            return "Color Overlay";
         }
 
         public IFilter Initialize()

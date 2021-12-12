@@ -12,10 +12,16 @@ namespace AAImageFilter.Filters
 {
     public class GlassFilter : IFilter, IConfigurableFilter
     {
+        /* DI */
         private readonly IPluginConfigurator<int> _pluginConfigurator;
         private readonly Func<int, int, IImage> _imageCreator;
+
+        /* Internals */
         private int _glassDistance;
         private bool _ready = false;
+        
+        /* Properties */
+        public string Name => "Glass";
 
         public GlassFilter(IPluginConfigurator<int> pluginConfigurator, Func<int,int,IImage> imageCreator)
         { 
@@ -46,11 +52,6 @@ namespace AAImageFilter.Filters
             }
 
             return ret;
-        }
-
-        public string GetFilterName()
-        {
-            return "Glass";
         }
 
         public IFilter Initialize()

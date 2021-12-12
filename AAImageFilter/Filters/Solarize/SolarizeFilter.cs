@@ -12,10 +12,16 @@ namespace AAImageFilter.Filters
 {
     public class SolarizeFilter : IFilter, IConfigurableFilter
     {
+        /* DI */
         private readonly IPluginConfigurator<int> _pluginConfigurator;
         private readonly Func<int, int, int, int, IColor> _colorCreator;
+
+        /* Internals */
         private int _solarizeThreshold;
         private bool _ready = false;
+
+        /* Properties */
+        public string Name => "Solarize";
 
         public SolarizeFilter(IPluginConfigurator<int> pluginConfigurator, Func<int, int, int, int, IColor> colorCreator)
         {
@@ -41,11 +47,6 @@ namespace AAImageFilter.Filters
             }
 
             return input;
-        }
-
-        public string GetFilterName()
-        {
-            return "Solarize";
         }
 
         public IFilter Initialize()

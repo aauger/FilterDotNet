@@ -12,12 +12,18 @@ namespace AAImageFilter.Generators
 {
     public class MandelbrotGenerator : IGenerator, IConfigurableGenerator
     {
+        /* DI */
         private readonly IGeneratorConfigurator<(int, int, int)> _generatorConfigurator;
         private readonly Func<int, int, IImage> _imageCreator;
         private readonly Func<int, int, int, int, IColor> _colorCreator;
+
+        /* Internals */
         private bool _ready = false;
         private int _width = 0, _height = 0, _iters = 0;
         private readonly Random _random = new();
+
+        /* Properties */
+        public string Name => "Mandelbrot Set";
 
         public MandelbrotGenerator(IGeneratorConfigurator<(int, int, int)> generatorConfigurator, Func<int,int,IImage> imageCreator, Func<int,int,int,int,IColor> colorCreator)
         {
@@ -63,11 +69,6 @@ namespace AAImageFilter.Generators
             }
 
             return image;
-        }
-
-        public string GetName()
-        {
-            return "Mandelbrot Set";
         }
 
         public IGenerator Initialize()
