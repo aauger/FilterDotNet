@@ -20,7 +20,7 @@ namespace NET6ImageFilter
             ApplicationConfiguration.Initialize();
             List<IFilter> filters = new() 
             {
-                new ChromaticAbberationFilter(GdiImageCreator, GdiColorCreator),
+                new ChromaticAberrationFilter(GdiImageCreator, GdiColorCreator),
                 new CirclePaintingFilter(new WinformThreeIntConfigurator(), FastImageAdaptor, FastImageOutdaptor),
                 new ColorOverlayFilter(new WinformGetImageDialog(), GdiImageCreator, GdiColorCreator),
                 new GlassFilter(new WinformIntConfigurator("Maximum distance:"), GdiImageCreator),
