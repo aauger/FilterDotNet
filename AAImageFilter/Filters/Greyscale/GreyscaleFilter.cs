@@ -1,22 +1,21 @@
-﻿using System;
+﻿using AAImageFilter.Interfaces;
+using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AAImageFilter.Interfaces;
 
 namespace AAImageFilter.Filters
 {
-    public class InvertFilter : IFilter
+    public class GreyscaleFilter: IFilter
     {
         /* DI */
         private readonly Func<int, int, int, int, IColor> _colorCreator;
 
         /* Properties */
-        public string Name => "Invert";
+        public string Name => "Greyscale";
 
-        public InvertFilter(Func<int, int, int, int, IColor> colorCreator)
+        public GreyscaleFilter(Func<int, int, int, int, IColor> colorCreator)
         {
             _colorCreator = colorCreator;
         }
@@ -28,12 +27,9 @@ namespace AAImageFilter.Filters
                 for (int y = 0; y < input.Height; y++)
                 {
                     IColor here = input.GetPixel(x, y);
+                    int avg = (here.R + here.G + here.B) / 3;
 
-                    int r = 255 - here.R;
-                    int g = 255 - here.G;
-                    int b = 255 - here.B;
-
-                    IColor nColor = _colorCreator(r, g, b, 255);
+                    IColor nColor = _colorCreator(avg, avg, avg, 255);
 
                     input.SetPixel(x, y, nColor);
                 }

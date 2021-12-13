@@ -23,6 +23,7 @@ namespace NET6ImageFilter
                 new CirclePaintingFilter(new WinformThreeIntConfigurator(), FastImageAdaptor, FastImageOutdaptor),
                 new ColorOverlayFilter(new WinformGetImageDialog(), GdiImageCreator, GdiColorCreator),
                 new GlassFilter(new WinformIntConfigurator("Maximum distance:"), GdiImageCreator),
+                new GreyscaleFilter(GdiColorCreator),
                 new InvertFilter(GdiColorCreator),
                 new PosterizeFilter(new WinformIntConfigurator("Levels:"), GdiImageCreator, GdiColorCreator),
                 new PixelateFilter(new WinformTwoIntConfigurator("Block width:", "Block height:")),
