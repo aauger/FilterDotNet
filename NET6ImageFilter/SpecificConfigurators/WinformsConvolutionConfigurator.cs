@@ -40,12 +40,14 @@ namespace NET6ImageFilter.SpecificConfigurators
                 return new()
                 {
                     Bias = double.Parse(this.biasTextbox.Text),
+                    Normalize = this.normalizeCheckbox.Checked,
                     Values = values
                 };
             }
             return new()
             {
                 Bias = 1.0,
+                Normalize = true,
                 Values = new double[,] { }
             };
         }

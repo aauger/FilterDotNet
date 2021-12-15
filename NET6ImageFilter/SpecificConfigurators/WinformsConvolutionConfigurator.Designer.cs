@@ -33,6 +33,7 @@
             this.biasTextbox = new System.Windows.Forms.TextBox();
             this.loadButton = new System.Windows.Forms.Button();
             this.saveButton = new System.Windows.Forms.Button();
+            this.normalizeCheckbox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // matrixTextbox
@@ -82,11 +83,24 @@
             this.saveButton.UseVisualStyleBackColor = true;
             this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
+            // normalizeCheckbox
+            // 
+            this.normalizeCheckbox.AutoSize = true;
+            this.normalizeCheckbox.Checked = true;
+            this.normalizeCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.normalizeCheckbox.Location = new System.Drawing.Point(180, 258);
+            this.normalizeCheckbox.Name = "normalizeCheckbox";
+            this.normalizeCheckbox.Size = new System.Drawing.Size(85, 19);
+            this.normalizeCheckbox.TabIndex = 5;
+            this.normalizeCheckbox.Text = "Normalize?";
+            this.normalizeCheckbox.UseVisualStyleBackColor = true;
+            // 
             // WinformsConvolutionConfigurator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(487, 288);
+            this.Controls.Add(this.normalizeCheckbox);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.loadButton);
             this.Controls.Add(this.biasTextbox);
@@ -106,5 +120,6 @@
         private TextBox biasTextbox;
         private Button loadButton;
         private Button saveButton;
+        private CheckBox normalizeCheckbox;
     }
 }

@@ -29,7 +29,7 @@ namespace AAImageFilter.Common
             Debug.Assert(R >= 0 && R <= 255 &&
                             G >= 0 && G <= 255 &&
                             B >= 0 && B <= 255 &&
-                            A >= 0 && A <= 255);
+                            A >= 0 && A <= 1);
             this.R = R;
             this.G = G;
             this.B = B;
