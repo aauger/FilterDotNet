@@ -28,12 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.matrixTextbox = new System.Windows.Forms.TextBox();
             this.applyButton = new System.Windows.Forms.Button();
             this.biasTextbox = new System.Windows.Forms.TextBox();
             this.loadButton = new System.Windows.Forms.Button();
             this.saveButton = new System.Windows.Forms.Button();
             this.normalizeCheckbox = new System.Windows.Forms.CheckBox();
+            this.normalizeToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // matrixTextbox
@@ -95,6 +97,11 @@
             this.normalizeCheckbox.Text = "Normalize?";
             this.normalizeCheckbox.UseVisualStyleBackColor = true;
             // 
+            // normalizeToolTip
+            // 
+            this.normalizeToolTip.ToolTipTitle = "Normalization";
+            this.normalizeToolTip.SetToolTip(this.normalizeCheckbox, "Use this only if your coefficients do not sum to zero");
+            // 
             // WinformsConvolutionConfigurator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -121,5 +128,6 @@
         private Button loadButton;
         private Button saveButton;
         private CheckBox normalizeCheckbox;
+        private ToolTip normalizeToolTip;
     }
 }
