@@ -3,7 +3,6 @@ using AAImageFilter.Exceptions;
 using AAImageFilter.Extensions;
 using AAImageFilter.Interfaces;
 using AAImageFilter.Utils;
-using System.Diagnostics;
 
 namespace AAImageFilter.Filters
 {
@@ -47,17 +46,8 @@ namespace AAImageFilter.Filters
             IEnumerable<int> xVals = Enumerable.Range(-cfg.Values.GetLength(0) / 2, cfg.Values.GetLength(0));
             IEnumerable<int> yVals = Enumerable.Range(-cfg.Values.GetLength(1) / 2, cfg.Values.GetLength(1));
 
-            double min = double.MaxValue, max = double.MinValue;
-
-            foreach (double d in cfg.Values)
-            { 
-                if (d < min)
-                    min = d;
-                if (d > max)
-                    max = d;
-            }
-
-            Debug.WriteLine($"{min}, {max}, {cfg.Bias}");
+            double sumCoeff = 0;
+            foreach (double d in cfg.Values) sumCoeff += d;
 
             Parallel.For(0, refn.Width, x => {
                 Parallel.For(0, refn.Height, y => {
@@ -90,9 +80,9 @@ namespace AAImageFilter.Filters
                     int ri, gi, bi;
                     if (cfg.Normal)
                     {
-                        ri = MathUtils.RGBClamp((int)MathUtils.Map(r, min, max, 0, 255));
-                        gi = MathUtils.RGBClamp((int)MathUtils.Map(g, min, max, 0, 255));
-                        bi = MathUtils.RGBClamp((int)MathUtils.Map(b, min, max, 0, 255));
+                        ri = MathUtils.RGBClamp((int)MathUtils.Map(r, 0, sumCoeff, 0, 255));
+                        gi = MathUtils.RGBClamp((int)MathUtils.Map(g, 0, sumCoeff, 0, 255));
+                        bi = MathUtils.RGBClamp((int)MathUtils.Map(b, 0, sumCoeff, 0, 255));
                     }
                     else
                     {
