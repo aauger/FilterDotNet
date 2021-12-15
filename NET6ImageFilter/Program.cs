@@ -2,6 +2,7 @@ using AAImageFilter;
 using AAImageFilter.Interfaces;
 using AAImageFilter.Filters;
 using NET6ImageFilter.BasicWinformsConfigurators;
+using NET6ImageFilter.SpecificConfigurators;
 using AAImageFilter.Generators;
 using NET6ImageFilter.ImageProviders;
 using AAImageFilter.Common;
@@ -23,6 +24,7 @@ namespace NET6ImageFilter
                 new ChromaticAberrationFilter(GdiImageCreator, GdiColorCreator),
                 new CirclePaintingFilter(new WinformThreeIntConfigurator(), FastImageAdaptor, FastImageOutdaptor),
                 new ColorOverlayFilter(new WinformGetImageDialog(), GdiImageCreator, GdiColorCreator),
+                new ConvolutionFilter(new WinformsConvolutionConfigurator(), FastImageAdaptor, FastImageOutdaptor),
                 new GlassFilter(new WinformIntConfigurator("Maximum distance:"), GdiImageCreator),
                 new GreyscaleFilter(GdiColorCreator),
                 new InvertFilter(GdiColorCreator),

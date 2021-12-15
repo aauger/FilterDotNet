@@ -29,10 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="SpecificConfigurators\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="fwico.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>

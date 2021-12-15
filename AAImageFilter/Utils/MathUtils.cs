@@ -8,9 +8,9 @@ namespace AAImageFilter.Utils
 {
     public class MathUtils
     {
-        public static double Map(double input, double oldMin, double oldMax, double newMin, double newMax)
+        public static double Map(double x, double a, double b, double c, double d)
         {
-            return (input - oldMin) / (oldMax - oldMin) * (newMax - newMin) + newMin;
+            return (x - a) * ((d - c) / (b - a)) + c;
         }
 
         public static T Clamp<T>(T input, T min, T max) where T : IComparable<T>
