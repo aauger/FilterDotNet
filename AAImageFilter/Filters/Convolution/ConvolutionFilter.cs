@@ -10,7 +10,6 @@ namespace AAImageFilter.Filters
     {
         public double[,] Values { get; set; } = new double[,] { };
         public double Bias { get; set; } = 0.0;
-        public bool Normal { get; set; } = true;
     }
 
     public class ConvolutionFilter : IFilter, IConfigurableFilter
@@ -75,19 +74,10 @@ namespace AAImageFilter.Filters
                     }
 
                     int ri, gi, bi;
-                    if (cfg.Normal)
-                    {
-                        ri = MathUtils.RGBClamp((int)MathUtils.Map(r, 0, sumCoeffRGBMax, 0, 255));
-                        gi = MathUtils.RGBClamp((int)MathUtils.Map(g, 0, sumCoeffRGBMax, 0, 255));
-                        bi = MathUtils.RGBClamp((int)MathUtils.Map(b, 0, sumCoeffRGBMax, 0, 255));
-                    }
-                    else
-                    {
-                        ri = MathUtils.RGBClamp((int)r);
-                        gi = MathUtils.RGBClamp((int)g);
-                        bi = MathUtils.RGBClamp((int)b);
-                    }
-
+                    ri = MathUtils.RGBClamp((int)MathUtils.Map(r, 0, sumCoeffRGBMax, 0, 255));
+                    gi = MathUtils.RGBClamp((int)MathUtils.Map(g, 0, sumCoeffRGBMax, 0, 255));
+                    bi = MathUtils.RGBClamp((int)MathUtils.Map(b, 0, sumCoeffRGBMax, 0, 255));
+                    
                     ret.SetPixel(x, y, new FastImageColor(ri, gi, bi));
                 });
             });

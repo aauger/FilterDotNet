@@ -40,14 +40,12 @@ namespace NET6ImageFilter.SpecificConfigurators
                 return new()
                 {
                     Bias = double.Parse(this.biasTextbox.Text),
-                    Normal = this.normalCheckbox.Checked,
                     Values = values
                 };
             }
             return new()
             {
                 Bias = 1.0,
-                Normal = false,
                 Values = new double[,] { }
             };
         }
@@ -56,6 +54,24 @@ namespace NET6ImageFilter.SpecificConfigurators
         {
             this.DialogResult = DialogResult.OK;
             this.Close();
+        }
+
+        private void loadButton_Click(object sender, EventArgs e)
+        {
+            using OpenFileDialog ofd = new OpenFileDialog();
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                this.matrixTextbox.Text = File.ReadAllText(ofd.FileName);
+            }
+        }
+
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+            using SaveFileDialog sfd = new SaveFileDialog();
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                File.WriteAllText(sfd.FileName, this.matrixTextbox.Text);
+            }
         }
     }
 }
