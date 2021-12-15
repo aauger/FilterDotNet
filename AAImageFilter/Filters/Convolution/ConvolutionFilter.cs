@@ -48,6 +48,7 @@ namespace AAImageFilter.Filters
 
             double sumCoeff = 0;
             foreach (double d in cfg.Values) sumCoeff += d;
+            double sumCoeffRGBMax = sumCoeff * 255.0;
 
             Parallel.For(0, refn.Width, x => {
                 Parallel.For(0, refn.Height, y => {
@@ -67,22 +68,18 @@ namespace AAImageFilter.Filters
 
                             FastImageColor c = refn.GetPixel(x + xVal, y + yVal);
 
-                            double rNorm = MathUtils.Map(c.GetR(), 0, 255, 0, 1);
-                            double gNorm = MathUtils.Map(c.GetG(), 0, 255, 0, 1);
-                            double bNorm = MathUtils.Map(c.GetB(), 0, 255, 0, 1);
-
-                            r += rNorm * (cfg.Values[i, j] * cfg.Bias);
-                            g += gNorm * (cfg.Values[i, j] * cfg.Bias);
-                            b += bNorm * (cfg.Values[i, j] * cfg.Bias);
+                            r += c.GetR() * (cfg.Values[i, j] * cfg.Bias);
+                            g += c.GetG() * (cfg.Values[i, j] * cfg.Bias);
+                            b += c.GetB() * (cfg.Values[i, j] * cfg.Bias);
                         }
                     }
 
                     int ri, gi, bi;
                     if (cfg.Normal)
                     {
-                        ri = MathUtils.RGBClamp((int)MathUtils.Map(r, 0, sumCoeff, 0, 255));
-                        gi = MathUtils.RGBClamp((int)MathUtils.Map(g, 0, sumCoeff, 0, 255));
-                        bi = MathUtils.RGBClamp((int)MathUtils.Map(b, 0, sumCoeff, 0, 255));
+                        ri = MathUtils.RGBClamp((int)MathUtils.Map(r, 0, sumCoeffRGBMax, 0, 255));
+                        gi = MathUtils.RGBClamp((int)MathUtils.Map(g, 0, sumCoeffRGBMax, 0, 255));
+                        bi = MathUtils.RGBClamp((int)MathUtils.Map(b, 0, sumCoeffRGBMax, 0, 255));
                     }
                     else
                     {
