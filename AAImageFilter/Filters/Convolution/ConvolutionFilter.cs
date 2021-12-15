@@ -77,9 +77,9 @@ namespace AAImageFilter.Filters
                     int ri, gi, bi;
                     if (cfg.Normalize)
                     {
-                        ri = MathUtils.RGBClamp((int)MathUtils.Map(r, 0, sumCoeff, 0, 255));
-                        gi = MathUtils.RGBClamp((int)MathUtils.Map(g, 0, sumCoeff, 0, 255));
-                        bi = MathUtils.RGBClamp((int)MathUtils.Map(b, 0, sumCoeff, 0, 255));
+                        ri = MathUtils.RGBClamp((int)MathUtils.Map(r, 0, sumCoeffRGBMax, 0, 255));
+                        gi = MathUtils.RGBClamp((int)MathUtils.Map(g, 0, sumCoeffRGBMax, 0, 255));
+                        bi = MathUtils.RGBClamp((int)MathUtils.Map(b, 0, sumCoeffRGBMax, 0, 255));
                     }
                     else 
                     { 
