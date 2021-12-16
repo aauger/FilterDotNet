@@ -99,12 +99,13 @@ namespace NET6ImageFilter
                     {
                         Image = gdi.UnwrapBitmap();
                     }
+                    pd.CloseForm();
                 }
                 catch
                 {
+                    pd.CloseForm();
                     MessageBox.Show("There was an error applying the filter.");
                 }
-                pd.CloseForm();
                 imageViewer.Invalidate();
             });
             pd.ShowDialog();

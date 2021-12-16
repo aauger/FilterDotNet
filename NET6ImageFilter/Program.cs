@@ -19,7 +19,7 @@ namespace NET6ImageFilter
         static void Main()
         {
             ApplicationConfiguration.Initialize();
-            List<IFilter> filters = new() 
+            List<IFilter> filters = new()
             {
                 new ChromaticAberrationFilter(GdiImageCreator, GdiColorCreator),
                 new CirclePaintingFilter(new WinformThreeIntConfigurator(), FastImageAdaptor, FastImageOutdaptor),
@@ -31,6 +31,7 @@ namespace NET6ImageFilter
                 new PosterizeFilter(new WinformIntConfigurator("Levels:"), GdiImageCreator, GdiColorCreator),
                 new PixelateFilter(new WinformTwoIntConfigurator("Block width:", "Block height:")),
                 new SolarizeFilter(new WinformIntConfigurator("Solarize threshold:"), GdiColorCreator),
+                new StatisticalFilter(new WinformsStatisticalConfigurator(), GdiImageCreator, GdiColorCreator),
                 new ThresholdFilter(new WinformIntConfigurator("Threshold:"), GdiColorCreator),
             };
             List<IGenerator> generators = new()

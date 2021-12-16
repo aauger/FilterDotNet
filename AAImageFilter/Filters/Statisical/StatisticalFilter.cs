@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AAImageFilter.Filters.Statisical
+namespace AAImageFilter.Filters
 {
     public enum StatisticalFilterMode { 
         MIN,
@@ -53,6 +53,7 @@ namespace AAImageFilter.Filters.Statisical
                 throw new NotReadyException();
 
             var cfg = _configuration!;
+            IImage ret = _imageCreator(input.Width, input.Height);
 
             for (int x = 0; x < input.Width; x++)
             {
@@ -100,8 +101,8 @@ namespace AAImageFilter.Filters.Statisical
                             break;
                         case StatisticalFilterMode.MIN:
                             ri = reds.Min();
-                            gi = reds.Min();
-                            bi = greens.Min();
+                            gi = greens.Min();
+                            bi = blues.Min();
                             break;
                         case StatisticalFilterMode.MEDIAN:
                             ri = Median(reds);
@@ -114,18 +115,21 @@ namespace AAImageFilter.Filters.Statisical
                             bi = Mode(blues);
                             break;
                     }
+
+                    ret.SetPixel(x, y, _colorCreator(ri, gi, bi, 255));
                 }
             }
 
-            throw new NotImplementedException();
+            return ret;
         }
 
         private int Median(List<int> xs)
         {
             var c = xs.Count;
-            if (c % 2 == 0)
-                return (xs[c] + xs[c + 1]) / 2;
-            return xs[c];
+            var cm = c % 2;
+            if (cm == 0)
+                return (xs[cm] + xs[cm + 1]) / 2;
+            return xs[cm];
         }
 
         private int Mode(List<int> xs)

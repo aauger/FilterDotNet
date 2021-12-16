@@ -45,9 +45,9 @@
             // 
             // fInput
             // 
-            this.fInput.Location = new System.Drawing.Point(12, 27);
+            this.fInput.Location = new System.Drawing.Point(12, 12);
             this.fInput.Name = "fInput";
-            this.fInput.Size = new System.Drawing.Size(469, 23);
+            this.fInput.Size = new System.Drawing.Size(301, 23);
             this.fInput.TabIndex = 1;
             // 
             // sLabel
@@ -60,14 +60,14 @@
             // 
             // sInput
             // 
-            this.sInput.Location = new System.Drawing.Point(12, 71);
+            this.sInput.Location = new System.Drawing.Point(12, 41);
             this.sInput.Name = "sInput";
-            this.sInput.Size = new System.Drawing.Size(469, 23);
+            this.sInput.Size = new System.Drawing.Size(301, 23);
             this.sInput.TabIndex = 1;
             // 
             // okButton
             // 
-            this.okButton.Location = new System.Drawing.Point(406, 100);
+            this.okButton.Location = new System.Drawing.Point(238, 70);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(75, 23);
             this.okButton.TabIndex = 2;
@@ -79,7 +79,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(493, 130);
+            this.ClientSize = new System.Drawing.Size(325, 102);
             this.Controls.Add(this.okButton);
             this.Controls.Add(this.sInput);
             this.Controls.Add(this.fInput);

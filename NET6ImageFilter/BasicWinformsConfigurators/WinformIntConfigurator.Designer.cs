@@ -34,7 +34,7 @@
             // 
             // okButton
             // 
-            this.okButton.Location = new System.Drawing.Point(607, 41);
+            this.okButton.Location = new System.Drawing.Point(167, 41);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(75, 23);
             this.okButton.TabIndex = 0;
@@ -46,17 +46,17 @@
             // 
             this.inputBox.Location = new System.Drawing.Point(12, 12);
             this.inputBox.Name = "inputBox";
-            this.inputBox.Size = new System.Drawing.Size(670, 23);
+            this.inputBox.Size = new System.Drawing.Size(230, 23);
             this.inputBox.TabIndex = 1;
             // 
-            // IntConfigurator
+            // WinformIntConfigurator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(694, 76);
+            this.ClientSize = new System.Drawing.Size(253, 76);
             this.Controls.Add(this.inputBox);
             this.Controls.Add(this.okButton);
-            this.Name = "IntConfigurator";
+            this.Name = "WinformIntConfigurator";
             this.Text = "IntConfigurator";
             this.ResumeLayout(false);
             this.PerformLayout();
