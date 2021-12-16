@@ -18,5 +18,12 @@ namespace AAImageFilter.Extensions
                     255 - c.A
                 );
         }
+
+        public static int Difference(this IColor c, IColor other)
+        { 
+            return Math.Abs((c.R - other.R))
+                + Math.Abs((c.G - other.G))
+                + Math.Abs((c.B - other.B));
+        }
     }
 }
