@@ -55,13 +55,13 @@ namespace AAImageFilter.Filters
             var cfg = _configuration!;
             IImage ret = _imageCreator(input.Width, input.Height);
 
-            for (int x = 0; x < input.Width; x++)
+            Parallel.For(0, input.Width, (int x) =>
             {
-                for (int y = 0; y < input.Height; y++)
+                Parallel.For(0, input.Height, (int y) =>
                 {
-                    List<int> reds = new List<int>();
-                    List<int> greens = new List<int>();
-                    List<int> blues = new List<int>();
+                    List<int> reds = new();
+                    List<int> greens = new();
+                    List<int> blues = new();
                     IColor home = input.GetPixel(x, y);
 
                     foreach (int xOff in Enumerable.Range(-cfg.BlockSize / 2, cfg.BlockSize))
@@ -117,8 +117,8 @@ namespace AAImageFilter.Filters
                     }
 
                     ret.SetPixel(x, y, _colorCreator(ri, gi, bi, 255));
-                }
-            }
+                });
+            });
 
             return ret;
         }

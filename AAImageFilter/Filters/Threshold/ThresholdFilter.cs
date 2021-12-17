@@ -33,17 +33,16 @@ namespace AAImageFilter.Filters
             if (!_ready)
                 throw new NotReadyException();
 
-            for (int x = 0; x < input.Width; x++)
+            Parallel.For(0, input.Width, (int x) =>
             {
-                for (int y = 0; y < input.Height; y++)
-                {
+                Parallel.For(0, input.Height, (int y) => {
                     IColor here = input.GetPixel(x, y);
                     int avg = (here.R + here.G + here.B) / 3;
-                    IColor nColor = avg > _threshold ? _colorCreator(255,255,255,255) : _colorCreator(0,0,0,255);
+                    IColor nColor = avg > _threshold ? _colorCreator(255, 255, 255, 255) : _colorCreator(0, 0, 0, 255);
 
                     input.SetPixel(x, y, nColor);
-                }
-            }
+                });
+            });
 
             return input;
         }

@@ -34,17 +34,16 @@ namespace AAImageFilter.Filters
             if (!_ready)
                 throw new NotReadyException();
 
-            for (int x = 0; x < input.Width; x++)
+            Parallel.For(0, input.Width, (int x) =>
             {
-                for (int y = 0; y < input.Height; y++)
-                {
+                Parallel.For(0, input.Height, (int y) => {
                     IColor here = input.GetPixel(x, y);
                     int avg = (here.R + here.G + here.B) / 3;
                     IColor nColor = avg > _solarizeThreshold ? here.Inverse(_colorCreator) : here;
 
                     input.SetPixel(x, y, nColor);
-                }
-            }
+                });
+            });
 
             return input;
         }
