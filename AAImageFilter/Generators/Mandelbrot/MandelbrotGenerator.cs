@@ -47,9 +47,11 @@ namespace AAImageFilter.Generators
                      255
                  ));
 
-            for (int x = 0; x < this._width; x++)
+
+
+            Parallel.For(0, this._width, (int x) =>
             {
-                for (int y = 0; y < this._height; y++)
+                Parallel.For(0, this._height, (int y) =>
                 {
                     double x0 = MathUtils.Map(x, 0, this._width, -2.00, 0.47);
                     double y0 = MathUtils.Map(y, 0, this._height, -1.12, 1.12);
@@ -65,8 +67,8 @@ namespace AAImageFilter.Generators
 
                     IColor px = colors[iter];
                     image.SetPixel(x, y, px);
-                }
-            }
+                });
+            });
 
             return image;
         }

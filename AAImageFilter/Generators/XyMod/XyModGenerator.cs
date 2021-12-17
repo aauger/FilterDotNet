@@ -40,10 +40,10 @@ namespace AAImageFilter.Generators
 
             IImage image = _imageCreator(this._width, this._height);
 
-            for (int x = 0; x < this._width; x++)
+            Parallel.For(0, this._width, (int x) =>
             {
-                for (int y = 0; y < this._height; y++)
-                {
+                Parallel.For(0, this._height, (int y) =>
+                    {
                     if ((x ^ y) % _mod != 0)
                     {
                         image.SetPixel(x, y, white);
@@ -52,8 +52,8 @@ namespace AAImageFilter.Generators
                     {
                         image.SetPixel(x, y, black);
                     }
-                }
-            }
+                });
+            });
 
             return image;
         }
