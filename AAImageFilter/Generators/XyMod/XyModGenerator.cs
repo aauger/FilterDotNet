@@ -43,7 +43,7 @@ namespace AAImageFilter.Generators
             Parallel.For(0, this._width, (int x) =>
             {
                 Parallel.For(0, this._height, (int y) =>
-                    {
+                {
                     if ((x ^ y) % _mod != 0)
                     {
                         image.SetPixel(x, y, white);
