@@ -17,8 +17,8 @@ namespace AAImageFilter.Filters
     {
         /* DI */
         private readonly IPluginConfigurator<ConvolutionConfiguration> _pluginConfigurator;
-        private readonly Func<IImage, FastImage> _fastImageAdaptor;
-        private readonly Func<FastImage, IImage> _fastImageOutdaptor;
+        private readonly Func<int, int, IImage> _imageCreator;
+        private readonly Func<int, int, int, int, IColor> _colorCreator;
 
         /* Internals */
         private ConvolutionConfiguration? _configuration;
@@ -27,11 +27,11 @@ namespace AAImageFilter.Filters
         /* Properties */
         public string Name => "Convolution";
 
-        public ConvolutionFilter(IPluginConfigurator<ConvolutionConfiguration> pluginConfigurator, Func<IImage, FastImage> fastImageAdaptor, Func<FastImage, IImage> fastImageOutdaptor)
+        public ConvolutionFilter(IPluginConfigurator<ConvolutionConfiguration> pluginConfigurator, Func<int,int,IImage> imageCreator, Func<int,int,int,int,IColor> colorCreator)
         { 
-            _pluginConfigurator = pluginConfigurator;
-            _fastImageAdaptor = fastImageAdaptor;
-            _fastImageOutdaptor = fastImageOutdaptor;
+            this._pluginConfigurator = pluginConfigurator;
+            this._imageCreator = imageCreator;
+            this._colorCreator = colorCreator;
         }
 
         public IImage Apply(IImage input)
@@ -40,8 +40,7 @@ namespace AAImageFilter.Filters
                 throw new NotReadyException();
 
             ConvolutionConfiguration cfg = _configuration!;
-            FastImage refn = _fastImageAdaptor(input);
-            FastImage ret = new FastImage(refn.Width, refn.Height);
+            IImage ret = _imageCreator(input.Width, input.Height);
 
             IEnumerable<int> xVals = Enumerable.Range(-cfg.Values.GetLength(0) / 2, cfg.Values.GetLength(0));
             IEnumerable<int> yVals = Enumerable.Range(-cfg.Values.GetLength(1) / 2, cfg.Values.GetLength(1));
@@ -50,8 +49,8 @@ namespace AAImageFilter.Filters
             foreach (double d in cfg.Values) sumCoeff += d;
             double sumCoeffRGBMax = sumCoeff * 255.0;
 
-            Parallel.For(0, refn.Width, x => {
-                Parallel.For(0, refn.Height, y => {
+            Parallel.For(0, input.Width, (int x) => {
+                Parallel.For(0, input.Height, (int y) => {
                     double r = 0;
                     double g = 0;
                     double b = 0;
@@ -63,14 +62,14 @@ namespace AAImageFilter.Filters
                             int xVal = xVals.At(i);
                             int yVal = yVals.At(j);
 
-                            if (refn.OutOfBounds(x + xVal, y + yVal))
+                            if (input.OutOfBounds(x + xVal, y + yVal))
                                 continue;
 
-                            FastImageColor c = refn.GetPixel(x + xVal, y + yVal);
+                            IColor c = input.GetPixel(x + xVal, y + yVal);
 
-                            r += c.GetR() * (cfg.Values[i, j] * cfg.Bias);
-                            g += c.GetG() * (cfg.Values[i, j] * cfg.Bias);
-                            b += c.GetB() * (cfg.Values[i, j] * cfg.Bias);
+                            r += c.R * (cfg.Values[i, j] * cfg.Bias);
+                            g += c.G * (cfg.Values[i, j] * cfg.Bias);
+                            b += c.B * (cfg.Values[i, j] * cfg.Bias);
                         }
                     }
 
@@ -88,11 +87,11 @@ namespace AAImageFilter.Filters
                         bi = MathUtils.RGBClamp((int)b);                    
                     }
                     
-                    ret.SetPixel(x, y, new FastImageColor(ri, gi, bi));
+                    ret.SetPixel(x, y, _colorCreator(ri, gi, bi, 255));
                 });
             });
 
-            return _fastImageOutdaptor(ret);
+            return ret;
         }
 
         public IFilter Initialize()

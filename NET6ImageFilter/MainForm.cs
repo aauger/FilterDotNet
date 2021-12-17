@@ -80,7 +80,7 @@ namespace NET6ImageFilter
                 }
             }
 
-            GDIDrawingImage di = new GDIDrawingImage((Bitmap)Image);
+            FIDrawingImage di = new FIDrawingImage(Image);
 
             //show processing wait dialog
             using ProcessingDialog pd = new();
@@ -151,6 +151,11 @@ namespace NET6ImageFilter
                     if (result is GDIDrawingImage gdi)
                     {
                         Image = gdi.UnwrapBitmap();
+                    }
+
+                    if (result is FIDrawingImage fdi)
+                    {
+                        Image = fdi.UnwrapFastImage().ToBitmap();
                     }
                 }
                 catch 

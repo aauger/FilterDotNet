@@ -37,9 +37,9 @@ namespace AAImageFilter.Filters
             Random rnd = new Random();
             IImage ret = _imageCreator(input.Width, input.Height);
 
-            for (int x = 0; x < ret.Width; x++)
+            Parallel.For(0, input.Width, (int x) =>
             {
-                for (int y = 0; y < ret.Height; y++)
+                Parallel.For(0, input.Height, (int y) =>
                 {
                     int x2 = MathUtils.Clamp(x + rnd.Next(-_glassDistance, _glassDistance), 0, input.Width - 1);
                     int y2 = MathUtils.Clamp(y + rnd.Next(-_glassDistance, _glassDistance), 0, input.Height - 1);
@@ -48,8 +48,8 @@ namespace AAImageFilter.Filters
 
                     ret.SetPixel(x, y, there);
                     ret.SetPixel(x2, y2, here);
-                }
-            }
+                });
+            });
 
             return ret;
         }

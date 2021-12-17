@@ -1,4 +1,4 @@
-﻿using AAImageFilter.Common;
+﻿using AAImageFilter.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +12,6 @@ namespace AAImageFilter.Filters
         public int X { get; set; }
         public int Y { get; set; }
         public int Radius { get; set; }
-        public FastImageColor? Color { get; set; }
+        public IColor? Color { get; set; }
     }
 }

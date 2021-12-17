@@ -11,28 +11,8 @@ namespace NET6ImageFilter
 {
     public class Injectables
     {
-        /* gdi creators */
-        public static IImage GdiImageCreator(int x, int y) => new GDIDrawingImage(x, y);
-        public static IColor GdiColorCreator(int r, int g, int b, int a) => new GDIDrawingColor(r, g, b, a);
-
-        /* fast image input & output adaptors */
-        public static FastImage FastImageAdaptor(IImage a)
-        {
-            if (a is FIDrawingImage fid)
-            {
-                return fid.UnwrapFastImage();
-            }
-
-            FIDrawingImage fidn = new FIDrawingImage(a.Width, a.Height);
-            for (int x = 0; x < a.Width; x++)
-            {
-                for (int y = 0; y < a.Height; y++)
-                {
-                    fidn.SetPixel(x, y, a.GetPixel(x, y));
-                }
-            }
-            return fidn.UnwrapFastImage();
-        }
-        public static IImage FastImageOutdaptor(FastImage fastImage) => new FIDrawingImage(fastImage);
+        /* fi creators */
+        public static IImage FiImageCreator(int x, int y) => new FIDrawingImage(x, y);
+        public static IColor FiColorCreator(int r, int g, int b, int a) => new FIDrawingColor(r, g, b, a);
     }
 }

@@ -134,7 +134,7 @@ namespace AAImageFilter.Common
 
         public static FastImageColor FromColor(Color c)
         {
-            return new FastImageColor(c.R, c.G, c.B, c.A);
+            return new FastImageColor(c.R, c.G, c.B, Map(c.A, 0, 255, 0, 1));
         }
 
         public override bool Equals(object? obj)

@@ -21,23 +21,23 @@ namespace NET6ImageFilter
             ApplicationConfiguration.Initialize();
             List<IFilter> filters = new()
             {
-                new ChromaticAberrationFilter(GdiImageCreator, GdiColorCreator),
-                new CirclePaintingFilter(new WinformThreeIntConfigurator(), FastImageAdaptor, FastImageOutdaptor),
-                new ColorOverlayFilter(new WinformGetImageDialog(), GdiImageCreator, GdiColorCreator),
-                new ConvolutionFilter(new WinformsConvolutionConfigurator(), FastImageAdaptor, FastImageOutdaptor),
-                new GlassFilter(new WinformIntConfigurator("Maximum distance:"), GdiImageCreator),
-                new GreyscaleFilter(GdiColorCreator),
-                new InvertFilter(GdiColorCreator),
-                new PosterizeFilter(new WinformIntConfigurator("Levels:"), GdiImageCreator, GdiColorCreator),
+                new ChromaticAberrationFilter(FiImageCreator, FiColorCreator),
+                new CirclePaintingFilter(new WinformThreeIntConfigurator(), FiImageCreator, FiColorCreator),
+                new ColorOverlayFilter(new WinformGetImageDialog(), FiImageCreator, FiColorCreator),
+                new ConvolutionFilter(new WinformsConvolutionConfigurator(), FiImageCreator, FiColorCreator),
+                new GlassFilter(new WinformIntConfigurator("Maximum distance:"), FiImageCreator),
+                new GreyscaleFilter(FiColorCreator),
+                new InvertFilter(FiColorCreator),
+                new PosterizeFilter(new WinformIntConfigurator("Levels:"), FiImageCreator, FiColorCreator),
                 new PixelateFilter(new WinformTwoIntConfigurator("Block width:", "Block height:")),
-                new SolarizeFilter(new WinformIntConfigurator("Solarize threshold:"), GdiColorCreator),
-                new StatisticalFilter(new WinformsStatisticalConfigurator(), GdiImageCreator, GdiColorCreator),
-                new ThresholdFilter(new WinformIntConfigurator("Threshold:"), GdiColorCreator),
+                new SolarizeFilter(new WinformIntConfigurator("Solarize threshold:"), FiColorCreator),
+                new StatisticalFilter(new WinformsStatisticalConfigurator(), FiImageCreator, FiColorCreator),
+                new ThresholdFilter(new WinformIntConfigurator("Threshold:"), FiColorCreator),
             };
             List<IGenerator> generators = new()
             {
-                new MandelbrotGenerator(new WinformsGeneratorConfigurators.GeneratorThreeIntConfigurator(), GdiImageCreator, GdiColorCreator),
-                new XyModGenerator(new WinformsGeneratorConfigurators.GeneratorThreeIntConfigurator(), GdiImageCreator, GdiColorCreator),
+                new MandelbrotGenerator(new WinformsGeneratorConfigurators.GeneratorThreeIntConfigurator(), FiImageCreator, FiColorCreator),
+                new XyModGenerator(new WinformsGeneratorConfigurators.GeneratorThreeIntConfigurator(), FiImageCreator, FiColorCreator),
             };
             Application.Run(new MainForm(filters, generators));
         }

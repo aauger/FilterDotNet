@@ -18,13 +18,26 @@ namespace NET6ImageFilter.ImageProviders
         public int Height => _fastImage.Height;
 
         public FIDrawingImage(int width, int height)
-        { 
+        {
             _fastImage = new FastImage(width, height);
         }
 
         public FIDrawingImage(FastImage fastImage)
         {
             _fastImage = fastImage;
+        }
+
+        public FIDrawingImage(Image a)
+        {
+            Bitmap bmp = (Bitmap)a;
+            _fastImage = new FastImage(bmp.Width, bmp.Height);
+            for (int x = 0; x < bmp.Width; x++)
+            {
+                for (int y = 0; y < bmp.Height; y++)
+                { 
+                    _fastImage.SetPixel(x,y, bmp.GetPixel(x,y));
+                }
+            }
         }
 
         public IColor GetPixel(int x, int y)

@@ -13,7 +13,7 @@ namespace AAImageFilter.Filters
         /* DI */
         private readonly Func<int, int, IImage> _imageCreator;
         private readonly Func<int, int, int, int, IColor> _colorCreator;
-        
+
         /* Properties */
         public string Name => "Chromatic Abberation";
 
@@ -26,10 +26,8 @@ namespace AAImageFilter.Filters
         public IImage Apply(IImage input)
         {
             IImage output = _imageCreator(input.Width, input.Height);
-            for (int x = 2; x < input.Width - 2; x++)
-            {
-                for (int y = 2; y < input.Height - 2; y++)
-                {
+            Parallel.For(2, input.Width - 2, x => {
+                Parallel.For(2, input.Height - 2, y => {
                     IColor here = input.GetPixel(x, y);
                     IColor upLeft = input.GetPixel(x - 2, y - 2);
                     IColor boRight = input.GetPixel(x + 2, y + 2);
@@ -38,8 +36,8 @@ namespace AAImageFilter.Filters
                     int B = MathUtils.RGBClamp((int)(here.B * .25 + boRight.B * .75));
 
                     output.SetPixel(x, y, _colorCreator(R, here.G, B, 255));
-                }
-            }
+                });
+            });
             return output;
         }
     }

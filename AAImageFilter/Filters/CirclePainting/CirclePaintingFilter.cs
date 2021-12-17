@@ -17,9 +17,9 @@ namespace AAImageFilter.Filters
     {
         /* DI */
         private readonly IPluginConfigurator<(int, int, int)> _pluginConfigurator;
-        private readonly Func<IImage, FastImage> _imageAdaptor;
-        private readonly Func<FastImage, IImage> _imageOutdaptor;
-        
+        private readonly Func<int, int, IImage> _imageCreator;
+        private readonly Func<int, int, int, int, IColor> _colorCreator;
+
         /* Internals */
         private bool _ready = false;
         private int _maxDiff = 0, _minRad = 0, _maxRad = 0;
@@ -27,39 +27,30 @@ namespace AAImageFilter.Filters
         /* Properties */
         public string Name => "Circle Painting";
 
-        public CirclePaintingFilter(IPluginConfigurator<(int, int, int)> pluginConfigurator, Func<IImage,FastImage> imageAdaptor, Func<FastImage, IImage> imageOutdaptor)
+        public CirclePaintingFilter(IPluginConfigurator<(int, int, int)> pluginConfigurator, Func<int,int,IImage> imageCreator, Func<int,int,int,int,IColor> colorCreator)
         {
             this._pluginConfigurator = pluginConfigurator;
-            this._imageAdaptor = imageAdaptor;
-            this._imageOutdaptor = imageOutdaptor;
+            this._imageCreator = imageCreator;
+            this._colorCreator = colorCreator;
         }
-
 
         public IImage Apply(IImage input)
         {
             if (!_ready)
                 throw new NotReadyException();
 
-            FastImage src = _imageAdaptor(input);
-            FastImage ret = new FastImage(src.Width, src.Height);
-            for (int x = 0; x < src.Width; x++)
-            {
-                for (int y = 0; y < src.Height; y++)
-                {
-                    ret.SetPixel(x, y, new FastImageColor(0, 0, 0));
-                }
-            }
+            IImage ret = _imageCreator(input.Width, input.Height);
 
             List<Circle> circles = new();
-            for (int x = 0; x < src.Width; x += _minRad * 2)
+            for (int x = 0; x < input.Width; x += _minRad * 2)
             {
-                for (int y = 0; y < src.Height; y += _minRad * 2)
+                for (int y = 0; y < input.Height; y += _minRad * 2)
                 {
                     Circle c = new();
                     c.X = x;
                     c.Y = y;
                     c.Radius = _minRad;
-                    c.Color = src.GetPixel(x, y);
+                    c.Color = input.GetPixel(x, y);
                     circles.Add(c);
                 }
             }
@@ -76,9 +67,9 @@ namespace AAImageFilter.Filters
                         int rx = (int)(c.Radius * Math.Cos(MathUtils.DegToRad(deg)) + originX);
                         int ry = (int)(c.Radius * Math.Sin(MathUtils.DegToRad(deg)) + originY);
 
-                        if (rx >= 0 && rx < src.Width
-                            && ry >= 0 && ry < src.Height
-                            && src.GetPixel(rx, ry).Diff(c.Color) >= _maxDiff)
+                        if (rx >= 0 && rx < input.Width
+                            && ry >= 0 && ry < input.Height
+                            && input.GetPixel(rx, ry).Difference(c.Color!) >= _maxDiff)
                         {
                             f = false;
                             break;
@@ -96,12 +87,12 @@ namespace AAImageFilter.Filters
                     for (int y = -height; y < height; y++)
                     {
                         if (!ret.OutOfBounds(c.X + x, c.Y + y))
-                            ret.SetPixel(c.X + x, c.Y + y, c.Color);
+                            ret.SetPixel(c.X + x, c.Y + y, c.Color!);
                     }
                 }
             }
 
-            return _imageOutdaptor(ret);
+            return ret;
         }
 
         public IFilter Initialize()

@@ -23,10 +23,9 @@ namespace AAImageFilter.Filters
 
         public IImage Apply(IImage input)
         {
-            for (int x = 0; x < input.Width; x++)
+            Parallel.For(0, input.Width, x =>
             {
-                for (int y = 0; y < input.Height; y++)
-                {
+                Parallel.For(0, input.Height, y => {
                     IColor here = input.GetPixel(x, y);
 
                     int r = 255 - here.R;
@@ -36,8 +35,8 @@ namespace AAImageFilter.Filters
                     IColor nColor = _colorCreator(r, g, b, 255);
 
                     input.SetPixel(x, y, nColor);
-                }
-            }
+                });
+            });
 
             return input;
         }
