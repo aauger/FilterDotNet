@@ -35,7 +35,8 @@ namespace NET6ImageFilter.SpecificConfigurators
                         { Name: "minRadioButton" } => StatisticalFilterMode.MIN,
                         { Name: "maxRadioButton" } => StatisticalFilterMode.MAX,
                         { Name: "medianRadioButton" } => StatisticalFilterMode.MEDIAN,
-                        { Name: "modeRadioButton" } => StatisticalFilterMode.MODE
+                        { Name: "modeRadioButton" } => StatisticalFilterMode.MODE,
+                        _ => throw new NotImplementedException()
                     }
                 };
             }
