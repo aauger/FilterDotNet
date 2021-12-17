@@ -32,10 +32,11 @@ namespace AAImageFilter.Filters
             if (!_ready)
                 throw new NotReadyException();
 
-            for (int x = 0; x < input.Width; x += _width)
-            {
-                for (int y = 0; y < input.Height; y += _height)
-                {
+            Parallel.For(0, input.Width / _width, (int xMu) => {
+                Parallel.For(0, input.Height / _height, (int yMu) => {
+                    int x = xMu * _width;
+                    int y = yMu * _height;
+
                     IColor r = input.GetPixel(x, y);
 
                     for (int xi = x; xi < (x + _width) && xi < input.Width; xi++)
@@ -45,8 +46,8 @@ namespace AAImageFilter.Filters
                             input.SetPixel(xi, yi, r);
                         }
                     }
-                }
-            }
+                });
+            });
 
             return input;
         }

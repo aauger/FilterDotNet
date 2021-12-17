@@ -34,5 +34,15 @@ namespace NET6ImageFilter.BasicWinformsConfigurators
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
+
+        private void WinformTwoIntConfigurator_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void fInput_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

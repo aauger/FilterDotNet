@@ -22,19 +22,16 @@ namespace AAImageFilter.Filters
 
         public IImage Apply(IImage input)
         {
-            for (int x = 0; x < input.Width; x++)
-            {
-                for (int y = 0; y < input.Height; y++)
-                {
+            Parallel.For(0, input.Width, (int x) => {
+                Parallel.For(0, input.Height, (int y) => {
                     IColor here = input.GetPixel(x, y);
                     int avg = (here.R + here.G + here.B) / 3;
 
                     IColor nColor = _colorCreator(avg, avg, avg, 255);
 
                     input.SetPixel(x, y, nColor);
-                }
-            }
-
+                });
+            });
             return input;
         }
     }
