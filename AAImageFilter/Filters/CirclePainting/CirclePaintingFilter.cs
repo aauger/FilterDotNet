@@ -80,16 +80,16 @@ namespace AAImageFilter.Filters
 
             foreach (Circle c in circles/*.Where(c => c.Radius > _minRad)*/.OrderBy(c => c.Radius))
             {
-                for (int x = -c.Radius; x < c.Radius; x++)
+                Parallel.For(-c.Radius, c.Radius, (int x) =>
                 {
                     int height = (int)Math.Sqrt(c.Radius * c.Radius - x * x);
 
-                    for (int y = -height; y < height; y++)
+                    Parallel.For(-height, height, (int y) =>
                     {
                         if (!ret.OutOfBounds(c.X + x, c.Y + y))
                             ret.SetPixel(c.X + x, c.Y + y, c.Color!);
-                    }
-                }
+                    });
+                });
             }
 
             return ret;
