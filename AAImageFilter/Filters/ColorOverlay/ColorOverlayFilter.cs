@@ -36,9 +36,10 @@ namespace AAImageFilter.Filters
                 throw new NotReadyException();
 
             IImage output = _imageCreator(input.Width, input.Height);
-            for (int x = 0; x < input.Width; x++)
+
+            Parallel.For(0, input.Width, (int x) =>
             {
-                for (int y = 0; y < input.Height; y++)
+                Parallel.For(0, input.Height, (int y) =>
                 {
                     IColor m = _mask.GetPixel(x, y);
                     bool isWhite =
@@ -46,9 +47,9 @@ namespace AAImageFilter.Filters
                     if (!isWhite)
                         output.SetPixel(x, y, input.GetPixel(x, y));
                     else
-                        output.SetPixel(x, y, _colorCreator(0, 0, 0, 255));            
-                }
-            }
+                        output.SetPixel(x, y, _colorCreator(0, 0, 0, 255));
+                });
+            });
 
             return output;
         }

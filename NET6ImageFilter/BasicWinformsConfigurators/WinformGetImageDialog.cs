@@ -1,4 +1,5 @@
-﻿using AAImageFilter.Interfaces;
+﻿using AAImageFilter.Common;
+using AAImageFilter.Interfaces;
 using NET6ImageFilter.ImageProviders;
 using System;
 using System.Collections.Generic;
@@ -17,9 +18,9 @@ namespace NET6ImageFilter.BasicWinformsConfigurators
             { 
                 var image = Image.FromFile(dialog.FileName);
                 if (image != null)
-                    return new GDIDrawingImage((Bitmap)image);
+                    return new FIDrawingImage(new FastImage(image));
             }
-            return new GDIDrawingImage(1, 1);
+            return new FIDrawingImage(1, 1);
         }
     }
 }
