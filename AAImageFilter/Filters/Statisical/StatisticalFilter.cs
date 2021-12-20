@@ -127,7 +127,7 @@ namespace AAImageFilter.Filters
         {
             var c = xs.Count;
             var cm = c % 2;
-            if (cm == 0)
+            if (cm == 0 && c >= 2)
                 return (xs[cm] + xs[cm + 1]) / 2;
             return xs[cm];
         }
