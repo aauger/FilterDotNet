@@ -37,6 +37,7 @@
             this.useGeneratorButton = new System.Windows.Forms.Button();
             this.copyToClipboardButton = new System.Windows.Forms.Button();
             this.fromClipboardButton = new System.Windows.Forms.Button();
+            this.analyzeButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.imageViewer)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -95,6 +96,7 @@
             this.flowLayoutPanel1.Controls.Add(this.saveButton);
             this.flowLayoutPanel1.Controls.Add(this.applyFilterButton);
             this.flowLayoutPanel1.Controls.Add(this.useGeneratorButton);
+            this.flowLayoutPanel1.Controls.Add(this.analyzeButton);
             this.flowLayoutPanel1.Controls.Add(this.copyToClipboardButton);
             this.flowLayoutPanel1.Controls.Add(this.fromClipboardButton);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -118,7 +120,7 @@
             // copyToClipboardButton
             // 
             this.copyToClipboardButton.Image = ((System.Drawing.Image)(resources.GetObject("copyToClipboardButton.Image")));
-            this.copyToClipboardButton.Location = new System.Drawing.Point(323, 3);
+            this.copyToClipboardButton.Location = new System.Drawing.Point(412, 3);
             this.copyToClipboardButton.Name = "copyToClipboardButton";
             this.copyToClipboardButton.Size = new System.Drawing.Size(71, 30);
             this.copyToClipboardButton.TabIndex = 3;
@@ -130,7 +132,7 @@
             // fromClipboardButton
             // 
             this.fromClipboardButton.Image = ((System.Drawing.Image)(resources.GetObject("fromClipboardButton.Image")));
-            this.fromClipboardButton.Location = new System.Drawing.Point(400, 3);
+            this.fromClipboardButton.Location = new System.Drawing.Point(489, 3);
             this.fromClipboardButton.Name = "fromClipboardButton";
             this.fromClipboardButton.Size = new System.Drawing.Size(71, 30);
             this.fromClipboardButton.TabIndex = 4;
@@ -138,6 +140,18 @@
             this.fromClipboardButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.fromClipboardButton.UseVisualStyleBackColor = true;
             this.fromClipboardButton.Click += new System.EventHandler(this.fromClipboardButton_Click);
+            // 
+            // analyzeButton
+            // 
+            this.analyzeButton.Enabled = false;
+            this.analyzeButton.Image = ((System.Drawing.Image)(resources.GetObject("analyzeButton.Image")));
+            this.analyzeButton.Location = new System.Drawing.Point(323, 3);
+            this.analyzeButton.Name = "analyzeButton";
+            this.analyzeButton.Size = new System.Drawing.Size(83, 30);
+            this.analyzeButton.TabIndex = 5;
+            this.analyzeButton.Text = "Analyze";
+            this.analyzeButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.analyzeButton.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -167,5 +181,6 @@
         private Button useGeneratorButton;
         private Button copyToClipboardButton;
         private Button fromClipboardButton;
+        private Button analyzeButton;
     }
 }
