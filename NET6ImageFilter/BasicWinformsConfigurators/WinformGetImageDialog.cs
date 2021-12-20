@@ -9,8 +9,20 @@ using System.Threading.Tasks;
 
 namespace NET6ImageFilter.BasicWinformsConfigurators
 {
-    public class WinformGetImageDialog : IPluginConfigurator<IImage>
+    public class WinformGetImageDialog : IPluginConfigurator<IImage>, IAnalyzerConfigurator<IImage>
     {
+        public IImage GetAnalyzerConfiguration()
+        {
+            using OpenFileDialog dialog = new OpenFileDialog();
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                var image = Image.FromFile(dialog.FileName);
+                if (image != null)
+                    return new FIDrawingImage(new FastImage(image));
+            }
+            return new FIDrawingImage(1, 1);
+        }
+
         public IImage GetPluginConfiguration()
         {
             using OpenFileDialog dialog = new OpenFileDialog();
