@@ -13,6 +13,7 @@ namespace NET6ImageFilter
         private Image _image = new Bitmap(1, 1);
         private List<IFilter> _filters = new();
         private List<IGenerator> _generators = new();
+        private List<IAnalyzer> _analyzers = new();
 
         public Image Image
         {
@@ -27,10 +28,11 @@ namespace NET6ImageFilter
             }
         }
 
-        public MainForm(List<IFilter> filters, List<IGenerator> generators)
+        public MainForm(List<IFilter> filters, List<IGenerator> generators, List<IAnalyzer> analyzers)
         {
             this._filters = filters;
             this._generators = generators;
+            this._analyzers = analyzers;
             InitializeComponent();
         }
 
@@ -167,6 +169,55 @@ namespace NET6ImageFilter
             });
             pd.ShowDialog();
         }
+
+        private void analyzeButton_Click(object sender, EventArgs e)
+        {
+            IAnalyzer? analyzer = null;
+
+            using AnalyzerDialog dialog = new AnalyzerDialog(_analyzers);
+
+
+            if (dialog.ShowDialog() == DialogResult.OK && dialog.SelectedAnalyzer is not null)
+                analyzer = dialog.SelectedAnalyzer;
+
+            if (analyzer is null)
+                return;
+
+            if (analyzer is IConfigurableAnalyzer ica)
+            {
+                try
+                {
+                    ica.Initialize();
+                }
+                catch
+                {
+                    MessageBox.Show("There was an error during initialization");
+                }
+            }
+
+            FIDrawingImage di = new(Image);
+
+            using ProcessingDialog pd = new();
+            Task.Factory.StartNew(() => 
+            {
+                try
+                {
+                    var result = analyzer.Analyze(di);
+                    Task.Factory.StartNew(() =>
+                    {
+                        var resultDialog = new AnalyzerResultDialog(result);
+                        resultDialog.ShowDialog();
+                    });
+                }
+                catch
+                { 
+                    MessageBox.Show("There was an error running the analyzer.");
+                }
+                pd.CloseForm();
+            });
+            pd.ShowDialog();
+        }
+
 
         private void MainForm_Load(object sender, EventArgs e)
         {

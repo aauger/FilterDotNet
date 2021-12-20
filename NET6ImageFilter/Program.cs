@@ -4,6 +4,7 @@ using AAImageFilter.Filters;
 using NET6ImageFilter.BasicWinformsConfigurators;
 using NET6ImageFilter.SpecificConfigurators;
 using AAImageFilter.Generators;
+using AAImageFilter.Analyzers;
 using NET6ImageFilter.ImageProviders;
 using AAImageFilter.Common;
 using static NET6ImageFilter.Injectables;
@@ -40,7 +41,11 @@ namespace NET6ImageFilter
                 new MandelbrotGenerator(new WinformsGeneratorConfigurators.GeneratorThreeIntConfigurator(), FiImageCreator, FiColorCreator),
                 new XyModGenerator(new WinformsGeneratorConfigurators.GeneratorThreeIntConfigurator(), FiImageCreator, FiColorCreator),
             };
-            Application.Run(new MainForm(filters, generators));
+            List<IAnalyzer> analyzers = new()
+            {
+                new DifferenceAnalyzer(new WinformGetImageDialog())
+            };
+            Application.Run(new MainForm(filters, generators, analyzers));
         }
     }
 }

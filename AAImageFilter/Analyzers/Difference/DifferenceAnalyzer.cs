@@ -1,4 +1,5 @@
-﻿using AAImageFilter.Interfaces;
+﻿using AAImageFilter.Exceptions;
+using AAImageFilter.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace AAImageFilter.Analyzers
     public class DifferenceAnalyzer : IAnalyzer, IConfigurableAnalyzer
     {
         /* DI */
-        private readonly IAnalyzerConfigurator<IImage>? _analyzerConfigurator;
+        private IAnalyzerConfigurator<IImage>? _analyzerConfigurator;
 
         /* Internals */
         private IImage? _other;
@@ -19,10 +20,19 @@ namespace AAImageFilter.Analyzers
         /* Properties */
         public string Name => "Difference";
 
+        public DifferenceAnalyzer(IAnalyzerConfigurator<IImage> analyzerConfigurator)
+        {
+            this._analyzerConfigurator = analyzerConfigurator;
+        }
+
         public string Analyze(IImage input)
         {
+            if (!this._ready)
+                throw new NotReadyException();
+
             int pxCount = input.Width * input.Height;
-            double invFrac = Math.Pow(pxCount, -1);
+            double[,] lDiffs = new double[input.Width, input.Height];
+            double totalDiffs = 0.0;
 
             Parallel.For(0, input.Width, (int x) => 
             {
@@ -31,17 +41,25 @@ namespace AAImageFilter.Analyzers
                     IColor here = input.GetPixel(x, y);
                     IColor there = _other!.GetPixel(x, y);
 
-
+                    double rDiff = Math.Abs(here.R - there.R);
+                    double gDiff = Math.Abs(here.G - there.G);
+                    double bDiff = Math.Abs(here.B - there.B);
+                    double lDiffPct = (rDiff + gDiff + bDiff) / (255 * 3);
+                    lDiffs[x, y] = lDiffPct;
                 });
             });
 
-            return "";
+            foreach (double d in lDiffs) totalDiffs += d;
+
+            double finalDiff = (totalDiffs / pxCount) * 100.0;
+
+            return $"The difference between the source image and selected image was {finalDiff}%";
         }
 
         public IAnalyzer Initialize()
         {
-            _other = _analyzerConfigurator!.GetAnalyzerConfiguration();
-            _ready = true;
+            this._other = _analyzerConfigurator!.GetAnalyzerConfiguration();
+            this._ready = true;
             return this;
         }
     }

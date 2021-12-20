@@ -35,9 +35,9 @@
             this.applyFilterButton = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.useGeneratorButton = new System.Windows.Forms.Button();
+            this.analyzeButton = new System.Windows.Forms.Button();
             this.copyToClipboardButton = new System.Windows.Forms.Button();
             this.fromClipboardButton = new System.Windows.Forms.Button();
-            this.analyzeButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.imageViewer)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -117,6 +117,18 @@
             this.useGeneratorButton.UseVisualStyleBackColor = true;
             this.useGeneratorButton.Click += new System.EventHandler(this.useGeneratorButton_Click);
             // 
+            // analyzeButton
+            // 
+            this.analyzeButton.Image = ((System.Drawing.Image)(resources.GetObject("analyzeButton.Image")));
+            this.analyzeButton.Location = new System.Drawing.Point(323, 3);
+            this.analyzeButton.Name = "analyzeButton";
+            this.analyzeButton.Size = new System.Drawing.Size(83, 30);
+            this.analyzeButton.TabIndex = 5;
+            this.analyzeButton.Text = "Analyze";
+            this.analyzeButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.analyzeButton.UseVisualStyleBackColor = true;
+            this.analyzeButton.Click += new System.EventHandler(this.analyzeButton_Click);
+            // 
             // copyToClipboardButton
             // 
             this.copyToClipboardButton.Image = ((System.Drawing.Image)(resources.GetObject("copyToClipboardButton.Image")));
@@ -140,18 +152,6 @@
             this.fromClipboardButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.fromClipboardButton.UseVisualStyleBackColor = true;
             this.fromClipboardButton.Click += new System.EventHandler(this.fromClipboardButton_Click);
-            // 
-            // analyzeButton
-            // 
-            this.analyzeButton.Enabled = false;
-            this.analyzeButton.Image = ((System.Drawing.Image)(resources.GetObject("analyzeButton.Image")));
-            this.analyzeButton.Location = new System.Drawing.Point(323, 3);
-            this.analyzeButton.Name = "analyzeButton";
-            this.analyzeButton.Size = new System.Drawing.Size(83, 30);
-            this.analyzeButton.TabIndex = 5;
-            this.analyzeButton.Text = "Analyze";
-            this.analyzeButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.analyzeButton.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
