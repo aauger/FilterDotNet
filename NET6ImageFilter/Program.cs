@@ -26,6 +26,7 @@ namespace NET6ImageFilter
                 new CirclePaintingFilter(new WinformThreeIntConfigurator(), FiImageCreator, FiColorCreator),
                 new ColorOverlayFilter(new WinformGetImageDialog(), FiImageCreator, FiColorCreator),
                 new ConvolutionFilter(new WinformsConvolutionConfigurator(), FiImageCreator, FiColorCreator),
+                new DifferenceFilter(new WinformsDifferenceConfigurator(), FiImageCreator, FiColorCreator),
                 new GlassFilter(new WinformIntConfigurator("Maximum distance:"), FiImageCreator),
                 new GreyscaleFilter(FiColorCreator),
                 new InvertFilter(FiColorCreator),
