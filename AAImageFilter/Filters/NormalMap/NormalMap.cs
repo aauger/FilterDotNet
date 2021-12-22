@@ -12,19 +12,19 @@ namespace AAImageFilter.Filters
     public class NormalMap : IFilter, IConfigurableFilter
     {
         /* DI */
-        private readonly IPluginConfigurator<IImage> _pluginConfigurator;
+        private readonly IPluginConfigurator<(IImage, double)> _pluginConfigurator;
         private readonly Func<int, int, IImage> _imageCreator;
         private readonly Func<int, int, int, int, IColor> _colorCreator;
 
         /* Internals */
         private IImage? _map;
-        private readonly int _multiplier = 5;
+        private double _multiplier = 1.0;
         private bool _ready = false;
 
         /* Properties */
         public string Name => "Normal Map";
 
-        public NormalMap(IPluginConfigurator<IImage> pluginConfigurator, Func<int, int, IImage> imageCreator, Func<int, int, int, int, IColor> colorCreator)
+        public NormalMap(IPluginConfigurator<(IImage, double)> pluginConfigurator, Func<int, int, IImage> imageCreator, Func<int, int, int, int, IColor> colorCreator)
         {
             _pluginConfigurator = pluginConfigurator;
             _imageCreator = imageCreator;
@@ -66,7 +66,7 @@ namespace AAImageFilter.Filters
 
         public IFilter Initialize()
         {
-            this._map = _pluginConfigurator.GetPluginConfiguration();
+            (this._map, this._multiplier) = _pluginConfigurator.GetPluginConfiguration();
             this._ready = true;
             return this;
         }
