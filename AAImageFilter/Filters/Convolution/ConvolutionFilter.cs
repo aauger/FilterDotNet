@@ -1,5 +1,4 @@
-﻿using AAImageFilter.Common;
-using AAImageFilter.Exceptions;
+﻿using AAImageFilter.Exceptions;
 using AAImageFilter.Extensions;
 using AAImageFilter.Interfaces;
 using AAImageFilter.Utils;

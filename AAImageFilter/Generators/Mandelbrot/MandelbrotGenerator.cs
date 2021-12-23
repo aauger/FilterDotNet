@@ -1,12 +1,6 @@
 ﻿using AAImageFilter.Exceptions;
 using AAImageFilter.Interfaces;
 using AAImageFilter.Utils;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AAImageFilter.Generators
 {

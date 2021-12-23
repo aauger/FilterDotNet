@@ -1,14 +1,6 @@
-﻿using AAImageFilter.Common;
-using AAImageFilter.Extensions;
+﻿using AAImageFilter.Extensions;
 using AAImageFilter.Interfaces;
 using AAImageFilter.Utils;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AAImageFilter.Filters;
 using AAImageFilter.Exceptions;
 
 namespace AAImageFilter.Filters
