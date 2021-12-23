@@ -1,10 +1,5 @@
 ﻿using AAImageFilter.Exceptions;
 using AAImageFilter.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AAImageFilter.Filters
 {
@@ -41,7 +36,7 @@ namespace AAImageFilter.Filters
             {
                 Parallel.For(0, input.Height, (int y) =>
                 {
-                    IColor m = _mask.GetPixel(x, y);
+                    IColor m = _mask!.GetPixel(x, y);
                     bool isWhite =
                         m.R == 255 && m.G == 255 && m.B == 255;
                     if (!isWhite)

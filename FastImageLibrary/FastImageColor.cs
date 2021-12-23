@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AAImageFilter.Common
+namespace FastImageLibrary
 {
     public class FastImageColor
     {

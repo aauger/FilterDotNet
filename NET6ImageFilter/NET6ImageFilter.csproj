@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AAImageFilter\AAImageFilter.csproj" />
+    <ProjectReference Include="..\FastImageLibrary\FastImageLibrary.csproj" />
   </ItemGroup>
 
   <ItemGroup>

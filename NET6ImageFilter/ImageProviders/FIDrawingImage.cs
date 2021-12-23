@@ -1,6 +1,6 @@
-﻿using AAImageFilter.Common;
-using AAImageFilter.Interfaces;
+﻿using AAImageFilter.Interfaces;
 using AAImageFilter.Utils;
+using FastImageLibrary;
 using System;
 using System.Collections.Generic;
 using System.Linq;

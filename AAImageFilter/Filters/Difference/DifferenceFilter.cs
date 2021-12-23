@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AAImageFilter.Exceptions;
 using AAImageFilter.Interfaces;
 using AAImageFilter.Utils;
 
@@ -32,6 +28,9 @@ namespace AAImageFilter.Filters
 
         public IImage Apply(IImage input)
         {
+            if (!_ready)
+                throw new NotReadyException();
+
             IImage ret = _imageCreator(input.Width, input.Height);
 
             Parallel.For(0, input.Width, (int x) =>

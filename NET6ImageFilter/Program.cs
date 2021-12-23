@@ -6,7 +6,6 @@ using NET6ImageFilter.SpecificConfigurators;
 using AAImageFilter.Generators;
 using AAImageFilter.Analyzers;
 using NET6ImageFilter.ImageProviders;
-using AAImageFilter.Common;
 using static NET6ImageFilter.Injectables;
 
 namespace NET6ImageFilter
