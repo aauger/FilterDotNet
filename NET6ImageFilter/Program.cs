@@ -33,6 +33,7 @@ namespace NET6ImageFilter
                 new PosterizeFilter(new WinformIntConfigurator("Levels:"), FiImageCreator, FiColorCreator),
                 new PixelateFilter(new WinformTwoIntConfigurator("Block width:", "Block height:")),
                 new SolarizeFilter(new WinformIntConfigurator("Solarize threshold:"), FiColorCreator),
+                new SobelFilter(FiImageCreator, FiColorCreator),
                 new StatisticalFilter(new WinformsStatisticalConfigurator(), FiImageCreator, FiColorCreator),
                 new ThresholdFilter(new WinformIntConfigurator("Threshold:"), FiColorCreator),
             };
