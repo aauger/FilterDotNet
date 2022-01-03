@@ -19,19 +19,19 @@ namespace AAImageFilter.Filters
 
         public PosterizeFilter(IPluginConfigurator<int> pluginConfigurator, Func<int, int, IImage> imageCreator, Func<int, int, int, int, IColor> colorCreator)
         {
-            _pluginConfigurator = pluginConfigurator;
-            _imageCreator = imageCreator;
-            _colorCreator = colorCreator;
+            this._pluginConfigurator = pluginConfigurator;
+            this._imageCreator = imageCreator;
+            this._colorCreator = colorCreator;
         }
 
 
         public IImage Apply(IImage input)
         {
-            if (!_ready)
+            if (!this._ready)
                 throw new NotReadyException();
 
-            IImage ret = _imageCreator(input.Width, input.Height);
-            int bs = 255 / _levels;
+            IImage ret = this._imageCreator(input.Width, input.Height);
+            int bs = 255 / this._levels;
 
             Parallel.For(0, input.Width, (int x) =>
             {
@@ -43,7 +43,7 @@ namespace AAImageFilter.Filters
                     nr = (int)(Math.Round(c.R / (float)bs) * bs);
                     ng = (int)(Math.Round(c.G / (float)bs) * bs);
                     nb = (int)(Math.Round(c.B / (float)bs) * bs);
-                    ret.SetPixel(x, y, _colorCreator(nr, ng, nb, 255));
+                    ret.SetPixel(x, y, this._colorCreator(nr, ng, nb, 255));
                 });
             });
 
@@ -52,7 +52,7 @@ namespace AAImageFilter.Filters
 
         public IFilter Initialize()
         {
-            this._levels = _pluginConfigurator.GetPluginConfiguration();
+            this._levels = this._pluginConfigurator.GetPluginConfiguration();
             this._ready = true;
             return this;
         }

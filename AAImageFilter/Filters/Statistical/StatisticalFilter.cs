@@ -44,11 +44,11 @@ namespace AAImageFilter.Filters
 
         public IImage Apply(IImage input)
         {
-            if (!_ready)
+            if (!this._ready)
                 throw new NotReadyException();
 
-            var cfg = _configuration!;
-            IImage ret = _imageCreator(input.Width, input.Height);
+            var cfg = this._configuration!;
+            IImage ret = this._imageCreator(input.Width, input.Height);
 
             Parallel.For(0, input.Width, (int x) =>
             {
@@ -111,14 +111,14 @@ namespace AAImageFilter.Filters
                             break;
                     }
 
-                    ret.SetPixel(x, y, _colorCreator(ri, gi, bi, 255));
+                    ret.SetPixel(x, y, this._colorCreator(ri, gi, bi, 255));
                 });
             });
 
             return ret;
         }
 
-        private int Median(List<int> xs)
+        private static int Median(List<int> xs)
         {
             var c = xs.Count;
             var cm = c % 2;
@@ -127,7 +127,7 @@ namespace AAImageFilter.Filters
             return xs[cm];
         }
 
-        private int Mode(List<int> xs)
+        private static int Mode(List<int> xs)
         {
             Dictionary<int, int> counts = new();
             foreach (int x in xs)
@@ -142,7 +142,7 @@ namespace AAImageFilter.Filters
 
         public IFilter Initialize()
         {
-            this._configuration = _pluginConfigurator.GetPluginConfiguration();
+            this._configuration = this._pluginConfigurator.GetPluginConfiguration();
             this._ready = true;
             return this;
         }

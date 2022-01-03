@@ -21,34 +21,34 @@ namespace AAImageFilter.Filters
 
         public DifferenceFilter(IPluginConfigurator<(IImage, double)> pluginConfigurator, Func<int, int, IImage> imageCreator, Func<int,int,int,int,IColor> colorCreator)
         {
-            _pluginConfigurator = pluginConfigurator;
-            _colorCreator = colorCreator;
-            _imageCreator = imageCreator;
+            this._pluginConfigurator = pluginConfigurator;
+            this._colorCreator = colorCreator;
+            this._imageCreator = imageCreator;
         }
 
         public IImage Apply(IImage input)
         {
-            if (!_ready)
+            if (!this._ready)
                 throw new NotReadyException();
 
-            IImage ret = _imageCreator(input.Width, input.Height);
+            IImage ret = this._imageCreator(input.Width, input.Height);
 
             Parallel.For(0, input.Width, (int x) =>
             {
                 Parallel.For(0, input.Height, (int y) => 
                 {
                     IColor here = input.GetPixel(x, y);
-                    IColor there = _other!.GetPixel(x, y);
+                    IColor there = this._other!.GetPixel(x, y);
 
                     int rDiff = Math.Abs(here.R - there.R);
                     int gDiff = Math.Abs(here.G - there.G);
                     int bDiff = Math.Abs(here.B - there.B);
 
-                    int r = MathUtils.RGBClamp((int)(rDiff * _multiplier));
-                    int g = MathUtils.RGBClamp((int)(gDiff * _multiplier));
-                    var b = MathUtils.RGBClamp((int)(bDiff * _multiplier));
+                    int r = MathUtils.RGBClamp((int)(rDiff * this._multiplier));
+                    int g = MathUtils.RGBClamp((int)(gDiff * this._multiplier));
+                    var b = MathUtils.RGBClamp((int)(bDiff * this._multiplier));
 
-                    ret.SetPixel(x, y, _colorCreator(r, g, b, 255));
+                    ret.SetPixel(x, y, this._colorCreator(r, g, b, 255));
                 });
             });
 
@@ -57,7 +57,7 @@ namespace AAImageFilter.Filters
 
         public IFilter Initialize()
         {
-            (this._other, this._multiplier) = _pluginConfigurator!.GetPluginConfiguration();
+            (this._other, this._multiplier) = this._pluginConfigurator!.GetPluginConfiguration();
             this._ready = true;
             return this;
         }

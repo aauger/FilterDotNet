@@ -12,7 +12,7 @@ namespace AAImageFilter.Filters
 
         public InvertFilter(Func<int, int, int, int, IColor> colorCreator)
         {
-            _colorCreator = colorCreator;
+            this._colorCreator = colorCreator;
         }
 
         public IImage Apply(IImage input)
@@ -26,7 +26,7 @@ namespace AAImageFilter.Filters
                     int g = 255 - here.G;
                     int b = 255 - here.B;
 
-                    IColor nColor = _colorCreator(r, g, b, 255);
+                    IColor nColor = this._colorCreator(r, g, b, 255);
 
                     input.SetPixel(x, y, nColor);
                 });

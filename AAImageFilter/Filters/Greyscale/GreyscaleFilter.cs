@@ -12,7 +12,7 @@ namespace AAImageFilter.Filters
 
         public GreyscaleFilter(Func<int, int, int, int, IColor> colorCreator)
         {
-            _colorCreator = colorCreator;
+            this._colorCreator = colorCreator;
         }
 
         public IImage Apply(IImage input)
@@ -22,7 +22,7 @@ namespace AAImageFilter.Filters
                     IColor here = input.GetPixel(x, y);
                     int avg = (here.R + here.G + here.B) / 3;
 
-                    IColor nColor = _colorCreator(avg, avg, avg, 255);
+                    IColor nColor = this._colorCreator(avg, avg, avg, 255);
 
                     input.SetPixel(x, y, nColor);
                 });

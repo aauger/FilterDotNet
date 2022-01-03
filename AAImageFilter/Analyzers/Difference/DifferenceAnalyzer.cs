@@ -34,7 +34,7 @@ namespace AAImageFilter.Analyzers
                 Parallel.For(0, input.Height, (int y) => 
                 { 
                     IColor here = input.GetPixel(x, y);
-                    IColor there = _other!.GetPixel(x, y);
+                    IColor there = this._other!.GetPixel(x, y);
 
                     double rDiff = Math.Abs(here.R - there.R);
                     double gDiff = Math.Abs(here.G - there.G);

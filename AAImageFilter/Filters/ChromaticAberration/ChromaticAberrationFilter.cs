@@ -14,13 +14,13 @@ namespace AAImageFilter.Filters
 
         public ChromaticAberrationFilter(Func<int, int, IImage> imageCreator, Func<int, int, int, int, IColor> colorCreator)
         {
-            _imageCreator = imageCreator;
-            _colorCreator = colorCreator;
+            this._imageCreator = imageCreator;
+            this._colorCreator = colorCreator;
         }
 
         public IImage Apply(IImage input)
         {
-            IImage output = _imageCreator(input.Width, input.Height);
+            IImage output = this._imageCreator(input.Width, input.Height);
             Parallel.For(2, input.Width - 2, x => {
                 Parallel.For(2, input.Height - 2, y => {
                     IColor here = input.GetPixel(x, y);
@@ -30,7 +30,7 @@ namespace AAImageFilter.Filters
                     int R = MathUtils.RGBClamp((int)(here.R * .25 + upLeft.R * .75));
                     int B = MathUtils.RGBClamp((int)(here.B * .25 + boRight.B * .75));
 
-                    output.SetPixel(x, y, _colorCreator(R, here.G, B, 255));
+                    output.SetPixel(x, y, this._colorCreator(R, here.G, B, 255));
                 });
             });
             return output;

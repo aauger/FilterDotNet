@@ -25,18 +25,18 @@ namespace AAImageFilter.Filters
 
         public IImage Apply(IImage input)
         {
-            if (!_ready)
+            if (!this._ready)
                 throw new NotReadyException();
 
             Random rnd = new Random();
-            IImage ret = _imageCreator(input.Width, input.Height);
+            IImage ret = this._imageCreator(input.Width, input.Height);
 
             Parallel.For(0, input.Width, (int x) =>
             {
                 Parallel.For(0, input.Height, (int y) =>
                 {
-                    int x2 = MathUtils.Clamp(x + rnd.Next(-_glassDistance, _glassDistance), 0, input.Width - 1);
-                    int y2 = MathUtils.Clamp(y + rnd.Next(-_glassDistance, _glassDistance), 0, input.Height - 1);
+                    int x2 = MathUtils.Clamp(x + rnd.Next(-this._glassDistance, this._glassDistance), 0, input.Width - 1);
+                    int y2 = MathUtils.Clamp(y + rnd.Next(-this._glassDistance, this._glassDistance), 0, input.Height - 1);
                     IColor here = input.GetPixel(x, y);
                     IColor there = input.GetPixel(x2, y2);
 
@@ -50,8 +50,8 @@ namespace AAImageFilter.Filters
 
         public IFilter Initialize()
         {
-            _glassDistance = _pluginConfigurator.GetPluginConfiguration();
-            _ready = true;
+            this._glassDistance = this._pluginConfigurator.GetPluginConfiguration();
+            this._ready = true;
             return this;
         }
     }

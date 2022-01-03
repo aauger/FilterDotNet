@@ -27,22 +27,22 @@ namespace AAImageFilter.Filters
 
         public IImage Apply(IImage input)
         {
-            if (!_ready)
+            if (!this._ready)
                 throw new NotReadyException();
 
-            IImage output = _imageCreator(input.Width, input.Height);
+            IImage output = this._imageCreator(input.Width, input.Height);
 
             Parallel.For(0, input.Width, (int x) =>
             {
                 Parallel.For(0, input.Height, (int y) =>
                 {
-                    IColor m = _mask!.GetPixel(x, y);
+                    IColor m = this._mask!.GetPixel(x, y);
                     bool isWhite =
                         m.R == 255 && m.G == 255 && m.B == 255;
                     if (!isWhite)
                         output.SetPixel(x, y, input.GetPixel(x, y));
                     else
-                        output.SetPixel(x, y, _colorCreator(0, 0, 0, 255));
+                        output.SetPixel(x, y, this._colorCreator(0, 0, 0, 255));
                 });
             });
 
@@ -51,8 +51,8 @@ namespace AAImageFilter.Filters
 
         public IFilter Initialize()
         {
-            _mask = _pluginConfigurator.GetPluginConfiguration();
-            _ready = true;
+            this._mask = this._pluginConfigurator.GetPluginConfiguration();
+            this._ready = true;
             return this;
         }
     }

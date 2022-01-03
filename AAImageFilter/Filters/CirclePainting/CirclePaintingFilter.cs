@@ -28,10 +28,10 @@ namespace AAImageFilter.Filters
 
         public IImage Apply(IImage input)
         {
-            if (!_ready)
+            if (!this._ready)
                 throw new NotReadyException();
 
-            IImage ret = _imageCreator(input.Width, input.Height);
+            IImage ret = this._imageCreator(input.Width, input.Height);
 
             List<Circle> circles = new();
             for (int x = 0; x < input.Width; x += _minRad * 2)
@@ -89,8 +89,8 @@ namespace AAImageFilter.Filters
 
         public IFilter Initialize()
         {
-            (_maxDiff, _minRad, _maxRad) = _pluginConfigurator.GetPluginConfiguration();
-            _ready = true;
+            (this._maxDiff, this._minRad, this._maxRad) = this._pluginConfigurator.GetPluginConfiguration();
+            this._ready = true;
             return this;
         }
     }

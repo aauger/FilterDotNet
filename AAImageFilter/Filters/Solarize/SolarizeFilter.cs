@@ -20,12 +20,12 @@ namespace AAImageFilter.Filters
         public SolarizeFilter(IPluginConfigurator<int> pluginConfigurator, Func<int, int, int, int, IColor> colorCreator)
         {
             this._pluginConfigurator = pluginConfigurator;
-            _colorCreator = colorCreator;
+            this._colorCreator = colorCreator;
         }
 
         public IImage Apply(IImage input)
         {
-            if (!_ready)
+            if (!this._ready)
                 throw new NotReadyException();
 
             Parallel.For(0, input.Width, (int x) =>
@@ -33,7 +33,7 @@ namespace AAImageFilter.Filters
                 Parallel.For(0, input.Height, (int y) => {
                     IColor here = input.GetPixel(x, y);
                     int avg = (here.R + here.G + here.B) / 3;
-                    IColor nColor = avg > _solarizeThreshold ? here.Inverse(_colorCreator) : here;
+                    IColor nColor = avg > this._solarizeThreshold ? here.Inverse(this._colorCreator) : here;
 
                     input.SetPixel(x, y, nColor);
                 });
@@ -44,8 +44,8 @@ namespace AAImageFilter.Filters
 
         public IFilter Initialize()
         {
-            _solarizeThreshold = _pluginConfigurator.GetPluginConfiguration();
-            _ready = true;
+            this._solarizeThreshold = this._pluginConfigurator.GetPluginConfiguration();
+            this._ready = true;
             return this;
         }
     }
