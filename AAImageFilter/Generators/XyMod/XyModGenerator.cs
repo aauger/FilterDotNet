@@ -26,13 +26,13 @@ namespace AAImageFilter.Generators
 
         public IImage Generate()
         {
-            if (!_ready)
+            if (!this._ready)
                 throw new NotReadyException();
 
             IColor black = _colorCreator(0, 0, 0, 255);
             IColor white = _colorCreator(255, 255, 255, 255);
 
-            IImage image = _imageCreator(this._width, this._height);
+            IImage image = this._imageCreator(this._width, this._height);
 
             Parallel.For(0, this._width, (int x) =>
             {
@@ -54,8 +54,8 @@ namespace AAImageFilter.Generators
 
         public IGenerator Initialize()
         {
-            (_width, _height, _mod) = _generatorConfigurator.GetGeneratorConfiguration();
-            _ready = true;
+            (this._width, this._height, this._mod) = _generatorConfigurator.GetGeneratorConfiguration();
+            this._ready = true;
             return this;
         }
     }

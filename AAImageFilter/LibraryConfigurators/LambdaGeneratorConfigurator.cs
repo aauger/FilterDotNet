@@ -13,7 +13,7 @@ namespace AAImageFilter.LibraryConfigurators
 
         public T GetGeneratorConfiguration()
         {
-            return _lambda();
+            return this._lambda();
         }
     }
 }

@@ -13,7 +13,7 @@ namespace AAImageFilter.LibraryConfigurators
 
         public T GetPluginConfiguration()
         {
-            return _lambda();
+            return this._lambda();
         }
     }
 }

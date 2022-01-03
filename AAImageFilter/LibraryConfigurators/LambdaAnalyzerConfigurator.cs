@@ -13,7 +13,7 @@ namespace AAImageFilter.LibraryConfigurators
 
         public T GetAnalyzerConfiguration()
         {
-            return _lambda();
+            return this._lambda();
         }
     }
 }
