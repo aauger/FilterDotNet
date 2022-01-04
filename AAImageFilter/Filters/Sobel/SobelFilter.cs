@@ -26,30 +26,14 @@ namespace AAImageFilter.Filters
         {
             IImage output = this._imageCreator(input.Width, input.Height);
 
-            var sobelLeftRightConfigurator = new LambdaPluginConfigurator<ConvolutionConfiguration>(() => new ConvolutionConfiguration
-            {
-                Bias = 1.0,
-                Normalize = false,
-                Values = new double[,] { { 1.0, 0.0, -1.0 }, { 2.0, 0.0, -2.0 }, { 1.0, 0.0, -1.0 } }
-            });
+            var sobelLeftRightConfigurator = CreateSobelConfigurator(new double[,] { { 1.0, 0.0, -1.0 }, { 2.0, 0.0, -2.0 }, { 1.0, 0.0, -1.0 } });
 
-            IImage sobelLeftRight = new ConvolutionFilter(sobelLeftRightConfigurator,             
-                this._imageCreator,
-                this._colorCreator)
-                .Initialize()
+            IImage sobelLeftRight = CreateSobelFilter(sobelLeftRightConfigurator)
                 .Apply(input);
 
-            var sobelTopBottomConfigurator = new LambdaPluginConfigurator<ConvolutionConfiguration>(() => new ConvolutionConfiguration
-            {
-                Bias = 1.0,
-                Normalize = false,
-                Values = new double[,] { { 1.0, 2.0, 1.0 }, { 0.0, 0.0, 0.0 }, { -1.0, -2.0, -1.0 } }
-            });
+            var sobelTopBottomConfigurator = CreateSobelConfigurator(new double[,] { { 1.0, 2.0, 1.0 }, { 0.0, 0.0, 0.0 }, { -1.0, -2.0, -1.0 } });
 
-            IImage sobelTopBottom = new ConvolutionFilter(sobelTopBottomConfigurator,
-                this._imageCreator,
-                this._colorCreator)
-                .Initialize()
+            IImage sobelTopBottom = CreateSobelFilter(sobelTopBottomConfigurator)
                 .Apply(input);
 
             Parallel.For(0, output.Width, (int x) => {
@@ -69,6 +53,20 @@ namespace AAImageFilter.Filters
             });
 
             return output;
+        }
+
+        public static LambdaPluginConfigurator<ConvolutionConfiguration> CreateSobelConfigurator(double[,] values)
+        {
+            return new LambdaPluginConfigurator<ConvolutionConfiguration>(() => new() {
+                Bias = 1.0,
+                Normalize = false,
+                Values = values
+            });
+        }
+
+        public ConvolutionFilter CreateSobelFilter(IPluginConfigurator<ConvolutionConfiguration> configurator)
+        {
+            return (ConvolutionFilter)new ConvolutionFilter(configurator, this._imageCreator, this._colorCreator).Initialize();
         }
     }
 }
