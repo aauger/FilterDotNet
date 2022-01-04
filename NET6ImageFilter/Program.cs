@@ -32,10 +32,10 @@ namespace NET6ImageFilter
                 new NormalMap(new WinformsNormalMapConfigurator(), FiImageCreator, FiColorCreator),
                 new PosterizeFilter(new WinformIntConfigurator("Levels:"), FiImageCreator, FiColorCreator),
                 new PixelateFilter(new WinformTwoIntConfigurator("Block width:", "Block height:"), FiImageCreator),
-                new SolarizeFilter(new WinformIntConfigurator("Solarize threshold:"), FiColorCreator),
+                new SolarizeFilter(new WinformIntConfigurator("Solarize threshold:"), FiImageCreator, FiColorCreator),
                 new SobelFilter(FiImageCreator, FiColorCreator),
                 new StatisticalFilter(new WinformsStatisticalConfigurator(), FiImageCreator, FiColorCreator),
-                new ThresholdFilter(new WinformIntConfigurator("Threshold:"), FiColorCreator),
+                new ThresholdFilter(new WinformIntConfigurator("Threshold:"), FiImageCreator, FiColorCreator),
             };
             List<IGenerator> generators = new()
             {
