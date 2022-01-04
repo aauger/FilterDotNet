@@ -26,12 +26,12 @@ namespace AAImageFilter.Filters
         {
             IImage output = this._imageCreator(input.Width, input.Height);
 
-            var sobelLeftRightConfigurator = CreateSobelConfigurator(new double[,] { { 1.0, 0.0, -1.0 }, { 2.0, 0.0, -2.0 }, { 1.0, 0.0, -1.0 } });
+            var sobelLeftRightConfigurator = CreateSobelConfigurator(new [,]{ { 1.0, 0.0, -1.0 }, { 2.0, 0.0, -2.0 }, { 1.0, 0.0, -1.0 } });
 
             IImage sobelLeftRight = CreateSobelFilter(sobelLeftRightConfigurator)
                 .Apply(input);
 
-            var sobelTopBottomConfigurator = CreateSobelConfigurator(new double[,] { { 1.0, 2.0, 1.0 }, { 0.0, 0.0, 0.0 }, { -1.0, -2.0, -1.0 } });
+            var sobelTopBottomConfigurator = CreateSobelConfigurator(new [,]{ { 1.0, 2.0, 1.0 }, { 0.0, 0.0, 0.0 }, { -1.0, -2.0, -1.0 } });
 
             IImage sobelTopBottom = CreateSobelFilter(sobelTopBottomConfigurator)
                 .Apply(input);
