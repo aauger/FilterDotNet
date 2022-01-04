@@ -30,7 +30,7 @@ namespace AAImageFilter.Filters
             if (!this._ready)
                 throw new NotReadyException();
 
-            IImage ret = this._imageCreator(input.Width, input.Height);
+            IImage output = this._imageCreator(input.Width, input.Height);
             int bs = 255 / this._levels;
 
             Parallel.For(0, input.Width, (int x) =>
@@ -43,11 +43,11 @@ namespace AAImageFilter.Filters
                     nr = (int)(Math.Round(c.R / (float)bs) * bs);
                     ng = (int)(Math.Round(c.G / (float)bs) * bs);
                     nb = (int)(Math.Round(c.B / (float)bs) * bs);
-                    ret.SetPixel(x, y, this._colorCreator(nr, ng, nb, 255));
+                    output.SetPixel(x, y, this._colorCreator(nr, ng, nb, 255));
                 });
             });
 
-            return ret;
+            return output;
         }
 
         public IFilter Initialize()

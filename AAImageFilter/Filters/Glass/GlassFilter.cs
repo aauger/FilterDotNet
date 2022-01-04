@@ -29,7 +29,7 @@ namespace AAImageFilter.Filters
                 throw new NotReadyException();
 
             Random rnd = new Random();
-            IImage ret = this._imageCreator(input.Width, input.Height);
+            IImage output = this._imageCreator(input.Width, input.Height);
 
             Parallel.For(0, input.Width, (int x) =>
             {
@@ -40,12 +40,12 @@ namespace AAImageFilter.Filters
                     IColor here = input.GetPixel(x, y);
                     IColor there = input.GetPixel(x2, y2);
 
-                    ret.SetPixel(x, y, there);
-                    ret.SetPixel(x2, y2, here);
+                    output.SetPixel(x, y, there);
+                    output.SetPixel(x2, y2, here);
                 });
             });
 
-            return ret;
+            return output;
         }
 
         public IFilter Initialize()

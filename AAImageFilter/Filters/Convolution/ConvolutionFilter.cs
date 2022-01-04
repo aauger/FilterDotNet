@@ -39,7 +39,7 @@ namespace AAImageFilter.Filters
                 throw new NotReadyException();
 
             ConvolutionConfiguration cfg = this._configuration!;
-            IImage ret = this._imageCreator(input.Width, input.Height);
+            IImage output = this._imageCreator(input.Width, input.Height);
 
             IEnumerable<int> xVals = Enumerable.Range(-cfg.Values.GetLength(0) / 2, cfg.Values.GetLength(0));
             IEnumerable<int> yVals = Enumerable.Range(-cfg.Values.GetLength(1) / 2, cfg.Values.GetLength(1));
@@ -86,11 +86,11 @@ namespace AAImageFilter.Filters
                         bi = MathUtils.RGBClamp((int)b);                    
                     }
                     
-                    ret.SetPixel(x, y, this._colorCreator(ri, gi, bi, 255));
+                    output.SetPixel(x, y, this._colorCreator(ri, gi, bi, 255));
                 });
             });
 
-            return ret;
+            return output;
         }
 
         public IFilter Initialize()

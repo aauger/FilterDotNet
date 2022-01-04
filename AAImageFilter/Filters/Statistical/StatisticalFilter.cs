@@ -48,7 +48,7 @@ namespace AAImageFilter.Filters
                 throw new NotReadyException();
 
             var cfg = this._configuration!;
-            IImage ret = this._imageCreator(input.Width, input.Height);
+            IImage output = this._imageCreator(input.Width, input.Height);
 
             Parallel.For(0, input.Width, (int x) =>
             {
@@ -111,11 +111,11 @@ namespace AAImageFilter.Filters
                             break;
                     }
 
-                    ret.SetPixel(x, y, this._colorCreator(ri, gi, bi, 255));
+                    output.SetPixel(x, y, this._colorCreator(ri, gi, bi, 255));
                 });
             });
 
-            return ret;
+            return output;
         }
 
         private static int Median(List<int> xs)

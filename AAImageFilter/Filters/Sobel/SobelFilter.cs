@@ -24,7 +24,7 @@ namespace AAImageFilter.Filters
 
         public IImage Apply(IImage input)
         {
-            IImage ret = this._imageCreator(input.Width, input.Height);
+            IImage output = this._imageCreator(input.Width, input.Height);
 
             var sobelLeftRightConfigurator = new LambdaPluginConfigurator<ConvolutionConfiguration>(() => new ConvolutionConfiguration
             {
@@ -52,8 +52,8 @@ namespace AAImageFilter.Filters
                 .Initialize()
                 .Apply(input);
 
-            Parallel.For(0, ret.Width, (int x) => {
-                Parallel.For(0, ret.Height, (int y) => {
+            Parallel.For(0, output.Width, (int x) => {
+                Parallel.For(0, output.Height, (int y) => {
                     IColor lrc = sobelLeftRight.GetPixel(x, y);
                     IColor tbc = sobelTopBottom.GetPixel(x, y);
 
@@ -64,11 +64,11 @@ namespace AAImageFilter.Filters
                         255
                         );
 
-                    ret.SetPixel(x, y, blended);
+                    output.SetPixel(x, y, blended);
                 });
             });
 
-            return ret;
+            return output;
         }
     }
 }

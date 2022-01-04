@@ -31,7 +31,7 @@ namespace AAImageFilter.Filters
             if (!this._ready)
                 throw new NotReadyException();
 
-            IImage ret = this._imageCreator(input.Width, input.Height);
+            IImage output = this._imageCreator(input.Width, input.Height);
 
             Parallel.For(0, input.Width, (int x) => {
                 Parallel.For(0, input.Height, (int y) => 
@@ -52,11 +52,11 @@ namespace AAImageFilter.Filters
                     int yCalcWrapS = yCalcWrapF < 0 ? -yCalcWrapF : yCalcWrapF;
 
                     IColor transposedLocation = input.GetPixel(xCalcWrapS, yCalcWrapS);
-                    ret.SetPixel(x, y, transposedLocation);
+                    output.SetPixel(x, y, transposedLocation);
                 });
             });
 
-            return ret;
+            return output;
         }
 
         public IFilter Initialize()

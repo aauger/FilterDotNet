@@ -7,6 +7,7 @@ namespace AAImageFilter.Filters
     {
         /* DI */
         private readonly IPluginConfigurator<(int, int)> _pluginConfigurator;
+        private readonly Func<int, int, IImage> _imageCreator;
 
         /* Internals */
         private int _width = 0;
@@ -16,15 +17,18 @@ namespace AAImageFilter.Filters
         /* Properties */
         public string Name => "Pixelate";
 
-        public PixelateFilter(IPluginConfigurator<(int, int)> pluginConfigurator)
+        public PixelateFilter(IPluginConfigurator<(int, int)> pluginConfigurator, Func<int,int,IImage> imageCreator)
         { 
             this._pluginConfigurator = pluginConfigurator;
+            this._imageCreator = imageCreator;
         }
 
         public IImage Apply(IImage input)
         {
             if (!this._ready)
                 throw new NotReadyException();
+
+            IImage output = this._imageCreator(input.Width, input.Height);
 
             Parallel.For(0, input.Width / this._width, (int xMu) => {
                 Parallel.For(0, input.Height / this._height, (int yMu) => {
@@ -37,13 +41,13 @@ namespace AAImageFilter.Filters
                     {
                         for (int yi = y; yi < (y + this._height) && yi < input.Height; yi++)
                         {
-                            input.SetPixel(xi, yi, r);
+                            output.SetPixel(xi, yi, r);
                         }
                     }
                 });
             });
 
-            return input;
+            return output;
         }
 
         public IFilter Initialize()
