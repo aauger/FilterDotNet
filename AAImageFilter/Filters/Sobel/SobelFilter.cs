@@ -56,7 +56,7 @@ namespace AAImageFilter.Filters
             return output;
         }
 
-        public static LambdaPluginConfigurator<ConvolutionConfiguration> CreateSobelConfigurator(double[,] values)
+        private static LambdaPluginConfigurator<ConvolutionConfiguration> CreateSobelConfigurator(double[,] values)
         {
             return new LambdaPluginConfigurator<ConvolutionConfiguration>(() => new() {
                 Bias = 1.0,
@@ -65,7 +65,7 @@ namespace AAImageFilter.Filters
             });
         }
 
-        public ConvolutionFilter CreateSobelFilter(IPluginConfigurator<ConvolutionConfiguration> configurator)
+        private ConvolutionFilter CreateSobelFilter(IPluginConfigurator<ConvolutionConfiguration> configurator)
         {
             return (ConvolutionFilter)new ConvolutionFilter(configurator, this._imageCreator, this._colorCreator).Initialize();
         }

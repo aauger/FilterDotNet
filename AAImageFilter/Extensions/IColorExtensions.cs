@@ -20,5 +20,10 @@ namespace AAImageFilter.Extensions
                 + Math.Abs((c.G - other.G))
                 + Math.Abs((c.B - other.B));
         }
+
+        public static int Average(this IColor c)
+        {
+            return c.R + c.G + c.B / 3;
+        }
     }
 }
