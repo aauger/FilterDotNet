@@ -21,6 +21,7 @@ namespace NET6ImageFilter
             ApplicationConfiguration.Initialize();
             List<IFilter> filters = new()
             {
+                new BasReliefFilter(new WinformIntConfigurator("Height:"), FiImageCreator, FiColorCreator),
                 new ChromaticAberrationFilter(FiImageCreator, FiColorCreator),
                 new CirclePaintingFilter(new WinformThreeIntConfigurator(), FiImageCreator, FiColorCreator),
                 new ColorOverlayFilter(new WinformGetImageDialog(), FiImageCreator, FiColorCreator),

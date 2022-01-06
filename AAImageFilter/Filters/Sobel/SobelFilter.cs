@@ -14,6 +14,7 @@ namespace AAImageFilter.Filters
         private readonly Func<int, int, IImage> _imageCreator;
         private readonly Func<int, int, int, int, IColor> _colorCreator;
 
+        /* Properties */
         public string Name => "Sobel Edge Detection";
 
         public SobelFilter(Func<int, int, IImage> imageCreator, Func<int, int, int, int, IColor> colorCreator)
