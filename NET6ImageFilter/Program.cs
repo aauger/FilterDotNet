@@ -30,6 +30,7 @@ namespace NET6ImageFilter
                 new GlassFilter(new WinformIntConfigurator("Maximum distance:"), FiImageCreator),
                 new GreyscaleFilter(FiImageCreator, FiColorCreator),
                 new InvertFilter(FiImageCreator, FiColorCreator),
+                new MeltingFilter(FiImageCreator),
                 new NormalMap(new WinformsNormalMapConfigurator(), FiImageCreator, FiColorCreator),
                 new PosterizeFilter(new WinformIntConfigurator("Levels:"), FiImageCreator, FiColorCreator),
                 new PixelateFilter(new WinformTwoIntConfigurator("Block width:", "Block height:"), FiImageCreator),
