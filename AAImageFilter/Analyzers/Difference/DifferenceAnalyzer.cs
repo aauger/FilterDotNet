@@ -1,7 +1,7 @@
-﻿using AAImageFilter.Exceptions;
-using AAImageFilter.Interfaces;
+﻿using FilterDotNet.Exceptions;
+using FilterDotNet.Interfaces;
 
-namespace AAImageFilter.Analyzers
+namespace FilterDotNet.Analyzers
 {
     public class DifferenceAnalyzer : IAnalyzer, IConfigurableAnalyzer
     {

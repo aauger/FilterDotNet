@@ -1,4 +1,4 @@
-﻿using AAImageFilter.Interfaces;
+﻿using FilterDotNet.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

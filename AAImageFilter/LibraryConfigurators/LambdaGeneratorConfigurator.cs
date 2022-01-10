@@ -1,6 +1,6 @@
-﻿using AAImageFilter.Interfaces;
+﻿using FilterDotNet.Interfaces;
 
-namespace AAImageFilter.LibraryConfigurators
+namespace FilterDotNet.LibraryConfigurators
 {
     public class LambdaGeneratorConfigurator<T> : IGeneratorConfigurator<T>
     {

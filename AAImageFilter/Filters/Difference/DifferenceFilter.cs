@@ -1,15 +1,14 @@
-﻿using AAImageFilter.Exceptions;
-using AAImageFilter.Interfaces;
-using AAImageFilter.Utils;
+﻿using FilterDotNet.Exceptions;
+using FilterDotNet.Interfaces;
+using FilterDotNet.Utils;
 
-namespace AAImageFilter.Filters
+namespace FilterDotNet.Filters
 {
     public class DifferenceFilter : IFilter, IConfigurableFilter
     {
         /* DI */
         private IPluginConfigurator<(IImage, double)>? _pluginConfigurator;
-        private Func<int, int, IImage> _imageCreator;
-        private Func<int, int, int, int, IColor> _colorCreator;
+        private IEngine _engine;
 
         /* Internals */
         private IImage? _other;
@@ -19,11 +18,10 @@ namespace AAImageFilter.Filters
         /* Properties */
         public string Name => "Difference";
 
-        public DifferenceFilter(IPluginConfigurator<(IImage, double)> pluginConfigurator, Func<int, int, IImage> imageCreator, Func<int,int,int,int,IColor> colorCreator)
+        public DifferenceFilter(IPluginConfigurator<(IImage, double)> pluginConfigurator, IEngine engine)
         {
             this._pluginConfigurator = pluginConfigurator;
-            this._colorCreator = colorCreator;
-            this._imageCreator = imageCreator;
+            this._engine = engine;
         }
 
         public IImage Apply(IImage input)
@@ -31,7 +29,7 @@ namespace AAImageFilter.Filters
             if (!this._ready)
                 throw new NotReadyException();
 
-            IImage output = this._imageCreator(input.Width, input.Height);
+            IImage output = this._engine.CreateImage(input.Width, input.Height);
 
             Parallel.For(0, input.Width, (int x) =>
             {
@@ -48,7 +46,7 @@ namespace AAImageFilter.Filters
                     int g = MathUtils.RGBClamp((int)(gDiff * this._multiplier));
                     var b = MathUtils.RGBClamp((int)(bDiff * this._multiplier));
 
-                    output.SetPixel(x, y, this._colorCreator(r, g, b, 255));
+                    output.SetPixel(x, y, this._engine.CreateColor(r, g, b, 255));
                 });
             });
 

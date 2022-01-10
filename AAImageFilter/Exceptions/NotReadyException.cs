@@ -1,4 +1,4 @@
-﻿namespace AAImageFilter.Exceptions
+﻿namespace FilterDotNet.Exceptions
 {
     public class NotReadyException : Exception
     {

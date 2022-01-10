@@ -1,5 +1,5 @@
-using AAImageFilter.Filters;
-using AAImageFilter.Interfaces;
+using FilterDotNet.Filters;
+using FilterDotNet.Interfaces;
 using NET6ImageFilter.Dialogs;
 using NET6ImageFilter.ImageProviders;
 using System.ComponentModel;

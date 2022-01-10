@@ -1,5 +1,5 @@
-﻿using AAImageFilter.Interfaces;
-using AAImageFilter.Utils;
+﻿using FilterDotNet.Interfaces;
+using FilterDotNet.Utils;
 using FastImageLibrary;
 using System;
 using System.Collections.Generic;
@@ -22,9 +22,22 @@ namespace NET6ImageFilter.ImageProviders
             _fastImage = new FastImage(width, height);
         }
 
-        public FIDrawingImage(FastImage fastImage)
+        public FIDrawingImage(FastImage fastImage, bool clone = false)
         {
-            _fastImage = fastImage;
+            if (!clone)
+            { 
+                _fastImage = fastImage;
+                return;
+            }
+
+            _fastImage = new FastImage(fastImage.Width, fastImage.Height);
+            Parallel.For(0, fastImage.Width, (int x) => 
+            {
+                Parallel.For(0, fastImage.Height, (int y) => 
+                {
+                    _fastImage.SetPixel(x, y, fastImage.GetPixel(x, y));
+                });
+            });
         }
 
         public FIDrawingImage(Image a)

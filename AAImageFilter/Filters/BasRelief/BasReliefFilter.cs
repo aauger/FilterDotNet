@@ -1,13 +1,13 @@
-﻿using AAImageFilter.Exceptions;
-using AAImageFilter.Interfaces;
-using AAImageFilter.Utils;
+﻿using FilterDotNet.Exceptions;
+using FilterDotNet.Interfaces;
+using FilterDotNet.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AAImageFilter.Filters
+namespace FilterDotNet.Filters
 {
     public class BasReliefFilter : IFilter, IConfigurableFilter
     {

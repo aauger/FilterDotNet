@@ -1,25 +1,23 @@
-﻿using AAImageFilter.Interfaces;
+﻿using FilterDotNet.Interfaces;
 
-namespace AAImageFilter.Filters
+namespace FilterDotNet.Filters
 {
     public class InvertFilter : IFilter
     {
         /* DI */
-        private readonly Func<int, int, IImage> _imageCreator;
-        private readonly Func<int, int, int, int, IColor> _colorCreator;
+        private readonly IEngine _engine;
 
         /* Properties */
         public string Name => "Invert";
 
-        public InvertFilter(Func<int,int,IImage> imageCreator, Func<int, int, int, int, IColor> colorCreator)
+        public InvertFilter(IEngine engine)
         {
-            this._imageCreator = imageCreator;
-            this._colorCreator = colorCreator;
+            this._engine = engine;
         }
 
         public IImage Apply(IImage input)
         {
-            IImage output = this._imageCreator(input.Width, input.Height);
+            IImage output = this._engine.CreateImage(input.Width, input.Height);
 
             Parallel.For(0, input.Width, (int x) =>
             {
@@ -30,7 +28,7 @@ namespace AAImageFilter.Filters
                     int g = 255 - here.G;
                     int b = 255 - here.B;
 
-                    IColor nColor = this._colorCreator(r, g, b, 255);
+                    IColor nColor = this._engine.CreateColor(r, g, b, 255);
 
                     output.SetPixel(x, y, nColor);
                 });

@@ -1,15 +1,14 @@
-﻿using AAImageFilter.Interfaces;
-using AAImageFilter.Exceptions;
-using AAImageFilter.Extensions;
+﻿using FilterDotNet.Interfaces;
+using FilterDotNet.Exceptions;
+using FilterDotNet.Extensions;
 
-namespace AAImageFilter.Filters
+namespace FilterDotNet.Filters
 {
     public class SolarizeFilter : IFilter, IConfigurableFilter
     {
         /* DI */
         private readonly IPluginConfigurator<int> _pluginConfigurator;
-        private readonly Func<int, int, IImage> _imageCreator;
-        private readonly Func<int, int, int, int, IColor> _colorCreator;
+        private readonly IEngine _engine;
 
         /* Internals */
         private int _solarizeThreshold;
@@ -18,11 +17,10 @@ namespace AAImageFilter.Filters
         /* Properties */
         public string Name => "Solarize";
 
-        public SolarizeFilter(IPluginConfigurator<int> pluginConfigurator, Func<int,int,IImage> imageCreator, Func<int, int, int, int, IColor> colorCreator)
+        public SolarizeFilter(IPluginConfigurator<int> pluginConfigurator, IEngine engine)
         {
             this._pluginConfigurator = pluginConfigurator;
-            this._imageCreator = imageCreator;
-            this._colorCreator = colorCreator;
+            this._engine = engine;
         }
 
         public IImage Apply(IImage input)
@@ -30,14 +28,14 @@ namespace AAImageFilter.Filters
             if (!this._ready)
                 throw new NotReadyException();
 
-            IImage output = this._imageCreator(input.Width, input.Height);
+            IImage output = this._engine.CreateImage(input.Width, input.Height);
 
             Parallel.For(0, input.Width, (int x) =>
             {
                 Parallel.For(0, input.Height, (int y) => {
                     IColor here = input.GetPixel(x, y);
                     int avg = (here.R + here.G + here.B) / 3;
-                    IColor nColor = avg > this._solarizeThreshold ? here.Inverse(this._colorCreator) : here;
+                    IColor nColor = avg > this._solarizeThreshold ? here.Inverse(this._engine.CreateColor) : here;
 
                     output.SetPixel(x, y, nColor);
                 });

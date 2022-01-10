@@ -1,32 +1,30 @@
-﻿using AAImageFilter.Interfaces;
+﻿using FilterDotNet.Interfaces;
 
-namespace AAImageFilter.Filters
+namespace FilterDotNet.Filters
 {
     public class GreyscaleFilter: IFilter
     {
         /* DI */
-        private readonly Func<int, int, IImage> _imageCreator;
-        private readonly Func<int, int, int, int, IColor> _colorCreator;
+        private readonly IEngine _engine;
 
         /* Properties */
         public string Name => "Greyscale";
 
-        public GreyscaleFilter(Func<int,int,IImage> imageCreator, Func<int, int, int, int, IColor> colorCreator)
+        public GreyscaleFilter(IEngine engine)
         {
-            this._imageCreator = imageCreator;
-            this._colorCreator = colorCreator;
+            this._engine = engine;
         }
 
         public IImage Apply(IImage input)
         {
-            IImage output = this._imageCreator(input.Width, input.Height);
+            IImage output = this._engine.CreateImage(input.Width, input.Height);
 
             Parallel.For(0, input.Width, (int x) => {
                 Parallel.For(0, input.Height, (int y) => {
                     IColor here = input.GetPixel(x, y);
                     int avg = (here.R + here.G + here.B) / 3;
 
-                    IColor nColor = this._colorCreator(avg, avg, avg, 255);
+                    IColor nColor = this._engine.CreateColor(avg, avg, avg, 255);
 
                     output.SetPixel(x, y, nColor);
                 });

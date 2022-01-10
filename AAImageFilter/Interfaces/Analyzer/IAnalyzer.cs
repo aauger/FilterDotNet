@@ -1,4 +1,4 @@
-﻿namespace AAImageFilter.Interfaces
+﻿namespace FilterDotNet.Interfaces
 {
     public interface IAnalyzer
     {

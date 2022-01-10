@@ -1,8 +1,8 @@
-﻿using AAImageFilter.Exceptions;
-using AAImageFilter.Extensions;
-using AAImageFilter.Interfaces;
+﻿using FilterDotNet.Exceptions;
+using FilterDotNet.Extensions;
+using FilterDotNet.Interfaces;
 
-namespace AAImageFilter.Filters
+namespace FilterDotNet.Filters
 {
     public enum StatisticalFilterMode { 
         MIN,
@@ -23,8 +23,7 @@ namespace AAImageFilter.Filters
     {
         /* DI */
         private readonly IPluginConfigurator<StatisticalFilterConfiguration> _pluginConfigurator;
-        private readonly Func<int, int, IImage> _imageCreator;
-        private readonly Func<int, int, int, int, IColor> _colorCreator;
+        private readonly IEngine _engine;
 
         /* Internals */
         private StatisticalFilterConfiguration? _configuration;
@@ -33,13 +32,10 @@ namespace AAImageFilter.Filters
         /* Properties */
         public string Name => "Statistical (Min, Max, Median, Mode, ...)";
 
-        public StatisticalFilter(IPluginConfigurator<StatisticalFilterConfiguration> pluginConfigurator, 
-            Func<int,int,IImage> imageCreator,
-            Func<int,int,int,int,IColor> colorCreator) 
+        public StatisticalFilter(IPluginConfigurator<StatisticalFilterConfiguration> pluginConfigurator, IEngine engine) 
         { 
             this._pluginConfigurator = pluginConfigurator;
-            this._imageCreator = imageCreator;
-            this._colorCreator = colorCreator;
+            this._engine = engine;
         }
 
         public IImage Apply(IImage input)
@@ -48,7 +44,7 @@ namespace AAImageFilter.Filters
                 throw new NotReadyException();
 
             var cfg = this._configuration!;
-            IImage output = this._imageCreator(input.Width, input.Height);
+            IImage output = this._engine.CreateImage(input.Width, input.Height);
 
             Parallel.For(0, input.Width, (int x) =>
             {
@@ -111,7 +107,7 @@ namespace AAImageFilter.Filters
                             break;
                     }
 
-                    output.SetPixel(x, y, this._colorCreator(ri, gi, bi, 255));
+                    output.SetPixel(x, y, this._engine.CreateColor(ri, gi, bi, 255));
                 });
             });
 

@@ -1,10 +1,10 @@
-using AAImageFilter;
-using AAImageFilter.Interfaces;
-using AAImageFilter.Filters;
+using FilterDotNet;
+using FilterDotNet.Interfaces;
+using FilterDotNet.Filters;
 using NET6ImageFilter.BasicWinformsConfigurators;
 using NET6ImageFilter.SpecificConfigurators;
-using AAImageFilter.Generators;
-using AAImageFilter.Analyzers;
+using FilterDotNet.Generators;
+using FilterDotNet.Analyzers;
 using NET6ImageFilter.ImageProviders;
 using static NET6ImageFilter.Injectables;
 
@@ -23,22 +23,22 @@ namespace NET6ImageFilter
             List<IFilter> filters = new()
             {
                 new BasReliefFilter(new WinformIntConfigurator("Height:"), fie),
-                new ChromaticAberrationFilter(FiImageCreator, FiColorCreator),
-                new CirclePaintingFilter(new WinformThreeIntConfigurator(), FiImageCreator, FiColorCreator),
-                new ColorOverlayFilter(new WinformGetImageDialog(), FiImageCreator, FiColorCreator),
-                new ConvolutionFilter(new WinformsConvolutionConfigurator(), FiImageCreator, FiColorCreator),
-                new DifferenceFilter(new WinformsDifferenceConfigurator(), FiImageCreator, FiColorCreator),
-                new GlassFilter(new WinformIntConfigurator("Maximum distance:"), FiImageCreator),
-                new GreyscaleFilter(FiImageCreator, FiColorCreator),
-                new InvertFilter(FiImageCreator, FiColorCreator),
-                new MeltingFilter(FiImageCreator),
-                new NormalMap(new WinformsNormalMapConfigurator(), FiImageCreator, FiColorCreator),
-                new PosterizeFilter(new WinformIntConfigurator("Levels:"), FiImageCreator, FiColorCreator),
-                new PixelateFilter(new WinformTwoIntConfigurator("Block width:", "Block height:"), FiImageCreator),
-                new SolarizeFilter(new WinformIntConfigurator("Solarize threshold:"), FiImageCreator, FiColorCreator),
-                new SobelFilter(FiImageCreator, FiColorCreator),
-                new StatisticalFilter(new WinformsStatisticalConfigurator(), FiImageCreator, FiColorCreator),
-                new ThresholdFilter(new WinformIntConfigurator("Threshold:"), FiImageCreator, FiColorCreator),
+                new ChromaticAberrationFilter(fie),
+                new CirclePaintingFilter(new WinformThreeIntConfigurator(), fie),
+                new ColorOverlayFilter(new WinformGetImageDialog(), fie),
+                new ConvolutionFilter(new WinformsConvolutionConfigurator(), fie),
+                new DifferenceFilter(new WinformsDifferenceConfigurator(), fie),
+                new GlassFilter(new WinformIntConfigurator("Maximum distance:"), fie),
+                new GreyscaleFilter(fie),
+                new InvertFilter(fie),
+                new MeltingFilter(fie),
+                new NormalMap(new WinformsNormalMapConfigurator(), fie),
+                new PosterizeFilter(new WinformIntConfigurator("Levels:"), fie),
+                new PixelateFilter(new WinformTwoIntConfigurator("Block width:", "Block height:"), fie),
+                new SolarizeFilter(new WinformIntConfigurator("Solarize threshold:"), fie),
+                new SobelFilter(fie),
+                new StatisticalFilter(new WinformsStatisticalConfigurator(), fie),
+                new ThresholdFilter(new WinformIntConfigurator("Threshold:"), fie),
             };
             List<IGenerator> generators = new()
             {

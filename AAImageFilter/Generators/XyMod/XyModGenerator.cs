@@ -1,7 +1,7 @@
-﻿using AAImageFilter.Exceptions;
-using AAImageFilter.Interfaces;
+﻿using FilterDotNet.Exceptions;
+using FilterDotNet.Interfaces;
 
-namespace AAImageFilter.Generators
+namespace FilterDotNet.Generators
 {
     public class XyModGenerator : IGenerator, IConfigurableGenerator
     {

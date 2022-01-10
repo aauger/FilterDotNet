@@ -1,4 +1,4 @@
-﻿using AAImageFilter.Interfaces;
+﻿using FilterDotNet.Interfaces;
 using NET6ImageFilter.ImageProviders;
 using System;
 using System.Collections.Generic;

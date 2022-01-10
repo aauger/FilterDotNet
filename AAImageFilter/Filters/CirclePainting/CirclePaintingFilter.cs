@@ -1,16 +1,15 @@
-﻿using AAImageFilter.Extensions;
-using AAImageFilter.Interfaces;
-using AAImageFilter.Utils;
-using AAImageFilter.Exceptions;
+﻿using FilterDotNet.Extensions;
+using FilterDotNet.Interfaces;
+using FilterDotNet.Utils;
+using FilterDotNet.Exceptions;
 
-namespace AAImageFilter.Filters
+namespace FilterDotNet.Filters
 {
     public class CirclePaintingFilter : IFilter, IConfigurableFilter
     {
         /* DI */
         private readonly IPluginConfigurator<(int, int, int)> _pluginConfigurator;
-        private readonly Func<int, int, IImage> _imageCreator;
-        private readonly Func<int, int, int, int, IColor> _colorCreator;
+        private readonly IEngine _engine;
 
         /* Internals */
         private bool _ready = false;
@@ -19,11 +18,10 @@ namespace AAImageFilter.Filters
         /* Properties */
         public string Name => "Circle Painting";
 
-        public CirclePaintingFilter(IPluginConfigurator<(int, int, int)> pluginConfigurator, Func<int,int,IImage> imageCreator, Func<int,int,int,int,IColor> colorCreator)
+        public CirclePaintingFilter(IPluginConfigurator<(int, int, int)> pluginConfigurator, IEngine engine)
         {
             this._pluginConfigurator = pluginConfigurator;
-            this._imageCreator = imageCreator;
-            this._colorCreator = colorCreator;
+            this._engine = engine;
         }
 
         public IImage Apply(IImage input)
@@ -31,7 +29,7 @@ namespace AAImageFilter.Filters
             if (!this._ready)
                 throw new NotReadyException();
 
-            IImage ret = this._imageCreator(input.Width, input.Height);
+            IImage output = this._engine.CreateImage(input.Width, input.Height);
 
             List<Circle> circles = new();
             for (int x = 0; x < input.Width; x += _minRad * 2)
@@ -78,13 +76,13 @@ namespace AAImageFilter.Filters
 
                     Parallel.For(-height, height, (int y) =>
                     {
-                        if (!ret.OutOfBounds(c.X + x, c.Y + y))
-                            ret.SetPixel(c.X + x, c.Y + y, c.Color!);
+                        if (!output.OutOfBounds(c.X + x, c.Y + y))
+                            output.SetPixel(c.X + x, c.Y + y, c.Color!);
                     });
                 });
             }
 
-            return ret;
+            return output;
         }
 
         public IFilter Initialize()

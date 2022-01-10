@@ -1,5 +1,5 @@
-﻿using AAImageFilter.Filters;
-using AAImageFilter.Interfaces;
+﻿using FilterDotNet.Filters;
+using FilterDotNet.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

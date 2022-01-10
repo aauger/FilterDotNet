@@ -1,4 +1,4 @@
-﻿namespace AAImageFilter.Extensions
+﻿namespace FilterDotNet.Extensions
 {
     public static class IEnumerableExtensions
     {

@@ -1,13 +1,13 @@
-﻿using AAImageFilter.Exceptions;
-using AAImageFilter.Interfaces;
+﻿using FilterDotNet.Exceptions;
+using FilterDotNet.Interfaces;
 
-namespace AAImageFilter.Filters
+namespace FilterDotNet.Filters
 {
     public class PixelateFilter : IFilter, IConfigurableFilter
     {
         /* DI */
         private readonly IPluginConfigurator<(int, int)> _pluginConfigurator;
-        private readonly Func<int, int, IImage> _imageCreator;
+        private readonly IEngine _engine;
 
         /* Internals */
         private int _width = 0;
@@ -17,10 +17,10 @@ namespace AAImageFilter.Filters
         /* Properties */
         public string Name => "Pixelate";
 
-        public PixelateFilter(IPluginConfigurator<(int, int)> pluginConfigurator, Func<int,int,IImage> imageCreator)
+        public PixelateFilter(IPluginConfigurator<(int, int)> pluginConfigurator, IEngine engine)
         { 
             this._pluginConfigurator = pluginConfigurator;
-            this._imageCreator = imageCreator;
+            this._engine = engine;
         }
 
         public IImage Apply(IImage input)
@@ -28,7 +28,7 @@ namespace AAImageFilter.Filters
             if (!this._ready)
                 throw new NotReadyException();
 
-            IImage output = this._imageCreator(input.Width, input.Height);
+            IImage output = this._engine.CreateImage(input.Width, input.Height);
 
             Parallel.For(0, input.Width / this._width, (int xMu) => {
                 Parallel.For(0, input.Height / this._height, (int yMu) => {

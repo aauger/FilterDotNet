@@ -1,26 +1,24 @@
-﻿using AAImageFilter.Interfaces;
-using AAImageFilter.Utils;
+﻿using FilterDotNet.Interfaces;
+using FilterDotNet.Utils;
 
-namespace AAImageFilter.Filters
+namespace FilterDotNet.Filters
 {
     public class ChromaticAberrationFilter : IFilter
     {
         /* DI */
-        private readonly Func<int, int, IImage> _imageCreator;
-        private readonly Func<int, int, int, int, IColor> _colorCreator;
+        private readonly IEngine _engine;
 
         /* Properties */
         public string Name => "Chromatic Abberation";
 
-        public ChromaticAberrationFilter(Func<int, int, IImage> imageCreator, Func<int, int, int, int, IColor> colorCreator)
+        public ChromaticAberrationFilter(IEngine engine)
         {
-            this._imageCreator = imageCreator;
-            this._colorCreator = colorCreator;
+            this._engine = engine;
         }
 
         public IImage Apply(IImage input)
         {
-            IImage output = this._imageCreator(input.Width, input.Height);
+            IImage output = this._engine.CreateImage(input.Width, input.Height);
             Parallel.For(2, input.Width - 2, x => {
                 Parallel.For(2, input.Height - 2, y => {
                     IColor here = input.GetPixel(x, y);
@@ -30,7 +28,7 @@ namespace AAImageFilter.Filters
                     int R = MathUtils.RGBClamp((int)(here.R * .25 + upLeft.R * .75));
                     int B = MathUtils.RGBClamp((int)(here.B * .25 + boRight.B * .75));
 
-                    output.SetPixel(x, y, this._colorCreator(R, here.G, B, 255));
+                    output.SetPixel(x, y, this._engine.CreateColor(R, here.G, B, 255));
                 });
             });
             return output;

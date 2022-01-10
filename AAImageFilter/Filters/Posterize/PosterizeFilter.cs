@@ -1,14 +1,13 @@
-﻿using AAImageFilter.Interfaces;
-using AAImageFilter.Exceptions;
+﻿using FilterDotNet.Interfaces;
+using FilterDotNet.Exceptions;
 
-namespace AAImageFilter.Filters
+namespace FilterDotNet.Filters
 {
     public class PosterizeFilter : IFilter, IConfigurableFilter
     {
         /* DI */
         private readonly IPluginConfigurator<int> _pluginConfigurator;
-        private readonly Func<int, int, IImage> _imageCreator;
-        private readonly Func<int, int, int, int, IColor> _colorCreator;
+        private readonly IEngine _engine;
 
         /* Internals */
         private int _levels;
@@ -17,11 +16,10 @@ namespace AAImageFilter.Filters
         /* Properties */
         public string Name => "Posterize";
 
-        public PosterizeFilter(IPluginConfigurator<int> pluginConfigurator, Func<int, int, IImage> imageCreator, Func<int, int, int, int, IColor> colorCreator)
+        public PosterizeFilter(IPluginConfigurator<int> pluginConfigurator, IEngine engine)
         {
             this._pluginConfigurator = pluginConfigurator;
-            this._imageCreator = imageCreator;
-            this._colorCreator = colorCreator;
+            this._engine = engine;
         }
 
 
@@ -30,7 +28,7 @@ namespace AAImageFilter.Filters
             if (!this._ready)
                 throw new NotReadyException();
 
-            IImage output = this._imageCreator(input.Width, input.Height);
+            IImage output = this._engine.CreateImage(input.Width, input.Height);
             int bs = 255 / this._levels;
 
             Parallel.For(0, input.Width, (int x) =>
@@ -43,7 +41,7 @@ namespace AAImageFilter.Filters
                     nr = (int)(Math.Round(c.R / (float)bs) * bs);
                     ng = (int)(Math.Round(c.G / (float)bs) * bs);
                     nb = (int)(Math.Round(c.B / (float)bs) * bs);
-                    output.SetPixel(x, y, this._colorCreator(nr, ng, nb, 255));
+                    output.SetPixel(x, y, this._engine.CreateColor(nr, ng, nb, 255));
                 });
             });
 

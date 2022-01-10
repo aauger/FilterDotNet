@@ -1,9 +1,9 @@
-﻿using AAImageFilter.Exceptions;
-using AAImageFilter.Extensions;
-using AAImageFilter.Interfaces;
-using AAImageFilter.Utils;
+﻿using FilterDotNet.Exceptions;
+using FilterDotNet.Extensions;
+using FilterDotNet.Interfaces;
+using FilterDotNet.Utils;
 
-namespace AAImageFilter.Filters
+namespace FilterDotNet.Filters
 {
     public class ConvolutionConfiguration
     {
@@ -16,8 +16,7 @@ namespace AAImageFilter.Filters
     {
         /* DI */
         private readonly IPluginConfigurator<ConvolutionConfiguration> _pluginConfigurator;
-        private readonly Func<int, int, IImage> _imageCreator;
-        private readonly Func<int, int, int, int, IColor> _colorCreator;
+        private readonly IEngine _engine;
 
         /* Internals */
         private ConvolutionConfiguration? _configuration;
@@ -26,11 +25,10 @@ namespace AAImageFilter.Filters
         /* Properties */
         public string Name => "Convolution";
 
-        public ConvolutionFilter(IPluginConfigurator<ConvolutionConfiguration> pluginConfigurator, Func<int,int,IImage> imageCreator, Func<int,int,int,int,IColor> colorCreator)
+        public ConvolutionFilter(IPluginConfigurator<ConvolutionConfiguration> pluginConfigurator, IEngine engine)
         { 
             this._pluginConfigurator = pluginConfigurator;
-            this._imageCreator = imageCreator;
-            this._colorCreator = colorCreator;
+            this._engine = engine;
         }
 
         public IImage Apply(IImage input)
@@ -39,7 +37,7 @@ namespace AAImageFilter.Filters
                 throw new NotReadyException();
 
             ConvolutionConfiguration cfg = this._configuration!;
-            IImage output = this._imageCreator(input.Width, input.Height);
+            IImage output = this._engine.CreateImage(input.Width, input.Height);
 
             IEnumerable<int> xVals = Enumerable.Range(-cfg.Values.GetLength(0) / 2, cfg.Values.GetLength(0));
             IEnumerable<int> yVals = Enumerable.Range(-cfg.Values.GetLength(1) / 2, cfg.Values.GetLength(1));
@@ -86,7 +84,7 @@ namespace AAImageFilter.Filters
                         bi = MathUtils.RGBClamp((int)b);                    
                     }
                     
-                    output.SetPixel(x, y, this._colorCreator(ri, gi, bi, 255));
+                    output.SetPixel(x, y, this._engine.CreateColor(ri, gi, bi, 255));
                 });
             });
 

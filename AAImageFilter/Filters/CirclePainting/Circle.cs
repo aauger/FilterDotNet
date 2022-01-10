@@ -1,6 +1,6 @@
-﻿using AAImageFilter.Interfaces;
+﻿using FilterDotNet.Interfaces;
 
-namespace AAImageFilter.Filters
+namespace FilterDotNet.Filters
 {
     internal class Circle
     {

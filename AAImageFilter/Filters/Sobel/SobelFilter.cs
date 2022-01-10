@@ -1,31 +1,29 @@
-﻿using AAImageFilter.Interfaces;
-using AAImageFilter.LibraryConfigurators;
+﻿using FilterDotNet.Interfaces;
+using FilterDotNet.LibraryConfigurators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AAImageFilter.Filters
+namespace FilterDotNet.Filters
 {
     public class SobelFilter : IFilter
     {
         /* DI */
-        private readonly Func<int, int, IImage> _imageCreator;
-        private readonly Func<int, int, int, int, IColor> _colorCreator;
+        private readonly IEngine _engine;
 
         /* Properties */
         public string Name => "Sobel Edge Detection";
 
-        public SobelFilter(Func<int, int, IImage> imageCreator, Func<int, int, int, int, IColor> colorCreator)
-        { 
-            this._imageCreator = imageCreator;
-            this._colorCreator = colorCreator;
+        public SobelFilter(IEngine engine)
+        {
+            this._engine = engine;
         }
 
         public IImage Apply(IImage input)
         {
-            IImage output = this._imageCreator(input.Width, input.Height);
+            IImage output = this._engine.CreateImage(input.Width, input.Height);
 
             var sobelLeftRightConfigurator = CreateSobelConfigurator(new [,]{ { 1.0, 0.0, -1.0 }, { 2.0, 0.0, -2.0 }, { 1.0, 0.0, -1.0 } });
 
@@ -42,7 +40,7 @@ namespace AAImageFilter.Filters
                     IColor lrc = sobelLeftRight.GetPixel(x, y);
                     IColor tbc = sobelTopBottom.GetPixel(x, y);
 
-                    IColor blended = this._colorCreator(
+                    IColor blended = this._engine.CreateColor(
                         (lrc.R + tbc.R) / 2,
                         (lrc.G + tbc.G) / 2,
                         (lrc.B + tbc.B) / 2,
@@ -67,7 +65,7 @@ namespace AAImageFilter.Filters
 
         private ConvolutionFilter CreateSobelFilter(IPluginConfigurator<ConvolutionConfiguration> configurator)
         {
-            return (ConvolutionFilter)new ConvolutionFilter(configurator, this._imageCreator, this._colorCreator).Initialize();
+            return (ConvolutionFilter)new ConvolutionFilter(configurator, this._engine).Initialize();
         }
     }
 }

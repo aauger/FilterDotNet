@@ -1,4 +1,4 @@
-﻿namespace AAImageFilter.Utils
+﻿namespace FilterDotNet.Utils
 {
     public class MathUtils
     {

@@ -1,14 +1,14 @@
-﻿using AAImageFilter.Exceptions;
-using AAImageFilter.Interfaces;
-using AAImageFilter.Utils;
+﻿using FilterDotNet.Exceptions;
+using FilterDotNet.Interfaces;
+using FilterDotNet.Utils;
 
-namespace AAImageFilter.Filters
+namespace FilterDotNet.Filters
 {
     public class GlassFilter : IFilter, IConfigurableFilter
     {
         /* DI */
         private readonly IPluginConfigurator<int> _pluginConfigurator;
-        private readonly Func<int, int, IImage> _imageCreator;
+        private readonly IEngine _engine;
 
         /* Internals */
         private int _glassDistance;
@@ -17,10 +17,10 @@ namespace AAImageFilter.Filters
         /* Properties */
         public string Name => "Glass";
 
-        public GlassFilter(IPluginConfigurator<int> pluginConfigurator, Func<int,int,IImage> imageCreator)
+        public GlassFilter(IPluginConfigurator<int> pluginConfigurator, IEngine engine)
         { 
             this._pluginConfigurator = pluginConfigurator;
-            this._imageCreator = imageCreator;
+            this._engine = engine;
         }
 
         public IImage Apply(IImage input)
@@ -29,7 +29,7 @@ namespace AAImageFilter.Filters
                 throw new NotReadyException();
 
             Random rnd = new Random();
-            IImage output = this._imageCreator(input.Width, input.Height);
+            IImage output = this._engine.CreateImage(input.Width, input.Height);
 
             Parallel.For(0, input.Width, (int x) =>
             {

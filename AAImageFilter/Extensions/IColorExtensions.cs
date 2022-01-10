@@ -1,6 +1,6 @@
-﻿using AAImageFilter.Interfaces;
+﻿using FilterDotNet.Interfaces;
 
-namespace AAImageFilter.Extensions
+namespace FilterDotNet.Extensions
 {
     public static class IColorExtensions
     {

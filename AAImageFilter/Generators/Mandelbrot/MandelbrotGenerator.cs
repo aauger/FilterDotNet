@@ -1,8 +1,8 @@
-﻿using AAImageFilter.Exceptions;
-using AAImageFilter.Interfaces;
-using AAImageFilter.Utils;
+﻿using FilterDotNet.Exceptions;
+using FilterDotNet.Interfaces;
+using FilterDotNet.Utils;
 
-namespace AAImageFilter.Generators
+namespace FilterDotNet.Generators
 {
     public class MandelbrotGenerator : IGenerator, IConfigurableGenerator
     {
