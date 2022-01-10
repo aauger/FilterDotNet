@@ -10,8 +10,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AAImageFilter\AAImageFilter.csproj" />
     <ProjectReference Include="..\FastImageLibrary\FastImageLibrary.csproj" />
+    <ProjectReference Include="..\FilterDotNet\FilterDotNet.csproj" />
   </ItemGroup>
 
   <ItemGroup>

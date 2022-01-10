@@ -19,26 +19,25 @@ namespace NET6ImageFilter
         static void Main()
         {
             ApplicationConfiguration.Initialize();
-            FastImageEngine fie = new FastImageEngine();
             List<IFilter> filters = new()
             {
-                new BasReliefFilter(new WinformIntConfigurator("Height:"), fie),
-                new ChromaticAberrationFilter(fie),
-                new CirclePaintingFilter(new WinformThreeIntConfigurator(), fie),
-                new ColorOverlayFilter(new WinformGetImageDialog(), fie),
-                new ConvolutionFilter(new WinformsConvolutionConfigurator(), fie),
-                new DifferenceFilter(new WinformsDifferenceConfigurator(), fie),
-                new GlassFilter(new WinformIntConfigurator("Maximum distance:"), fie),
-                new GreyscaleFilter(fie),
-                new InvertFilter(fie),
-                new MeltingFilter(fie),
-                new NormalMap(new WinformsNormalMapConfigurator(), fie),
-                new PosterizeFilter(new WinformIntConfigurator("Levels:"), fie),
-                new PixelateFilter(new WinformTwoIntConfigurator("Block width:", "Block height:"), fie),
-                new SolarizeFilter(new WinformIntConfigurator("Solarize threshold:"), fie),
-                new SobelFilter(fie),
-                new StatisticalFilter(new WinformsStatisticalConfigurator(), fie),
-                new ThresholdFilter(new WinformIntConfigurator("Threshold:"), fie),
+                new BasReliefFilter(new WinformIntConfigurator("Height:"), FiEngine),
+                new ChromaticAberrationFilter(FiEngine),
+                new CirclePaintingFilter(new WinformThreeIntConfigurator(), FiEngine),
+                new ColorOverlayFilter(new WinformGetImageDialog(), FiEngine),
+                new ConvolutionFilter(new WinformsConvolutionConfigurator(), FiEngine),
+                new DifferenceFilter(new WinformsDifferenceConfigurator(), FiEngine),
+                new GlassFilter(new WinformIntConfigurator("Maximum distance:"), FiEngine),
+                new GreyscaleFilter(FiEngine),
+                new InvertFilter(FiEngine),
+                new MeltingFilter(FiEngine),
+                new NormalMap(new WinformsNormalMapConfigurator(), FiEngine),
+                new PosterizeFilter(new WinformIntConfigurator("Levels:"), FiEngine),
+                new PixelateFilter(new WinformTwoIntConfigurator("Block width:", "Block height:"), FiEngine),
+                new SolarizeFilter(new WinformIntConfigurator("Solarize threshold:"), FiEngine),
+                new SobelFilter(FiEngine),
+                new StatisticalFilter(new WinformsStatisticalConfigurator(), FiEngine),
+                new ThresholdFilter(new WinformIntConfigurator("Threshold:"), FiEngine),
             };
             List<IGenerator> generators = new()
             {
