@@ -7,8 +7,7 @@ namespace FilterDotNet.Generators
     {
         /* DI */
         private readonly IGeneratorConfigurator<(int, int, int)> _generatorConfigurator;
-        private readonly Func<int, int, IImage> _imageCreator;
-        private readonly Func<int, int, int, int, IColor> _colorCreator;
+        private readonly IEngine _engine;
 
         /* Internals */
         private bool _ready = false;
@@ -17,11 +16,10 @@ namespace FilterDotNet.Generators
         /* Properties */
         public string Name => "XY Mod Generator";
 
-        public XyModGenerator(IGeneratorConfigurator<(int, int, int)> generatorConfigurator, Func<int, int, IImage> imageCreator, Func<int, int, int, int, IColor> colorCreator)
+        public XyModGenerator(IGeneratorConfigurator<(int, int, int)> generatorConfigurator, IEngine engine)
         {
             this._generatorConfigurator = generatorConfigurator;
-            this._imageCreator = imageCreator;
-            this._colorCreator = colorCreator;
+            this._engine = engine;
         }
 
         public IImage Generate()
@@ -29,10 +27,10 @@ namespace FilterDotNet.Generators
             if (!this._ready)
                 throw new NotReadyException();
 
-            IColor black = _colorCreator(0, 0, 0, 255);
-            IColor white = _colorCreator(255, 255, 255, 255);
+            IColor black = this._engine.CreateColor(0, 0, 0, 255);
+            IColor white = this._engine.CreateColor(255, 255, 255, 255);
 
-            IImage image = this._imageCreator(this._width, this._height);
+            IImage image = this._engine.CreateImage(this._width, this._height);
 
             Parallel.For(0, this._width, (int x) =>
             {

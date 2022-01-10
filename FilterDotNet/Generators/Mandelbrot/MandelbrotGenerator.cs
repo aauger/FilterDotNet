@@ -8,8 +8,7 @@ namespace FilterDotNet.Generators
     {
         /* DI */
         private readonly IGeneratorConfigurator<(int, int, int)> _generatorConfigurator;
-        private readonly Func<int, int, IImage> _imageCreator;
-        private readonly Func<int, int, int, int, IColor> _colorCreator;
+        private readonly IEngine _engine;
 
         /* Internals */
         private bool _ready = false;
@@ -19,11 +18,10 @@ namespace FilterDotNet.Generators
         /* Properties */
         public string Name => "Mandelbrot Set";
 
-        public MandelbrotGenerator(IGeneratorConfigurator<(int, int, int)> generatorConfigurator, Func<int,int,IImage> imageCreator, Func<int,int,int,int,IColor> colorCreator)
+        public MandelbrotGenerator(IGeneratorConfigurator<(int, int, int)> generatorConfigurator, IEngine engine)
         {
             this._generatorConfigurator = generatorConfigurator;
-            this._imageCreator = imageCreator;
-            this._colorCreator = colorCreator;
+            this._engine = engine;
         }
 
         public IImage Generate()
@@ -31,17 +29,15 @@ namespace FilterDotNet.Generators
             if (!this._ready)
                 throw new NotReadyException();
 
-            IImage image = this._imageCreator(this._width, this._height);
+            IImage output = this._engine.CreateImage(this._width, this._height);
 
             List<IColor> colors = new List<IColor>();
-            for (int i = 0; i <= this._iters; i++) colors.Add(this._colorCreator(
+            for (int i = 0; i <= this._iters; i++) colors.Add(this._engine.CreateColor(
                      _random.Next(0, 256),
                      _random.Next(0, 256),
                      _random.Next(0, 256),
                      255
                  ));
-
-
 
             Parallel.For(0, this._width, (int x) =>
             {
@@ -60,11 +56,11 @@ namespace FilterDotNet.Generators
                     }
 
                     IColor px = colors[iter];
-                    image.SetPixel(x, y, px);
+                    output.SetPixel(x, y, px);
                 });
             });
 
-            return image;
+            return output;
         }
 
         public IGenerator Initialize()
