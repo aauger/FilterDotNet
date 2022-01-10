@@ -19,9 +19,10 @@ namespace NET6ImageFilter
         static void Main()
         {
             ApplicationConfiguration.Initialize();
+            FastImageEngine fie = new FastImageEngine();
             List<IFilter> filters = new()
             {
-                new BasReliefFilter(new WinformIntConfigurator("Height:"), FiImageCreator, FiColorCreator),
+                new BasReliefFilter(new WinformIntConfigurator("Height:"), fie),
                 new ChromaticAberrationFilter(FiImageCreator, FiColorCreator),
                 new CirclePaintingFilter(new WinformThreeIntConfigurator(), FiImageCreator, FiColorCreator),
                 new ColorOverlayFilter(new WinformGetImageDialog(), FiImageCreator, FiColorCreator),

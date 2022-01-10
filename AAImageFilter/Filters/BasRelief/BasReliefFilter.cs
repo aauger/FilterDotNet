@@ -13,8 +13,7 @@ namespace AAImageFilter.Filters
     {
         /* DI */
         private readonly IPluginConfigurator<int> _pluginConfigurator;
-        private readonly Func<int, int, IImage> _imageCreator;
-        private readonly Func<int, int, int, int, IColor> _colorCreator;
+        private readonly IEngine _engine;
 
         /* Internals */
         private int _basReliefHeight;
@@ -23,11 +22,10 @@ namespace AAImageFilter.Filters
         /* Properties */
         public string Name => "Bas Relief";
 
-        public BasReliefFilter(IPluginConfigurator<int> pluginConfigurator, Func<int, int, IImage> imageCreator, Func<int, int, int, int, IColor> colorCreator)
+        public BasReliefFilter(IPluginConfigurator<int> pluginConfigurator, IEngine engine)
         {
             this._pluginConfigurator = pluginConfigurator;
-            this._imageCreator = imageCreator;
-            this._colorCreator = colorCreator;
+            this._engine = engine;
         }
 
         public IImage Apply(IImage input)
@@ -35,7 +33,7 @@ namespace AAImageFilter.Filters
             if (!this._ready)
                 throw new NotReadyException();
 
-            IImage output = this._imageCreator(input.Width, input.Height);
+            IImage output = this._engine.CreateImage(input.Width, input.Height);
 
             Parallel.For(0, input.Width - this._basReliefHeight, (int x) => 
             {
@@ -47,7 +45,7 @@ namespace AAImageFilter.Filters
                     int green = MathUtils.RGBClamp(fs.G + (255 / 2) - sn.G);
                     int blue = MathUtils.RGBClamp(fs.B + (255 / 2) - sn.B);
 
-                    output.SetPixel(x, y, this._colorCreator(red, green, blue, 255));
+                    output.SetPixel(x, y, this._engine.CreateColor(red, green, blue, 255));
                 });
             });
 
