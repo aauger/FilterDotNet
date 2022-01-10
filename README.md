@@ -2,9 +2,9 @@
 <p align="center">
   <img src="https://raw.githubusercontent.com/aauger/FilterDotNet/master/FilterDotNet.png">
 </p>
+  
+<p align="center" style="font-weight:bold">A modern image filtering/processing library for .NET 6.0, on Windows.<p>
 
-#### A modern image filtering/processing library for .NET 6.0, on Windows.
-##### Coming soon for GNU/Linux!
 ----
 
 Features:
