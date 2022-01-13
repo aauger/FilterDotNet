@@ -9,7 +9,7 @@
 
 Features:
 - Image filters, including convolution, sobel, inversion, statistical, &c.
-- Generators, including Mandelbrot set.
+- Generators, including Mandelbrot set, and Perlin noise.
 - Designed to be composable, and image lib agnostic*.
 
 ##### How to use:

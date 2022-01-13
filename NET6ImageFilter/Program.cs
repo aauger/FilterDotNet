@@ -38,6 +38,7 @@ namespace NET6ImageFilter
                 new SobelFilter(FiEngine),
                 new StatisticalFilter(new WinformsStatisticalConfigurator(), FiEngine),
                 new ThresholdFilter(new WinformIntConfigurator("Threshold:"), FiEngine),
+                new VoronoiSketchFilter(new WinformIntConfigurator("Number of nodes:"), FiEngine)
             };
             List<IGenerator> generators = new()
             {
