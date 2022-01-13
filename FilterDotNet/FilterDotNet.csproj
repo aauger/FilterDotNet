@@ -1,9 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0-windows</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <RepositoryUrl>https://github.com/aauger/FilterDotNet</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>filtering;processing;image processing;image filters;effects;plugins</PackageTags>
+    <Company />
+    <Description>Image-library agnostic set of image filters that can be used with a client-provided implementation</Description>
   </PropertyGroup>
 
 </Project>
