@@ -2,7 +2,7 @@
 using FilterDotNet.Extensions;
 using FilterDotNet.Interfaces;
 
-namespace FilterDotNet
+namespace FilterDotNet.Filters
 {
     public class ClippingRectangle 
     { 
@@ -49,6 +49,8 @@ namespace FilterDotNet
                     throw new NotImplementedException();
                 });
             });
+
+            return output;
         }
 
         private IImage Clip(IImage input)

@@ -1,4 +1,5 @@
-﻿using FilterDotNet.Interfaces;
+﻿using FilterDotNet;
+using FilterDotNet.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
