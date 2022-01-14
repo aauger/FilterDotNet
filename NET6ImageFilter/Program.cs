@@ -19,11 +19,13 @@ namespace NET6ImageFilter
         static void Main()
         {
             ApplicationConfiguration.Initialize();
-            List<IFilter> filters = new()
+            List<IFilter> filters = new List<IFilter>();
+            filters.AddRange(new IFilter[]
             {
                 new BasReliefFilter(new WinformIntConfigurator("Height:"), FiEngine),
                 new ChromaticAberrationFilter(FiEngine),
                 new CirclePaintingFilter(new WinformThreeIntConfigurator(), FiEngine),
+                new ClippingRectangleFilter(new WinformsClippingRectConfigurator(filters), FiEngine),
                 new ColorOverlayFilter(new WinformGetImageDialog(), FiEngine),
                 new ConvolutionFilter(new WinformsConvolutionConfigurator(), FiEngine),
                 new DifferenceFilter(new WinformsDifferenceConfigurator(), FiEngine),
@@ -39,7 +41,7 @@ namespace NET6ImageFilter
                 new StatisticalFilter(new WinformsStatisticalConfigurator(), FiEngine),
                 new ThresholdFilter(new WinformIntConfigurator("Threshold:"), FiEngine),
                 new VoronoiSketchFilter(new WinformIntConfigurator("Number of nodes:"), FiEngine)
-            };
+            });
             List<IGenerator> generators = new()
             {
                 new MandelbrotGenerator(new WinformsGeneratorConfigurators.GeneratorThreeIntConfigurator(), FiEngine),

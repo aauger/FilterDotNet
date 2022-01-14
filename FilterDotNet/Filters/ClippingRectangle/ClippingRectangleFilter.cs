@@ -46,7 +46,7 @@ namespace FilterDotNet.Filters
             {
                 Parallel.For(0, this._clip!.Height, (int y) => 
                 {
-                    throw new NotImplementedException();
+                    output.SetPixel(x + this._clip.X, y + this._clip.Y, clippedFilteredOutput.GetPixel(x, y));
                 });
             });
 
@@ -60,7 +60,7 @@ namespace FilterDotNet.Filters
             {
                 Parallel.For(0, this._clip.Height, (int y) => 
                 { 
-                    output.SetPixel(x+this._clip.X, y + this._clip.Y,
+                    output.SetPixel(x, y,
                         input.GetPixel(x + this._clip.X, y + this._clip.Y));
                 });
             });
