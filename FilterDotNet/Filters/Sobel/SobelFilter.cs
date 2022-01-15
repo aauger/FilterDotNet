@@ -1,10 +1,5 @@
 ﻿using FilterDotNet.Interfaces;
 using FilterDotNet.LibraryConfigurators;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FilterDotNet.Filters
 {
