@@ -52,12 +52,12 @@ namespace FilterDotNet.Filters
             return output;
         }
 
-        private (IColor, ColorError) FindNearest(List<IColor> colors, IColor color)
+        private static (IColor, ColorError) FindNearest(List<IColor> colors, IColor color)
         {
             return colors.Select(c => (c, Error(c, color))).MinBy(tp => tp.Item2.Avg());
         }
 
-        private ColorError Error(IColor input, IColor basis)
+        private static ColorError Error(IColor input, IColor basis)
         {
             return new()
             {
