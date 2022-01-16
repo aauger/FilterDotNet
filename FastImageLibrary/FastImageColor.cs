@@ -10,8 +10,7 @@ namespace FastImageLibrary
 {
     public class FastImageColor
     {
-        int R, G, B;
-        double A;
+        int R, G, B, A;
 
         public FastImageColor(int R, int G, int B)
         {
@@ -21,15 +20,15 @@ namespace FastImageLibrary
             this.R = R;
             this.G = G;
             this.B = B;
-            this.A = 1;
+            this.A = 255;
         }
 
-        public FastImageColor(int R, int G, int B, double A)
+        public FastImageColor(int R, int G, int B, int A)
         {
             Debug.Assert(R >= 0 && R <= 255 &&
                             G >= 0 && G <= 255 &&
                             B >= 0 && B <= 255 &&
-                            A >= 0 && A <= 1);
+                            A >= 0 && A <= 255);
             this.R = R;
             this.G = G;
             this.B = B;
@@ -44,6 +43,7 @@ namespace FastImageLibrary
             this.R = R;
             this.G = G;
             this.B = B;
+            this.A = 255;
         }
 
         private float Lerp(float firstFloat, float secondFloat, float by)
@@ -71,16 +71,16 @@ namespace FastImageLibrary
                 return x;
         }
 
-        public void Set(int R, int G, int B, double A)
+        public void Set(int R, int G, int B, int A)
         {
             Debug.Assert(R >= 0 && R <= 255 &&
                             G >= 0 && G <= 255 &&
                             B >= 0 && B <= 255 &&
-                            A >= 0 && A <= 1);
-            this.R = RGBClamp((int)(A * (R - this.R) + this.R));
-            this.G = RGBClamp((int)(A * (G - this.G) + this.G));
-            this.B = RGBClamp((int)(A * (B - this.B) + this.B));
-            this.A = A + this.A * (1 - A);
+                            A >= 0 && A <= 255);
+            this.R = R;
+            this.G = G;
+            this.B = B;
+            this.A = A;
         }
 
         public void SetR(int R)
@@ -101,9 +101,9 @@ namespace FastImageLibrary
             this.B = B;
         }
 
-        public void SetA(double A)
+        public void SetA(int A)
         {
-            Debug.Assert(A >= 0 && A <= 1);
+            Debug.Assert(A >= 0 && A <= 255);
             this.A = A;
         }
 
@@ -122,19 +122,19 @@ namespace FastImageLibrary
             return B;
         }
 
-        public double GetA()
+        public int GetA()
         {
             return A;
         }
 
         public Color ToColor()
         {
-            return Color.FromArgb(RGBClamp((int)Map((float)A, 0, 1, 0, 255)), R, G, B);
+            return Color.FromArgb(A, R, G, B);
         }
 
         public static FastImageColor FromColor(Color c)
         {
-            return new FastImageColor(c.R, c.G, c.B, Map(c.A, 0, 255, 0, 1));
+            return new FastImageColor(c.R, c.G, c.B, c.A);
         }
 
         public override bool Equals(object? obj)
