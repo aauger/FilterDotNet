@@ -63,8 +63,7 @@ namespace NET6ImageFilter.ImageProviders
         public void SetPixel(int x, int y, IColor color)
         {
             _fastImage.SetPixel(x, y,
-                new FastImageColor(color.R, color.G, color.B,
-                MathUtils.Map(color.A, 0, 255, 0, 1)));
+                new FastImageColor(color.R, color.G, color.B, color.A));
         }
 
         public FastImage UnwrapFastImage()
