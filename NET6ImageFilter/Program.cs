@@ -1,12 +1,11 @@
-using FilterDotNet;
 using FilterDotNet.Interfaces;
 using FilterDotNet.Filters;
 using NET6ImageFilter.BasicWinformsConfigurators;
 using NET6ImageFilter.SpecificConfigurators;
 using FilterDotNet.Generators;
 using FilterDotNet.Analyzers;
-using NET6ImageFilter.ImageProviders;
 using static NET6ImageFilter.Injectables;
+using FilterDotNet.LibraryConfigurators;
 
 namespace NET6ImageFilter
 {
@@ -29,6 +28,14 @@ namespace NET6ImageFilter
                 new ColorOverlayFilter(new WinformGetImageDialog(), FiEngine),
                 new ConvolutionFilter(new WinformsConvolutionConfigurator(), FiEngine),
                 new DifferenceFilter(new WinformsDifferenceConfigurator(), FiEngine),
+                new FloydSteinbergDitherFilter(new LambdaPluginConfigurator<List<IColor>>(() => new() 
+                { 
+                    FiEngine.CreateColor(0,0,0,255), //black 
+                    FiEngine.CreateColor(255, 0, 0, 255), //red
+                    FiEngine.CreateColor(0, 255, 0, 255), //green
+                    FiEngine.CreateColor(0, 0, 255, 255), //blue
+                    FiEngine.CreateColor(255,255,255,255) //white
+                }), FiEngine),
                 new GlassFilter(new WinformIntConfigurator("Maximum distance:"), FiEngine),
                 new GreyscaleFilter(FiEngine),
                 new InvertFilter(FiEngine),
