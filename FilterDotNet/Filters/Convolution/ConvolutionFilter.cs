@@ -73,27 +73,15 @@ namespace FilterDotNet.Filters
                     int ri, gi, bi;
                     if (cfg.Normalize)
                     {
-                        ri = MathUtils.Clamp(this._engine.MinValue, 
-                            this._engine.MaxValue, 
-                            (int)MathUtils.Map(r, 0, sumCoeffRGBMax, 0, this._engine.MaxValue));
-                        gi = MathUtils.Clamp(this._engine.MinValue, 
-                            this._engine.MaxValue, 
-                            (int)MathUtils.Map(g, 0, sumCoeffRGBMax, 0, this._engine.MaxValue));
-                        bi = MathUtils.Clamp(this._engine.MinValue, 
-                            this._engine.MaxValue, 
-                            (int)MathUtils.Map(b, 0, sumCoeffRGBMax, 0, this._engine.MaxValue));
+                        ri = this._engine.Clamp((int)MathUtils.Map(r, 0, sumCoeffRGBMax, 0, this._engine.MaxValue));
+                        gi = this._engine.Clamp((int)MathUtils.Map(g, 0, sumCoeffRGBMax, 0, this._engine.MaxValue));
+                        bi = this._engine.Clamp((int)MathUtils.Map(b, 0, sumCoeffRGBMax, 0, this._engine.MaxValue));
                     }
                     else 
                     { 
-                        ri = MathUtils.Clamp(this._engine.MinValue, 
-                            this._engine.MaxValue, 
-                            (int)r);
-                        gi = MathUtils.Clamp(this._engine.MinValue, 
-                            this._engine.MaxValue, 
-                            (int)g);
-                        bi = MathUtils.Clamp(this._engine.MinValue, 
-                            this._engine.MaxValue, 
-                            (int)b);
+                        ri = this._engine.Clamp((int)r);
+                        gi = this._engine.Clamp((int)g);
+                        bi = this._engine.Clamp((int)b);
                     }
                     
                     output.SetPixel(x, y, this._engine.CreateColor(ri, gi, bi, this._engine.MaxValue));

@@ -107,7 +107,7 @@ namespace FilterDotNet.Filters
                             break;
                     }
 
-                    output.SetPixel(x, y, this._engine.CreateColor(ri, gi, bi, 255));
+                    output.SetPixel(x, y, this._engine.CreateColor(ri, gi, bi, this._engine.MaxValue));
                 });
             });
 

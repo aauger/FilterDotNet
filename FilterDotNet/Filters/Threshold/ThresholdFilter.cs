@@ -34,7 +34,15 @@ namespace FilterDotNet.Filters
                 Parallel.For(0, input.Height, (int y) => {
                     IColor here = input.GetPixel(x, y);
                     int avg = (here.R + here.G + here.B) / 3;
-                    IColor nColor = avg > this._threshold ? this._engine.CreateColor(255, 255, 255, 255) : this._engine.CreateColor(0, 0, 0, 255);
+                    IColor nColor = avg > this._threshold ? 
+                        this._engine.CreateColor(this._engine.MaxValue, 
+                            this._engine.MaxValue, 
+                            this._engine.MaxValue, 
+                            this._engine.MaxValue) 
+                        : this._engine.CreateColor(this._engine.MinValue, 
+                            this._engine.MinValue, 
+                            this._engine.MinValue, 
+                            this._engine.MaxValue);
 
                     output.SetPixel(x, y, nColor);
                 });

@@ -25,12 +25,8 @@ namespace FilterDotNet.Filters
                     IColor upLeft = input.GetPixel(x - 2, y - 2);
                     IColor boRight = input.GetPixel(x + 2, y + 2);
 
-                    int R = MathUtils.Clamp(this._engine.MinValue,
-                        this._engine.MaxValue,
-                        (int)(here.R * .25 + upLeft.R * .75));
-                    int B = MathUtils.Clamp(this._engine.MinValue,
-                        this._engine.MaxValue,
-                        (int)(here.B * .25 + boRight.B * .75));
+                    int R = this._engine.Clamp((int)(here.R * .25 + upLeft.R * .75));
+                    int B = this._engine.Clamp((int)(here.B * .25 + boRight.B * .75));
 
                     output.SetPixel(x, y, this._engine.CreateColor(R, here.G, B, this._engine.MaxValue));
                 });

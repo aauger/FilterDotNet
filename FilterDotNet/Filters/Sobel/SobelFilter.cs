@@ -39,8 +39,8 @@ namespace FilterDotNet.Filters
                         (lrc.R + tbc.R) / 2,
                         (lrc.G + tbc.G) / 2,
                         (lrc.B + tbc.B) / 2,
-                        255
-                        );
+                        this._engine.MaxValue
+                        ) ;
 
                     output.SetPixel(x, y, blended);
                 });

@@ -29,7 +29,7 @@ namespace FilterDotNet.Filters
                 throw new NotReadyException();
 
             IImage output = this._engine.CreateImage(input.Width, input.Height);
-            int bs = 255 / this._levels;
+            int bs = this._engine.MaxValue / this._levels;
 
             Parallel.For(0, input.Width, (int x) =>
             {
@@ -41,7 +41,7 @@ namespace FilterDotNet.Filters
                     nr = (int)(Math.Round(c.R / (float)bs) * bs);
                     ng = (int)(Math.Round(c.G / (float)bs) * bs);
                     nb = (int)(Math.Round(c.B / (float)bs) * bs);
-                    output.SetPixel(x, y, this._engine.CreateColor(nr, ng, nb, 255));
+                    output.SetPixel(x, y, this._engine.CreateColor(nr, ng, nb, this._engine.MaxValue));
                 });
             });
 

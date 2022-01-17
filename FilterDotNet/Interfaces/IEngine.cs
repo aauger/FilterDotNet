@@ -10,6 +10,7 @@ namespace FilterDotNet.Interfaces
     {
         Func<int, int, IImage> CreateImage { get; }
         Func<int, int, int, int, IColor> CreateColor { get; }
+        Func<int, int> Clamp { get; }
         int MaxValue { get; }
         int MinValue { get; }
     }

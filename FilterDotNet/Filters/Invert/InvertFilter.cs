@@ -28,7 +28,7 @@ namespace FilterDotNet.Filters
                     int g = 255 - here.G;
                     int b = 255 - here.B;
 
-                    IColor nColor = this._engine.CreateColor(r, g, b, 255);
+                    IColor nColor = this._engine.CreateColor(r, g, b, this._engine.MaxValue);
 
                     output.SetPixel(x, y, nColor);
                 });

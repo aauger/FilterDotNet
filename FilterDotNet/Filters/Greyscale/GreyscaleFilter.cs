@@ -24,7 +24,7 @@ namespace FilterDotNet.Filters
                     IColor here = input.GetPixel(x, y);
                     int avg = (here.R + here.G + here.B) / 3;
 
-                    IColor nColor = this._engine.CreateColor(avg, avg, avg, 255);
+                    IColor nColor = this._engine.CreateColor(avg, avg, avg, this._engine.MaxValue);
 
                     output.SetPixel(x, y, nColor);
                 });

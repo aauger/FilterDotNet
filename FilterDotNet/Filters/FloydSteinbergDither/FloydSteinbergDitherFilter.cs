@@ -70,16 +70,10 @@ namespace FilterDotNet.Filters
         private IColor RebaseColor(IColor color, ColorError error, double factor)
         {
             return this._engine.CreateColor(
-                MathUtils.Clamp(this._engine.MinValue, 
-                this._engine.MaxValue, 
-                color.R + (int)(factor * error.RedError)),
-                MathUtils.Clamp(this._engine.MinValue, 
-                this._engine.MaxValue, 
-                color.G + (int)(factor * error.GreenError)),
-                MathUtils.Clamp(this._engine.MinValue, 
-                this._engine.MaxValue, 
-                color.B + (int)(factor * error.BlueError)),
-                255);
+                this._engine.Clamp(color.R + (int)(factor * error.RedError)),
+                this._engine.Clamp(color.G + (int)(factor * error.GreenError)),
+                this._engine.Clamp(color.B + (int)(factor * error.BlueError)),
+                this._engine.MaxValue);
         }
 
         public IFilter Initialize()

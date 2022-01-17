@@ -35,9 +35,9 @@ namespace FilterDotNet.Filters
                 Parallel.For(0, input.Height, (int y) => 
                 {
                     IColor mapColor = this._map!.GetPixel(x, y);
-                    double xm = MathUtils.Map(mapColor.R, 0, 255, -1, 1);
-                    double ym = MathUtils.Map(mapColor.G, 0, 255, -1, -1);
-                    double zm = MathUtils.Map(mapColor.B, 128, 255, 0, -1);
+                    double xm = MathUtils.Map(mapColor.R, this._engine.MinValue, this._engine.MaxValue, -1, 1);
+                    double ym = MathUtils.Map(mapColor.G, this._engine.MinValue, this._engine.MaxValue, -1, -1);
+                    double zm = MathUtils.Map(mapColor.B, this._engine.MaxValue/2, this._engine.MaxValue, 0, -1);
                     double lat = Math.Acos(zm);
                     double lon = Math.Atan2(ym, xm);
 
