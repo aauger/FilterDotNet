@@ -21,11 +21,6 @@
             return Clamp(input, 0.0f, 1.0f);
         }
 
-        public static int RGBClamp(int input)
-        {
-            return Clamp(input, 0, 255);
-        }
-
         public static double DegToRad(double degrees)
         {
             return (degrees * Math.PI) / 180.0;

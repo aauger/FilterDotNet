@@ -44,7 +44,7 @@ namespace FilterDotNet.Filters
 
             double sumCoeff = 0;
             foreach (double d in cfg.Values) sumCoeff += d;
-            double sumCoeffRGBMax = sumCoeff * 255.0;
+            double sumCoeffRGBMax = sumCoeff * (double)this._engine.MaxValue;
 
             Parallel.For(0, input.Width, (int x) => {
                 Parallel.For(0, input.Height, (int y) => {
@@ -73,18 +73,30 @@ namespace FilterDotNet.Filters
                     int ri, gi, bi;
                     if (cfg.Normalize)
                     {
-                        ri = MathUtils.RGBClamp((int)MathUtils.Map(r, 0, sumCoeffRGBMax, 0, 255));
-                        gi = MathUtils.RGBClamp((int)MathUtils.Map(g, 0, sumCoeffRGBMax, 0, 255));
-                        bi = MathUtils.RGBClamp((int)MathUtils.Map(b, 0, sumCoeffRGBMax, 0, 255));
+                        ri = MathUtils.Clamp(this._engine.MinValue, 
+                            this._engine.MaxValue, 
+                            (int)MathUtils.Map(r, 0, sumCoeffRGBMax, 0, this._engine.MaxValue));
+                        gi = MathUtils.Clamp(this._engine.MinValue, 
+                            this._engine.MaxValue, 
+                            (int)MathUtils.Map(g, 0, sumCoeffRGBMax, 0, this._engine.MaxValue));
+                        bi = MathUtils.Clamp(this._engine.MinValue, 
+                            this._engine.MaxValue, 
+                            (int)MathUtils.Map(b, 0, sumCoeffRGBMax, 0, this._engine.MaxValue));
                     }
                     else 
                     { 
-                        ri = MathUtils.RGBClamp((int)r);
-                        gi = MathUtils.RGBClamp((int)g);
-                        bi = MathUtils.RGBClamp((int)b);                    
+                        ri = MathUtils.Clamp(this._engine.MinValue, 
+                            this._engine.MaxValue, 
+                            (int)r);
+                        gi = MathUtils.Clamp(this._engine.MinValue, 
+                            this._engine.MaxValue, 
+                            (int)g);
+                        bi = MathUtils.Clamp(this._engine.MinValue, 
+                            this._engine.MaxValue, 
+                            (int)b);
                     }
                     
-                    output.SetPixel(x, y, this._engine.CreateColor(ri, gi, bi, 255));
+                    output.SetPixel(x, y, this._engine.CreateColor(ri, gi, bi, this._engine.MaxValue));
                 });
             });
 

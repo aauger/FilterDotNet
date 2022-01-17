@@ -35,11 +35,11 @@ namespace FilterDotNet.Filters
                 {
                     IColor m = this._mask!.GetPixel(x, y);
                     bool isWhite =
-                        m.R == 255 && m.G == 255 && m.B == 255;
+                        m.R == this._engine.MaxValue && m.G == this._engine.MaxValue && m.B == this._engine.MaxValue;
                     if (!isWhite)
                         output.SetPixel(x, y, input.GetPixel(x, y));
                     else
-                        output.SetPixel(x, y, this._engine.CreateColor(0, 0, 0, 255));
+                        output.SetPixel(x, y, this._engine.CreateColor(0, 0, 0, this._engine.MaxValue));
                 });
             });
 
