@@ -42,9 +42,15 @@ namespace FilterDotNet.Filters
                     int gDiff = Math.Abs(here.G - there.G);
                     int bDiff = Math.Abs(here.B - there.B);
 
-                    int r = MathUtils.RGBClamp((int)(rDiff * this._multiplier));
-                    int g = MathUtils.RGBClamp((int)(gDiff * this._multiplier));
-                    var b = MathUtils.RGBClamp((int)(bDiff * this._multiplier));
+                    int r = MathUtils.Clamp(this._engine.MinValue,
+                        this._engine.MaxValue,
+                        (int)(rDiff * this._multiplier));
+                    int g = MathUtils.Clamp(this._engine.MinValue,
+                        this._engine.MaxValue,
+                        (int)(gDiff * this._multiplier));
+                    var b = MathUtils.Clamp(this._engine.MinValue,
+                        this._engine.MaxValue,
+                        (int)(bDiff * this._multiplier));
 
                     output.SetPixel(x, y, this._engine.CreateColor(r, g, b, 255));
                 });

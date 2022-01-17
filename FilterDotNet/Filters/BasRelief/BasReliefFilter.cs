@@ -36,11 +36,17 @@ namespace FilterDotNet.Filters
                 {
                     IColor fs = input.GetPixel(x, y);
                     IColor sn = input.GetPixel(x + this._basReliefHeight, y + this._basReliefHeight);
-                    int red = MathUtils.RGBClamp(fs.R + (255 / 2) - sn.R);
-                    int green = MathUtils.RGBClamp(fs.G + (255 / 2) - sn.G);
-                    int blue = MathUtils.RGBClamp(fs.B + (255 / 2) - sn.B);
+                    int red = MathUtils.Clamp(this._engine.MinValue, 
+                        this._engine.MaxValue, 
+                        fs.R + (this._engine.MaxValue / 2) - sn.R);
+                    int green = MathUtils.Clamp(this._engine.MinValue, 
+                        this._engine.MaxValue, 
+                        fs.G + (this._engine.MaxValue / 2) - sn.G);
+                    int blue = MathUtils.Clamp(this._engine.MinValue, 
+                        this._engine.MaxValue, 
+                        fs.B + (this._engine.MaxValue / 2) - sn.B);
 
-                    output.SetPixel(x, y, this._engine.CreateColor(red, green, blue, 255));
+                    output.SetPixel(x, y, this._engine.CreateColor(red, green, blue, this._engine.MaxValue));
                 });
             });
 
