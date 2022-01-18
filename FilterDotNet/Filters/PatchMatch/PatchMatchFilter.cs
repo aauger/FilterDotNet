@@ -20,7 +20,7 @@ namespace FilterDotNet.Filters
         private IImage? _patchSource;
         private int _patchWidth;
         private int _patchHeight;
-        List<(int,int)>? _patchChunks;
+        List<(int, int)>? _patchChunks;
 
         /* Properties */
         public string Name => "Patch Match";
@@ -69,9 +69,9 @@ namespace FilterDotNet.Filters
             return this;
         }
 
-        private List<(int,int)> Chunkify(IImage patchSource, int patchWidth, int patchHeight)
+        private List<(int, int)> Chunkify(IImage patchSource, int patchWidth, int patchHeight)
         {
-            List<(int,int)> patchChunks = new();
+            List<(int, int)> patchChunks = new();
             for (int xp = 0; xp < patchSource.Width / patchWidth; xp++)
             {
                 for (int yp = 0; yp < patchSource.Height / patchHeight; yp++)
@@ -84,33 +84,32 @@ namespace FilterDotNet.Filters
             return patchChunks;
         }
 
-        private (int,int) BestFitPatch(IImage input, IImage patchSource, int x, int y, List<(int,int)>? patchChunks)
+        private (int, int) BestFitPatch(IImage input, IImage patchSource, int x, int y, List<(int, int)>? patchChunks)
         {
-            (int,int) bestChunk = patchChunks!.AsParallel().MinBy(pc =>
-            {
-                int sumErrors = 0;
-                for (int xz = 0; xz < this._patchWidth!; xz++)
-                {
-                    for (int yz = 0; yz < this._patchHeight!; yz++)
-                    {
-                        if (input.OutOfBounds(xz + x, yz + y) || patchSource.OutOfBounds(xz + pc.Item1, yz + pc.Item2))
-                        {
-                            sumErrors += 441;
-                            continue;
-                        }
+            (int, int) bestChunk = patchChunks!.AsParallel().MinBy(pc =>
+             {
+                 int sumErrors = 0;
+                 for (int xz = 0; xz < this._patchWidth!; xz++)
+                 {
+                     for (int yz = 0; yz < this._patchHeight!; yz++)
+                     {
+                         if (input.OutOfBounds(xz + x, yz + y) || patchSource.OutOfBounds(xz + pc.Item1, yz + pc.Item2))
+                         {
+                             sumErrors += 441;
+                             continue;
+                         }
 
-                        IColor real = input.GetPixel(xz + x, yz + y);
-                        IColor patch = patchSource.GetPixel(xz + pc.Item1, yz + pc.Item2);
+                         IColor real = input.GetPixel(xz + x, yz + y);
+                         IColor patch = patchSource.GetPixel(xz + pc.Item1, yz + pc.Item2);
 
-                        sumErrors +=
-                            (int)Math.Sqrt(((real.R - patch.R) * (real.R - patch.R) +
-                             (real.G - patch.G) * (real.G - patch.G) +
-                             (real.B - patch.B) * (real.B - patch.B)));
-
-                    }
-                }
-                return sumErrors;
-            })!;
+                         sumErrors +=
+                             (int)Math.Sqrt(((real.R - patch.R) * (real.R - patch.R) +
+                              (real.G - patch.G) * (real.G - patch.G) +
+                              (real.B - patch.B) * (real.B - patch.B)));
+                     }
+                 }
+                 return sumErrors;
+             })!;
             return bestChunk;
         }
     }
