@@ -17,7 +17,7 @@ namespace FilterDotNet.Drawing
             this._instance = input;
         }
 
-        public void PlotLine(int x1, int y1, int x2, int y2)
+        public void PlotLine(Point first, Point second, IColor color)
         {
             throw new NotImplementedException();
         }
