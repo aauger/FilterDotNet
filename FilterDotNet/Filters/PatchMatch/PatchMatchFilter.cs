@@ -1,11 +1,6 @@
 ﻿using FilterDotNet.Exceptions;
 using FilterDotNet.Extensions;
 using FilterDotNet.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FilterDotNet.Filters
 {
