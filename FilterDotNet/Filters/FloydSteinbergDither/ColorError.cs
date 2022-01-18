@@ -11,6 +11,7 @@ namespace FilterDotNet.Filters
         public int RedError { get; set; }
         public int GreenError { get; set; }
         public int BlueError { get; set; }
-        public int Avg() => ((RedError*RedError) + (GreenError*GreenError) + (BlueError*BlueError)) / 3;
+        public int Average() => ((RedError*RedError) + (GreenError*GreenError) + (BlueError*BlueError)) / 3;
+        public int SqAverage() => (int)Math.Sqrt(((RedError * RedError) + (GreenError * GreenError) + (BlueError * BlueError)));
     }
 }

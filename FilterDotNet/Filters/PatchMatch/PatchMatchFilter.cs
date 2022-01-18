@@ -1,4 +1,5 @@
 ﻿using FilterDotNet.Exceptions;
+using FilterDotNet.Extensions;
 using FilterDotNet.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace FilterDotNet.Filters
         private IImage? _patchSource;
         private int _patchWidth;
         private int _patchHeight;
-        List<IImage>? _patchChunks;
+        List<(int,int)>? _patchChunks;
 
         /* Properties */
         public string Name => "Patch Match";
@@ -36,8 +37,28 @@ namespace FilterDotNet.Filters
                 throw new NotReadyException();
 
             IImage output = this._engine.CreateImage(input.Width, input.Height);
+            Parallel.For(0, input.Width / this._patchWidth, (int xp) =>
+            {
+                Parallel.For(0, input.Height / this._patchHeight, (int yp) =>
+                {
+                    int x = xp * this._patchWidth;
+                    int y = yp * this._patchHeight;
+                    (int xOff, int yOff) = BestFitPatch(input, this._patchSource!, x, y, this._patchChunks);
+                    for (int xz = 0; xz < this._patchWidth; xz++)
+                    {
+                        for (int yz = 0; yz < this._patchHeight; yz++)
+                        {
+                            if (!output.OutOfBounds(xz + x, yz + y))
+                            {
+                                output.SetPixel(xz + x, yz + y, this._patchSource!.GetPixel(xz + xOff, yz + yOff));
+                            }
 
-            throw new NotImplementedException();
+                        }
+                    }
+                });
+            });
+
+            return output;
         }
 
         public IFilter Initialize()
@@ -48,29 +69,49 @@ namespace FilterDotNet.Filters
             return this;
         }
 
-        private List<IImage> Chunkify(IImage patchSource, int patchWidth, int patchHeight)
+        private List<(int,int)> Chunkify(IImage patchSource, int patchWidth, int patchHeight)
         {
-            List<IImage> patchChunks = new List<IImage>();
-            Parallel.For(0, patchSource.Width / patchWidth, (int xp) =>
+            List<(int,int)> patchChunks = new();
+            for (int xp = 0; xp < patchSource.Width / patchWidth; xp++)
             {
-                Parallel.For(0, patchSource.Height / patchHeight, (int yp) =>
+                for (int yp = 0; yp < patchSource.Height / patchHeight; yp++)
                 {
                     int x = xp * patchWidth;
                     int y = yp * patchHeight;
-                    int widthCurrentPatch = patchSource.Width - x;
-                    int heightCurrentPatch = patchSource.Height - y;
-                    IImage currentPatch = this._engine.CreateImage(widthCurrentPatch, heightCurrentPatch);
-                    for (int xz = 0; xz < widthCurrentPatch; xz++)
-                    {
-                        for (int yz = 0; yz < heightCurrentPatch; yz++)
-                        {
-                            currentPatch.SetPixel(xz, yz, patchSource.GetPixel(xz + x, yz + y));
-                        }
-                    }
-                    patchChunks.Add(currentPatch);
-                });
-            });
+                    patchChunks.Add((x, y));
+                }
+            }
             return patchChunks;
+        }
+
+        private (int,int) BestFitPatch(IImage input, IImage patchSource, int x, int y, List<(int,int)>? patchChunks)
+        {
+            (int,int) bestChunk = patchChunks!.AsParallel().MinBy(pc =>
+            {
+                int sumErrors = 0;
+                for (int xz = 0; xz < this._patchWidth!; xz++)
+                {
+                    for (int yz = 0; yz < this._patchHeight!; yz++)
+                    {
+                        if (input.OutOfBounds(xz + x, yz + y) || patchSource.OutOfBounds(xz + pc.Item1, yz + pc.Item2))
+                        {
+                            sumErrors += 441;
+                            continue;
+                        }
+
+                        IColor real = input.GetPixel(xz + x, yz + y);
+                        IColor patch = patchSource.GetPixel(xz + pc.Item1, yz + pc.Item2);
+
+                        sumErrors +=
+                            (int)Math.Sqrt(((real.R - patch.R) * (real.R - patch.R) +
+                             (real.G - patch.G) * (real.G - patch.G) +
+                             (real.B - patch.B) * (real.B - patch.B)));
+
+                    }
+                }
+                return sumErrors;
+            })!;
+            return bestChunk;
         }
     }
 }

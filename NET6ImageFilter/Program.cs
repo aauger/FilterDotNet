@@ -41,6 +41,7 @@ namespace NET6ImageFilter
                 new InvertFilter(FiEngine),
                 new MeltingFilter(FiEngine),
                 new NormalMap(new WinformsNormalMapConfigurator(), FiEngine),
+                new PatchMatchFilter(new ImageTwoIntConfigurator(), FiEngine),
                 new PosterizeFilter(new WinformIntConfigurator("Levels:"), FiEngine),
                 new PixelateFilter(new WinformTwoIntConfigurator("Block width:", "Block height:"), FiEngine),
                 new SolarizeFilter(new WinformIntConfigurator("Solarize threshold:"), FiEngine),

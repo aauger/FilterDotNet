@@ -54,7 +54,7 @@ namespace FilterDotNet.Filters
 
         private static (IColor, ColorError) FindNearest(List<IColor> colors, IColor color)
         {
-            return colors.Select(c => (c, Error(c, color))).MinBy(tp => tp.Item2.Avg());
+            return colors.Select(c => (c, Error(c, color))).MinBy(tp => tp.Item2.Average());
         }
 
         private static ColorError Error(IColor input, IColor basis)
