@@ -4,13 +4,13 @@ namespace FilterDotNet.Extensions
 {
     public static class IColorExtensions
     {
-        public static IColor Inverse(this IColor c, Func<int, int, int, int, IColor> _colorCreator)
+        public static IColor Inverse(this IColor c, IEngine engine)
         {
-            return _colorCreator(
-                    255 - c.R,
-                    255 - c.G,
-                    255 - c.B,
-                    255 - c.A
+            return engine.CreateColor(
+                    engine.MaxValue - c.R,
+                    engine.MaxValue - c.G,
+                    engine.MaxValue - c.B,
+                    engine.MaxValue
                 );
         }
 
