@@ -46,15 +46,7 @@ namespace FilterDotNet.Drawing
             for (int x = first.X, y = first.Y, d = (2 * dy) - dx; x <= second.X; x++)
             {
                 _instance.SetPixel(x, y, color);
-                if (d > 0)
-                {
-                    y += yi;
-                    d += 2 * (dy - dx);
-                }
-                else
-                {
-                    d += 2 * dy;
-                }
+                (y, d) = d > 0 ? (y + yi, d + 2 * (dy - dx)) : (y, d + 2 * dy);
             }
         }
 
@@ -67,15 +59,7 @@ namespace FilterDotNet.Drawing
             for (int y = first.Y, x = first.X, d = (2 * dx) - dy; y <= second.Y; y++)
             {
                 _instance.SetPixel(x, y, color);
-                if (d > 0)
-                {
-                    x += xi;
-                    d += 2 * (dx - dy);
-                }
-                else
-                {
-                    d += 2 * dx;
-                }
+                (x, d) = d > 0 ? (x + xi, d + 2 * (dx - dy)) : (x, d + 2 * dx);
             }
         }
     }
