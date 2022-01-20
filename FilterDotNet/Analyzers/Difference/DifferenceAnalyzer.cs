@@ -7,6 +7,7 @@ namespace FilterDotNet.Analyzers
     {
         /* DI */
         private IAnalyzerConfigurator<IImage>? _analyzerConfigurator;
+        private IEngine _engine;
 
         /* Internals */
         private IImage? _other;
@@ -15,9 +16,10 @@ namespace FilterDotNet.Analyzers
         /* Properties */
         public string Name => "Difference";
 
-        public DifferenceAnalyzer(IAnalyzerConfigurator<IImage> analyzerConfigurator)
+        public DifferenceAnalyzer(IAnalyzerConfigurator<IImage> analyzerConfigurator, IEngine engine)
         {
             this._analyzerConfigurator = analyzerConfigurator;
+            this._engine = engine;
         }
 
         public string Analyze(IImage input)
@@ -39,7 +41,7 @@ namespace FilterDotNet.Analyzers
                     double rDiff = Math.Abs(here.R - there.R);
                     double gDiff = Math.Abs(here.G - there.G);
                     double bDiff = Math.Abs(here.B - there.B);
-                    double lDiffPct = (rDiff + gDiff + bDiff) / (255 * 3);
+                    double lDiffPct = (rDiff + gDiff + bDiff) / (this._engine.MaxValue * 3);
                     lDiffs[x, y] = lDiffPct;
                 });
             });

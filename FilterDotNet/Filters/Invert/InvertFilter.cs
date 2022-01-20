@@ -24,9 +24,9 @@ namespace FilterDotNet.Filters
                 Parallel.For(0, input.Height, (int y) => {
                     IColor here = input.GetPixel(x, y);
 
-                    int r = 255 - here.R;
-                    int g = 255 - here.G;
-                    int b = 255 - here.B;
+                    int r = this._engine.MaxValue - here.R;
+                    int g = this._engine.MaxValue - here.G;
+                    int b = this._engine.MaxValue - here.B;
 
                     IColor nColor = this._engine.CreateColor(r, g, b, this._engine.MaxValue);
 

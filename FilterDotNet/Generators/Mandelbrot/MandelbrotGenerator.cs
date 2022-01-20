@@ -33,10 +33,10 @@ namespace FilterDotNet.Generators
 
             List<IColor> colors = new List<IColor>();
             for (int i = 0; i <= this._iters; i++) colors.Add(this._engine.CreateColor(
-                     _random.Next(0, 256),
-                     _random.Next(0, 256),
-                     _random.Next(0, 256),
-                     255
+                     _random.Next(0, this._engine.MaxValue+1),
+                     _random.Next(0, this._engine.MaxValue+1),
+                     _random.Next(0, this._engine.MaxValue+1),
+                     this._engine.MaxValue
                  ));
 
             Parallel.For(0, this._width, (int x) =>

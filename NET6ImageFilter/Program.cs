@@ -58,7 +58,7 @@ namespace NET6ImageFilter
             };
             List<IAnalyzer> analyzers = new()
             {
-                new DifferenceAnalyzer(new WinformGetImageDialog())
+                new DifferenceAnalyzer(new WinformGetImageDialog(), FiEngine)
             };
             Application.Run(new MainForm(filters, generators, analyzers));
         }

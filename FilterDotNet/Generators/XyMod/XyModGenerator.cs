@@ -27,8 +27,8 @@ namespace FilterDotNet.Generators
             if (!this._ready)
                 throw new NotReadyException();
 
-            IColor black = this._engine.CreateColor(0, 0, 0, 255);
-            IColor white = this._engine.CreateColor(255, 255, 255, 255);
+            IColor black = this._engine.CreateColor(this._engine.MinValue, this._engine.MinValue, this._engine.MinValue, this._engine.MaxValue);
+            IColor white = this._engine.CreateColor(this._engine.MaxValue, this._engine.MaxValue, this._engine.MaxValue, this._engine.MaxValue);
 
             IImage image = this._engine.CreateImage(this._width, this._height);
 
