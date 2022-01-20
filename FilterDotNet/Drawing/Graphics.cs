@@ -12,6 +12,12 @@ namespace FilterDotNet.Drawing
             this._instance = input;
         }
 
+        /// <summary>
+        /// This is merely a convenience, and you should theoretically never need it.
+        /// If you don't control the instance, you should not be tinkering on its internals
+        /// </summary>
+        public IImage Unwrap() => _instance;
+
         public void DrawLine(Point first, Point second, IColor color)
         {
             if (Math.Abs(second.Y - first.Y) < Math.Abs(second.X - first.X))
@@ -36,14 +42,8 @@ namespace FilterDotNet.Drawing
             int dx = second.X - first.X;
             int dy = second.Y - first.Y;
             int yi = 1;
-            if (dy < 0)
-            {
-                yi = -1;
-                dy = -dy;
-            }
-            int d = (2 * dy) - dx;
-            int y = first.Y;
-            for (int x = first.X; x <= second.X; x++)
+            (yi, dy) = dy < 0 ? (-1, -dy) : (yi, dy);
+            for (int x = first.X, y = first.Y, d = (2 * dy) - dx; x <= second.X; x++)
             {
                 _instance.SetPixel(x, y, color);
                 if (d > 0)
@@ -63,14 +63,8 @@ namespace FilterDotNet.Drawing
             int dx = second.X - first.X;
             int dy = second.Y - first.Y;
             int xi = 1;
-            if (dy < 0)
-            {
-                xi = -1;
-                dx = -dx;
-            }
-            int d = (2 * dx) - dy;
-            int x = first.X;
-            for (int y = first.Y; y <= second.Y; y++)
+            (xi, dx) = dx < 0 ? (-1, -dx) : (xi, dx);
+            for (int y = first.Y, x = first.X, d = (2 * dx) - dy; y <= second.Y; y++)
             {
                 _instance.SetPixel(x, y, color);
                 if (d > 0)
