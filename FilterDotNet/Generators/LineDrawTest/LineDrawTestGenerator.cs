@@ -36,6 +36,7 @@ namespace FilterDotNet.Generators
                 };
                 g.DrawLine(first, second, RandomColor(rnd));
             }
+
             return output;
         }
 

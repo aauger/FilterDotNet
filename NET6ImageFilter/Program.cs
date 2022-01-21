@@ -30,7 +30,7 @@ namespace NET6ImageFilter
                 new DifferenceFilter(new WinformsDifferenceConfigurator(), FiEngine),
                 new FloydSteinbergDitherFilter(new LambdaPluginConfigurator<List<IColor>>(() => new() 
                 { 
-                    FiEngine.CreateColor(0,0,0,255), //black 
+                    FiEngine.CreateColor(0, 0, 0, 255), //black 
                     FiEngine.CreateColor(255, 0, 0, 255), //red
                     FiEngine.CreateColor(0, 255, 0, 255), //green
                     FiEngine.CreateColor(0, 0, 255, 255), //blue
@@ -39,6 +39,7 @@ namespace NET6ImageFilter
                 new GlassFilter(new WinformIntConfigurator("Maximum distance:"), FiEngine),
                 new GreyscaleFilter(FiEngine),
                 new InvertFilter(FiEngine),
+                new LineDrawingFilter(new WinformThreeIntConfigurator(), FiEngine),
                 new MeltingFilter(FiEngine),
                 new NormalMap(new WinformsNormalMapConfigurator(), FiEngine),
                 new PatchMatchFilter(new ImageTwoIntConfigurator(), FiEngine),
