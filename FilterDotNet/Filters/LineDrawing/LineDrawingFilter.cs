@@ -37,32 +37,44 @@ namespace FilterDotNet.Filters
             List<Point> points = GeneratePoints(input);
             IEnumerable<(Point, Point)> lines = points.AsParallel().Select(point =>
             {
-                 IColor cPoint = input.GetPixel(point.X, point.Y);
-                 int bestDistance = 765;
-                 Point secondPoint = new Point { X = 0, Y = 0 };
-                 for (int xOff = this._pixelDistance / 2; xOff > -this._pixelDistance / 2; xOff--)
-                 {
-                     for (int yOff = this._pixelDistance / 2; yOff > -this._pixelDistance / 2; yOff--)
-                     {
-                         //don't sample the origin, obviously
-                         if (xOff == 0 && yOff == 0)
-                             continue;
+                IColor cPoint = input.GetPixel(point.X, point.Y);
+                int bestDistance = 765;
+                Point secondPoint = new Point { X = 0, Y = 0 };
 
-                         int ox = point.X + xOff;
-                         int oy = point.Y + yOff;
-                         int tempDistance = default;
+                bool lr = this._random.NextDouble() > 0.5;
+                bool tb = this._random.NextDouble() > 0.5;
 
-                         if (!input.OutOfBounds(ox, oy) &&
-                             (tempDistance = cPoint.Difference(input.GetPixel(ox, oy))) < bestDistance)
-                         {
-                             (secondPoint, bestDistance) = (new Point { X = ox, Y = oy }, tempDistance);
+                int xlSp = lr ? -this._pixelDistance / 2 : this._pixelDistance / 2;
+                Func<int, int, bool> xlFn = lr ? (a, b) => a <= b : (a, b) => a >= b;
+                Func<int, int> xlPf = lr ? (a) => a + 1 : (a) => a - 1;
 
-                         }
-                             
-                         if (bestDistance <= this._colorDistance)
+                int ylSp = tb ? -this._pixelDistance / 2 : this._pixelDistance / 2;
+                Func<int, int, bool> ylFn = tb ? (a, b) => a <= b : (a, b) => a >= b;
+                Func<int, int> ylPf = tb ? (a) => a + 1 : (a) => a - 1;
+
+                for (int xOff = xlSp; xlFn(xOff, -xlSp); xOff = xlPf(xOff))
+                {
+                    for (int yOff = ylSp; ylFn(yOff, -ylSp); yOff = ylPf(yOff))
+                    {
+                        //don't sample the origin
+                        if (xOff == 0 && yOff == 0)
+                            continue;
+
+                        int ox = point.X + xOff;
+                        int oy = point.Y + yOff;
+                        int tempDistance = default;
+
+                        if (!input.OutOfBounds(ox, oy) &&
+                            (tempDistance = cPoint.Difference(input.GetPixel(ox, oy))) < bestDistance)
+                        {
+                            (secondPoint, bestDistance) = (new Point { X = ox, Y = oy }, tempDistance);
+
+                        }
+
+                        if (bestDistance <= this._colorDistance)
                             goto SuitableFit;
-                     }
-                 }
+                    }
+                }
             SuitableFit:
                 return (point, secondPoint);
             });
