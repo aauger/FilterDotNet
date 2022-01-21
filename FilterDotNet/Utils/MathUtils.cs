@@ -25,5 +25,10 @@
         {
             return (degrees * Math.PI) / 180.0;
         }
+
+        public static double Lerp(double v0, double v1, double t)
+        {
+            return v0 + t * (v1 - v0);
+        }
     }
 }

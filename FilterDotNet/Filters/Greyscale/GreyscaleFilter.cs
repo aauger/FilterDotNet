@@ -1,4 +1,5 @@
-﻿using FilterDotNet.Interfaces;
+﻿using FilterDotNet.Extensions;
+using FilterDotNet.Interfaces;
 
 namespace FilterDotNet.Filters
 {
@@ -21,12 +22,12 @@ namespace FilterDotNet.Filters
 
             Parallel.For(0, input.Width, (int x) => {
                 Parallel.For(0, input.Height, (int y) => {
-                    IColor here = input.GetPixel(x, y);
-                    int avg = (here.R + here.G + here.B) / 3;
+                    IColor originalColor = input.GetPixel(x, y);
+                    int average = originalColor.Average();
 
-                    IColor nColor = this._engine.CreateColor(avg, avg, avg, this._engine.MaxValue);
+                    IColor greyColor = this._engine.CreateColor(average, average, average, this._engine.MaxValue);
 
-                    output.SetPixel(x, y, nColor);
+                    output.SetPixel(x, y, greyColor);
                 });
             });
             return output;

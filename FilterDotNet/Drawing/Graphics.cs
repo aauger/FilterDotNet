@@ -18,6 +18,8 @@ namespace FilterDotNet.Drawing
         /// </summary>
         public IImage Unwrap() => _instance;
 
+        #region Bresenham's Line Algorithm
+
         public void DrawLine(Point first, Point second, IColor color)
         {
             if (Math.Abs(second.Y - first.Y) < Math.Abs(second.X - first.X))
@@ -60,6 +62,19 @@ namespace FilterDotNet.Drawing
             {
                 _instance.SetPixel(x, y, color);
                 (x, d) = d > 0 ? (x + xi, d + 2 * (dx - dy)) : (x, d + 2 * dx);
+            }
+        }
+
+        #endregion
+
+        public void Fill(IColor color)
+        {
+            for (int x = 0; x < _instance.Width; x++)
+            {
+                for (int y = 0; y < _instance.Height; y++)
+                {
+                    _instance.SetPixel(x, y, color);
+                }
             }
         }
     }
