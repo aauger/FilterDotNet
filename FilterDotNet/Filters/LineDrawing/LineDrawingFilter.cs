@@ -6,25 +6,32 @@ using FilterDotNet.Utils;
 
 namespace FilterDotNet.Filters
 {
+    public class LineDrawingConfiguration
+    {
+        public int Count { get; set; } = default;
+        public int ColorDistance { get; set; } = default;
+        public int PixelDistanceHorizontal { get; set; } = default;
+        public int PixelDistanceVertical { get; set; } = default;
+        public int SegmentCount { get; set; } = default;
+        public int SegmentRandomDistanceHorizontal { get; set; } = default;
+        public int SegmentRandomDistanceVertical { get; set; } = default;
+    }
+
     public class LineDrawingFilter : IFilter, IConfigurableFilter
     {
         /* DI */
-        private readonly IPluginConfigurator<(int, int, int)> _pluginConfigurator;
+        private readonly IPluginConfigurator<LineDrawingConfiguration> _pluginConfigurator;
         private readonly IEngine _engine;
 
         /* Internals */
         private bool _ready = false;
         private Random _random;
-        private int _count;
-        private int _colorDistance;
-        private int _pixelDistance;
-        private int _segmentCount = 65;
-        private int _segmentRandomDistance = 6;
+        private LineDrawingConfiguration _configuration;
 
         /* Properties */
         public string Name => "Line Drawing";
 
-        public LineDrawingFilter(IPluginConfigurator<(int, int, int)> pluginConfigurator, IEngine engine)
+        public LineDrawingFilter(IPluginConfigurator<LineDrawingConfiguration> pluginConfigurator, IEngine engine)
         {
             this._pluginConfigurator = pluginConfigurator;
             this._engine = engine;
@@ -35,6 +42,7 @@ namespace FilterDotNet.Filters
             if (!this._ready)
                 throw new NotReadyException();
 
+            LineDrawingConfiguration cfg = this._configuration;
             IImage output = this._engine.CreateImage(input.Width, input.Height);
             Graphics g = Graphics.FromIImage(output);
             List<Point> points = GeneratePoints(input);
@@ -45,8 +53,8 @@ namespace FilterDotNet.Filters
                 Point secondPoint = new() { X = 0, Y = 0 };
 
                 IEnumerable<(int, int)> pointsRandom = 
-                    Enumerable.Range(-this._pixelDistance/2, this._pixelDistance)
-                        .SelectMany(ex => Enumerable.Range(-this._pixelDistance/2, this._pixelDistance)
+                    Enumerable.Range(-cfg.PixelDistanceHorizontal/2, cfg.PixelDistanceHorizontal)
+                        .SelectMany(ex => Enumerable.Range(-cfg.PixelDistanceVertical/2, cfg.PixelDistanceVertical)
                                             .Select(ey => (ex, ey)))
                         .OrderBy(t => this._random.Next());
 
@@ -66,7 +74,7 @@ namespace FilterDotNet.Filters
                         (secondPoint, bestDistance) = (new() { X = ox, Y = oy }, tempDistance);
                     }
 
-                    if (bestDistance <= this._colorDistance)
+                    if (bestDistance <= cfg.ColorDistance)
                         goto SuitableFit;
                 }
             SuitableFit:
@@ -87,8 +95,9 @@ namespace FilterDotNet.Filters
 
         private List<Point> GeneratePoints(IImage input)
         {
+            LineDrawingConfiguration cfg = this._configuration;
             List<Point> points = new List<Point>();
-            for (int i = 0; i < this._count; i++)
+            for (int i = 0; i < cfg.Count; i++)
             {
                 Point p = new()
                 {
@@ -102,28 +111,30 @@ namespace FilterDotNet.Filters
 
         private IEnumerable<Point> GenerateSegmented(Point p1, Point p2, IImage input)
         {
-            List<Point> wavyLine = new List<Point>();
-            double dSeg = (double)this._segmentCount;
-            int segDist = this._segmentRandomDistance;
-            wavyLine.Add(p1);
-            for (int i = 0; i < this._segmentCount; i++)
+            LineDrawingConfiguration cfg = this._configuration;
+            List<Point> segmentLine = new List<Point>();
+            double dSeg = (double)cfg.SegmentCount;
+            int segHDist = cfg.SegmentRandomDistanceHorizontal;
+            int segVDist = cfg.SegmentRandomDistanceVertical;
+            segmentLine.Add(p1);
+            for (int i = 0; i < cfg.SegmentCount; i++)
             {
-                wavyLine.Add(
+                segmentLine.Add(
                     new Point
                     {
-                        X = (int)MathUtils.Clamp(MathUtils.Lerp(p1.X, p2.X, i/dSeg) + this._random.Next(-segDist,segDist+1), 0, input.Width-1),
-                        Y = (int)MathUtils.Clamp(MathUtils.Lerp(p1.Y, p2.Y, i/dSeg) + this._random.Next(-segDist,segDist+1), 0, input.Height-1)
+                        X = (int)MathUtils.Clamp(MathUtils.Lerp(p1.X, p2.X, i/dSeg) + this._random.Next(-segHDist,segHDist+1), 0, input.Width-1),
+                        Y = (int)MathUtils.Clamp(MathUtils.Lerp(p1.Y, p2.Y, i/dSeg) + this._random.Next(-segVDist,segVDist+1), 0, input.Height-1)
                     }
                 );
             }
-            wavyLine.Add(p2);
-            return wavyLine;
+            segmentLine.Add(p2);
+            return segmentLine;
 
         }
 
         public IFilter Initialize()
         {
-            (this._count, this._colorDistance, this._pixelDistance) = _pluginConfigurator.GetPluginConfiguration();
+            this._configuration = _pluginConfigurator.GetPluginConfiguration();
             this._random = new Random();
             this._ready = true;
             return this;

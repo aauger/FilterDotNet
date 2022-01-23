@@ -39,7 +39,7 @@ namespace NET6ImageFilter
                 new GlassFilter(new WinformIntConfigurator("Maximum distance:"), FiEngine),
                 new GreyscaleFilter(FiEngine),
                 new InvertFilter(FiEngine),
-                new LineDrawingFilter(new WinformThreeIntConfigurator(), FiEngine),
+                new LineDrawingFilter(new LineDrawingConfigurator(), FiEngine),
                 new MeltingFilter(FiEngine),
                 new NormalMap(new WinformsNormalMapConfigurator(), FiEngine),
                 new PatchMatchFilter(new ImageTwoIntConfigurator(), FiEngine),
