@@ -103,9 +103,10 @@ namespace NET6ImageFilter
                     }
                     pd.CloseForm();
                 }
-                catch
+                catch(Exception ex)
                 {
                     pd.CloseForm();
+                    throw ex;
                     MessageBox.Show("There was an error applying the filter.");
                 }
                 imageViewer.Invalidate();

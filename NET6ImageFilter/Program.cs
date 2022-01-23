@@ -45,6 +45,7 @@ namespace NET6ImageFilter
                 new PatchMatchFilter(new ImageTwoIntConfigurator(), FiEngine),
                 new PosterizeFilter(new WinformIntConfigurator("Levels:"), FiEngine),
                 new PixelateFilter(new WinformTwoIntConfigurator("Block width:", "Block height:"), FiEngine),
+                new ReversibleSplittingFilter(FiEngine),
                 new SolarizeFilter(new WinformIntConfigurator("Solarize threshold:"), FiEngine),
                 new SobelFilter(FiEngine),
                 new StatisticalFilter(new WinformsStatisticalConfigurator(), FiEngine),

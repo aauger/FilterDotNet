@@ -111,6 +111,7 @@ namespace FilterDotNet.Filters
         private IEnumerable<Point> GenerateSegmented(Point p1, Point p2, IImage input)
         {
             LineDrawingConfiguration cfg = this._configuration;
+
             List<Point> segmentLine = new List<Point>();
             double dSeg = (double)cfg.SegmentCount;
             int segHDist = cfg.SegmentRandomDistanceHorizontal;

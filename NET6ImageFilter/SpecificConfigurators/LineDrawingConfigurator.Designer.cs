@@ -66,7 +66,7 @@
             this.colorDistanceTextBox.Location = new System.Drawing.Point(12, 86);
             this.colorDistanceTextBox.Name = "colorDistanceTextBox";
             this.colorDistanceTextBox.Size = new System.Drawing.Size(100, 23);
-            this.colorDistanceTextBox.TabIndex = 0;
+            this.colorDistanceTextBox.TabIndex = 1;
             // 
             // colorDistanceLabel
             // 
@@ -82,7 +82,7 @@
             this.pixelDistanceHorizontalTextBox.Location = new System.Drawing.Point(118, 32);
             this.pixelDistanceHorizontalTextBox.Name = "pixelDistanceHorizontalTextBox";
             this.pixelDistanceHorizontalTextBox.Size = new System.Drawing.Size(100, 23);
-            this.pixelDistanceHorizontalTextBox.TabIndex = 0;
+            this.pixelDistanceHorizontalTextBox.TabIndex = 2;
             // 
             // pixelDistanceHorizontalLabel
             // 
@@ -98,7 +98,7 @@
             this.pixelDistanceVerticalTextBox.Location = new System.Drawing.Point(118, 86);
             this.pixelDistanceVerticalTextBox.Name = "pixelDistanceVerticalTextBox";
             this.pixelDistanceVerticalTextBox.Size = new System.Drawing.Size(100, 23);
-            this.pixelDistanceVerticalTextBox.TabIndex = 0;
+            this.pixelDistanceVerticalTextBox.TabIndex = 3;
             // 
             // pixelDistanceVerticalLabel
             // 
@@ -114,7 +114,7 @@
             this.segmentCountTextBox.Location = new System.Drawing.Point(224, 32);
             this.segmentCountTextBox.Name = "segmentCountTextBox";
             this.segmentCountTextBox.Size = new System.Drawing.Size(100, 23);
-            this.segmentCountTextBox.TabIndex = 0;
+            this.segmentCountTextBox.TabIndex = 4;
             // 
             // segmentCountLabel
             // 
@@ -130,7 +130,7 @@
             this.segmentRandomDistanceHorizontalTextBox.Location = new System.Drawing.Point(224, 86);
             this.segmentRandomDistanceHorizontalTextBox.Name = "segmentRandomDistanceHorizontalTextBox";
             this.segmentRandomDistanceHorizontalTextBox.Size = new System.Drawing.Size(100, 23);
-            this.segmentRandomDistanceHorizontalTextBox.TabIndex = 0;
+            this.segmentRandomDistanceHorizontalTextBox.TabIndex = 5;
             // 
             // segmentRandomDistanceHorizontalLabel
             // 
@@ -146,7 +146,7 @@
             this.segmentRandomDistanceVerticalTextBox.Location = new System.Drawing.Point(330, 32);
             this.segmentRandomDistanceVerticalTextBox.Name = "segmentRandomDistanceVerticalTextBox";
             this.segmentRandomDistanceVerticalTextBox.Size = new System.Drawing.Size(100, 23);
-            this.segmentRandomDistanceVerticalTextBox.TabIndex = 0;
+            this.segmentRandomDistanceVerticalTextBox.TabIndex = 6;
             // 
             // segmentRandomDistanceVerticalLabel
             // 
@@ -162,7 +162,7 @@
             this.okButton.Location = new System.Drawing.Point(345, 68);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(85, 41);
-            this.okButton.TabIndex = 2;
+            this.okButton.TabIndex = 7;
             this.okButton.Text = "OK";
             this.okButton.UseVisualStyleBackColor = true;
             this.okButton.Click += new System.EventHandler(this.okButton_Click);
