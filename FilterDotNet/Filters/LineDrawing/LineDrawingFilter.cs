@@ -75,9 +75,8 @@ namespace FilterDotNet.Filters
                     }
 
                     if (bestDistance <= cfg.ColorDistance)
-                        goto SuitableFit;
+                        break;
                 }
-            SuitableFit:
                 return (point, secondPoint);
             });
 
