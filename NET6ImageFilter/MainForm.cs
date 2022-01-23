@@ -14,6 +14,7 @@ namespace NET6ImageFilter
         private List<IFilter> _filters = new();
         private List<IGenerator> _generators = new();
         private List<IAnalyzer> _analyzers = new();
+        private int _sizeMode = (int)PictureBoxSizeMode.Zoom;
 
         public Image Image
         {
@@ -243,6 +244,12 @@ namespace NET6ImageFilter
         {
             if (Clipboard.ContainsImage())
                 Image = Clipboard.GetImage();
+        }
+
+        private void switchModeButton_Click(object sender, EventArgs e)
+        {
+            this._sizeMode = (this._sizeMode + 1) % 5;
+            this.imageViewer.SizeMode = (PictureBoxSizeMode)(this._sizeMode);
         }
     }
 }

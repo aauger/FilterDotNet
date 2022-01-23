@@ -38,6 +38,7 @@
             this.analyzeButton = new System.Windows.Forms.Button();
             this.copyToClipboardButton = new System.Windows.Forms.Button();
             this.fromClipboardButton = new System.Windows.Forms.Button();
+            this.switchModeButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.imageViewer)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -48,7 +49,7 @@
             this.imageViewer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.imageViewer.Location = new System.Drawing.Point(0, 36);
             this.imageViewer.Name = "imageViewer";
-            this.imageViewer.Size = new System.Drawing.Size(1061, 414);
+            this.imageViewer.Size = new System.Drawing.Size(826, 414);
             this.imageViewer.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.imageViewer.TabIndex = 0;
             this.imageViewer.TabStop = false;
@@ -99,10 +100,11 @@
             this.flowLayoutPanel1.Controls.Add(this.analyzeButton);
             this.flowLayoutPanel1.Controls.Add(this.copyToClipboardButton);
             this.flowLayoutPanel1.Controls.Add(this.fromClipboardButton);
+            this.flowLayoutPanel1.Controls.Add(this.switchModeButton);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1061, 36);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(826, 36);
             this.flowLayoutPanel1.TabIndex = 2;
             // 
             // useGeneratorButton
@@ -153,11 +155,23 @@
             this.fromClipboardButton.UseVisualStyleBackColor = true;
             this.fromClipboardButton.Click += new System.EventHandler(this.fromClipboardButton_Click);
             // 
+            // switchModeButton
+            // 
+            this.switchModeButton.Image = ((System.Drawing.Image)(resources.GetObject("switchModeButton.Image")));
+            this.switchModeButton.Location = new System.Drawing.Point(566, 3);
+            this.switchModeButton.Name = "switchModeButton";
+            this.switchModeButton.Size = new System.Drawing.Size(105, 30);
+            this.switchModeButton.TabIndex = 4;
+            this.switchModeButton.Text = "Switch Mode";
+            this.switchModeButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.switchModeButton.UseVisualStyleBackColor = true;
+            this.switchModeButton.Click += new System.EventHandler(this.switchModeButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1061, 450);
+            this.ClientSize = new System.Drawing.Size(826, 450);
             this.Controls.Add(this.imageViewer);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -182,5 +196,6 @@
         private Button copyToClipboardButton;
         private Button fromClipboardButton;
         private Button analyzeButton;
+        private Button switchModeButton;
     }
 }
