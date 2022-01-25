@@ -59,13 +59,8 @@ namespace NET6ImageFilter
 
             using FilterDialog dialog = new(_filters);
 
-            if (dialog.ShowDialog() == DialogResult.OK)
-            {
-                if (dialog.SelectedFilter is not null)
-                { 
-                    filter = dialog.SelectedFilter;
-                }
-            }
+            if (dialog.ShowDialog() == DialogResult.OK && dialog.SelectedFilter is not null)
+                filter = dialog.SelectedFilter;
 
             if (filter is null)
                 return;
@@ -104,10 +99,9 @@ namespace NET6ImageFilter
                     }
                     pd.CloseForm();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     pd.CloseForm();
-                    throw ex;
                     MessageBox.Show("There was an error applying the filter.");
                 }
                 imageViewer.Invalidate();
@@ -121,13 +115,8 @@ namespace NET6ImageFilter
 
             using GeneratorDialog dialog = new(_generators);
 
-            if (dialog.ShowDialog() == DialogResult.OK)
-            {
-                if (dialog.SelectedGenerator is not null)
-                {
-                    generator = dialog.SelectedGenerator;
-                }
-            }
+            if (dialog.ShowDialog() == DialogResult.OK && dialog.SelectedGenerator is not null)
+                generator = dialog.SelectedGenerator;
 
             if (generator is null)
                 return;
@@ -162,8 +151,9 @@ namespace NET6ImageFilter
                         Image = fdi.UnwrapFastImage().ToBitmap();
                     }
                 }
-                catch 
+                catch
                 {
+                    pd.CloseForm();
                     MessageBox.Show("There was an error running the generator.");
                 }
                 pd.CloseForm();
@@ -200,7 +190,7 @@ namespace NET6ImageFilter
             FIDrawingImage di = new(Image);
 
             using ProcessingDialog pd = new();
-            Task.Factory.StartNew(() => 
+            Task.Factory.StartNew(() =>
             {
                 try
                 {
@@ -212,7 +202,8 @@ namespace NET6ImageFilter
                     });
                 }
                 catch
-                { 
+                {
+                    pd.CloseForm();
                     MessageBox.Show("There was an error running the analyzer.");
                 }
                 pd.CloseForm();
@@ -230,7 +221,7 @@ namespace NET6ImageFilter
         {
             using SaveFileDialog saveFileDialog = new SaveFileDialog();
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            { 
+            {
                 Image.Save(saveFileDialog.FileName, System.Drawing.Imaging.ImageFormat.Png);
             }
         }
@@ -248,7 +239,7 @@ namespace NET6ImageFilter
 
         private void switchModeButton_Click(object sender, EventArgs e)
         {
-            this._sizeMode = (this._sizeMode + 1) % 5;
+            this._sizeMode = (this._sizeMode + 1) % Enum.GetValues(typeof(PictureBoxSizeMode)).Length;
             this.imageViewer.SizeMode = (PictureBoxSizeMode)(this._sizeMode);
         }
     }

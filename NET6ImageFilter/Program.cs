@@ -18,7 +18,12 @@ namespace NET6ImageFilter
         static void Main()
         {
             ApplicationConfiguration.Initialize();
-            List<IFilter> filters = new List<IFilter>();
+
+            List<IFilter> filters = new();
+            List<IAnalyzer> analyzers = new();
+            List<IGenerator> generators = new();
+
+            // Filters
             filters.AddRange(new IFilter[]
             {
                 new BasReliefFilter(new WinformIntConfigurator("Height:"), FiEngine),
@@ -28,8 +33,8 @@ namespace NET6ImageFilter
                 new ColorOverlayFilter(new WinformGetImageDialog(), FiEngine),
                 new ConvolutionFilter(new WinformsConvolutionConfigurator(), FiEngine),
                 new DifferenceFilter(new WinformsDifferenceConfigurator(), FiEngine),
-                new FloydSteinbergDitherFilter(new LambdaPluginConfigurator<List<IColor>>(() => new() 
-                { 
+                new FloydSteinbergDitherFilter(new LambdaPluginConfigurator<List<IColor>>(() => new()
+                {
                     FiEngine.CreateColor(0, 0, 0, 255), //black 
                     FiEngine.CreateColor(255, 0, 0, 255), //red
                     FiEngine.CreateColor(0, 255, 0, 255), //green
@@ -52,17 +57,22 @@ namespace NET6ImageFilter
                 new ThresholdFilter(new WinformIntConfigurator("Threshold:"), FiEngine),
                 new VoronoiSketchFilter(new WinformIntConfigurator("Number of nodes:"), FiEngine)
             });
-            List<IGenerator> generators = new()
+
+            // Generators
+            generators.AddRange(new IGenerator[]
             {
                 new LineDrawTestGenerator(FiEngine),
                 new MandelbrotGenerator(new WinformsGeneratorConfigurators.GeneratorThreeIntConfigurator(), FiEngine),
                 new PerlinNoiseGenerator(new WinformsGeneratorConfigurators.GeneratorThreeIntConfigurator(), FiEngine),
                 new XyModGenerator(new WinformsGeneratorConfigurators.GeneratorThreeIntConfigurator(), FiEngine),
-            };
-            List<IAnalyzer> analyzers = new()
+            });
+
+            // Analyzers
+            analyzers.AddRange(new IAnalyzer[]
             {
                 new DifferenceAnalyzer(new WinformGetImageDialog(), FiEngine)
-            };
+            });
+
             Application.Run(new MainForm(filters, generators, analyzers));
         }
     }
