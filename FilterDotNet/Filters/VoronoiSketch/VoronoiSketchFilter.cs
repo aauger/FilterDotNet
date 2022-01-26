@@ -28,13 +28,13 @@ namespace FilterDotNet.Filters
                 throw new NotReadyException();
 
             IImage output = this._engine.CreateImage(input.Width, input.Height);
-            List<VoronoiNode> nodes = GenerateNodes(input);
+            List<Node> nodes = GenerateNodes(input);
             Parallel.For(0, input.Width, (int x) => 
             {
                 Parallel.For(0, input.Height, (int y) =>
                 {
                     // Euclidean distance, but Manhattan distance is also interesting.
-                    VoronoiNode vNode = nodes
+                    Node vNode = nodes
                         .AsParallel()
                         .MinBy(vn => Math.Sqrt(Math.Pow(x - vn.X, 2) + Math.Pow(y - vn.Y, 2)))!;
                     output.SetPixel(x, y, vNode!.Color!);
@@ -44,9 +44,9 @@ namespace FilterDotNet.Filters
             return output;
         }
 
-        private List<VoronoiNode> GenerateNodes(IImage input)
+        private List<Node> GenerateNodes(IImage input)
         {
-            List<VoronoiNode> voronoiNodes = new();
+            List<Node> voronoiNodes = new();
             Random rnd = new();
             for (int i = 0; i < this._voronoiNodeCount; i++)
             {
