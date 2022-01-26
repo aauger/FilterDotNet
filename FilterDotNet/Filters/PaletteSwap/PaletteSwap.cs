@@ -62,7 +62,7 @@ namespace FilterDotNet.Filters
         {
             return Enumerable.Range(0, image.Width)
                 .SelectMany(x => Enumerable.Range(0, image.Height)
-                                    .Select(y => new Node() { X = x, Y = y, Color = image.GetPixel(x, y)}));
+                                    .Select(y => new Node() { X = x, Y = y, Color = image.GetPixel(x, y) }));
         }
 
         public IFilter Initialize()
