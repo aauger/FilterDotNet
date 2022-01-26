@@ -30,142 +30,141 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.imageViewer = new System.Windows.Forms.PictureBox();
-            this.loadButton = new System.Windows.Forms.Button();
-            this.saveButton = new System.Windows.Forms.Button();
-            this.applyFilterButton = new System.Windows.Forms.Button();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.useGeneratorButton = new System.Windows.Forms.Button();
-            this.analyzeButton = new System.Windows.Forms.Button();
-            this.copyToClipboardButton = new System.Windows.Forms.Button();
-            this.fromClipboardButton = new System.Windows.Forms.Button();
-            this.switchModeButton = new System.Windows.Forms.Button();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.loadButton = new System.Windows.Forms.ToolStripButton();
+            this.saveButton = new System.Windows.Forms.ToolStripButton();
+            this.toolsButton = new System.Windows.Forms.ToolStripDropDownButton();
+            this.filterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.generateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.analyzeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toClipboardButton = new System.Windows.Forms.ToolStripButton();
+            this.fromClipboardButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.sizeModeButton = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.imageViewer)).BeginInit();
-            this.flowLayoutPanel1.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // imageViewer
             // 
             this.imageViewer.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.imageViewer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.imageViewer.Location = new System.Drawing.Point(0, 36);
+            this.imageViewer.Location = new System.Drawing.Point(0, 25);
             this.imageViewer.Name = "imageViewer";
-            this.imageViewer.Size = new System.Drawing.Size(826, 414);
+            this.imageViewer.Size = new System.Drawing.Size(826, 425);
             this.imageViewer.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.imageViewer.TabIndex = 0;
             this.imageViewer.TabStop = false;
             // 
+            // toolStrip1
+            // 
+            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.loadButton,
+            this.saveButton,
+            this.toolsButton,
+            this.toolStripSeparator1,
+            this.toClipboardButton,
+            this.fromClipboardButton,
+            this.toolStripSeparator2,
+            this.sizeModeButton});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(826, 25);
+            this.toolStrip1.TabIndex = 3;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
             // loadButton
             // 
             this.loadButton.Image = ((System.Drawing.Image)(resources.GetObject("loadButton.Image")));
-            this.loadButton.Location = new System.Drawing.Point(3, 3);
+            this.loadButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.loadButton.Name = "loadButton";
-            this.loadButton.Size = new System.Drawing.Size(71, 30);
-            this.loadButton.TabIndex = 1;
+            this.loadButton.Size = new System.Drawing.Size(53, 22);
             this.loadButton.Text = "Load";
-            this.loadButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.loadButton.UseVisualStyleBackColor = true;
             this.loadButton.Click += new System.EventHandler(this.loadButton_Click);
             // 
             // saveButton
             // 
             this.saveButton.Image = ((System.Drawing.Image)(resources.GetObject("saveButton.Image")));
-            this.saveButton.Location = new System.Drawing.Point(80, 3);
+            this.saveButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(71, 30);
-            this.saveButton.TabIndex = 1;
+            this.saveButton.Size = new System.Drawing.Size(51, 22);
             this.saveButton.Text = "Save";
-            this.saveButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.saveButton.UseVisualStyleBackColor = true;
             this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
-            // applyFilterButton
+            // toolsButton
             // 
-            this.applyFilterButton.Image = ((System.Drawing.Image)(resources.GetObject("applyFilterButton.Image")));
-            this.applyFilterButton.Location = new System.Drawing.Point(157, 3);
-            this.applyFilterButton.Name = "applyFilterButton";
-            this.applyFilterButton.Size = new System.Drawing.Size(71, 30);
-            this.applyFilterButton.TabIndex = 1;
-            this.applyFilterButton.Text = "Filter";
-            this.applyFilterButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.applyFilterButton.UseVisualStyleBackColor = true;
-            this.applyFilterButton.Click += new System.EventHandler(this.applyFilterButton_Click);
+            this.toolsButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.filterToolStripMenuItem,
+            this.generateToolStripMenuItem,
+            this.analyzeToolStripMenuItem});
+            this.toolsButton.Image = ((System.Drawing.Image)(resources.GetObject("toolsButton.Image")));
+            this.toolsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolsButton.Name = "toolsButton";
+            this.toolsButton.Size = new System.Drawing.Size(63, 22);
+            this.toolsButton.Text = "Tools";
             // 
-            // flowLayoutPanel1
+            // filterToolStripMenuItem
             // 
-            this.flowLayoutPanel1.AutoSize = true;
-            this.flowLayoutPanel1.Controls.Add(this.loadButton);
-            this.flowLayoutPanel1.Controls.Add(this.saveButton);
-            this.flowLayoutPanel1.Controls.Add(this.applyFilterButton);
-            this.flowLayoutPanel1.Controls.Add(this.useGeneratorButton);
-            this.flowLayoutPanel1.Controls.Add(this.analyzeButton);
-            this.flowLayoutPanel1.Controls.Add(this.copyToClipboardButton);
-            this.flowLayoutPanel1.Controls.Add(this.fromClipboardButton);
-            this.flowLayoutPanel1.Controls.Add(this.switchModeButton);
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(826, 36);
-            this.flowLayoutPanel1.TabIndex = 2;
+            this.filterToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("filterToolStripMenuItem.Image")));
+            this.filterToolStripMenuItem.Name = "filterToolStripMenuItem";
+            this.filterToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.filterToolStripMenuItem.Text = "Filter";
+            this.filterToolStripMenuItem.Click += new System.EventHandler(this.applyFilterButton_Click);
             // 
-            // useGeneratorButton
+            // generateToolStripMenuItem
             // 
-            this.useGeneratorButton.Image = ((System.Drawing.Image)(resources.GetObject("useGeneratorButton.Image")));
-            this.useGeneratorButton.Location = new System.Drawing.Point(234, 3);
-            this.useGeneratorButton.Name = "useGeneratorButton";
-            this.useGeneratorButton.Size = new System.Drawing.Size(83, 30);
-            this.useGeneratorButton.TabIndex = 2;
-            this.useGeneratorButton.Text = "Generate";
-            this.useGeneratorButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.useGeneratorButton.UseVisualStyleBackColor = true;
-            this.useGeneratorButton.Click += new System.EventHandler(this.useGeneratorButton_Click);
+            this.generateToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("generateToolStripMenuItem.Image")));
+            this.generateToolStripMenuItem.Name = "generateToolStripMenuItem";
+            this.generateToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.generateToolStripMenuItem.Text = "Generate";
+            this.generateToolStripMenuItem.Click += new System.EventHandler(this.useGeneratorButton_Click);
             // 
-            // analyzeButton
+            // analyzeToolStripMenuItem
             // 
-            this.analyzeButton.Image = ((System.Drawing.Image)(resources.GetObject("analyzeButton.Image")));
-            this.analyzeButton.Location = new System.Drawing.Point(323, 3);
-            this.analyzeButton.Name = "analyzeButton";
-            this.analyzeButton.Size = new System.Drawing.Size(83, 30);
-            this.analyzeButton.TabIndex = 5;
-            this.analyzeButton.Text = "Analyze";
-            this.analyzeButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.analyzeButton.UseVisualStyleBackColor = true;
-            this.analyzeButton.Click += new System.EventHandler(this.analyzeButton_Click);
+            this.analyzeToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("analyzeToolStripMenuItem.Image")));
+            this.analyzeToolStripMenuItem.Name = "analyzeToolStripMenuItem";
+            this.analyzeToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.analyzeToolStripMenuItem.Text = "Analyze";
+            this.analyzeToolStripMenuItem.Click += new System.EventHandler(this.analyzeButton_Click);
             // 
-            // copyToClipboardButton
+            // toolStripSeparator1
             // 
-            this.copyToClipboardButton.Image = ((System.Drawing.Image)(resources.GetObject("copyToClipboardButton.Image")));
-            this.copyToClipboardButton.Location = new System.Drawing.Point(412, 3);
-            this.copyToClipboardButton.Name = "copyToClipboardButton";
-            this.copyToClipboardButton.Size = new System.Drawing.Size(71, 30);
-            this.copyToClipboardButton.TabIndex = 3;
-            this.copyToClipboardButton.Text = "Copy";
-            this.copyToClipboardButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.copyToClipboardButton.UseVisualStyleBackColor = true;
-            this.copyToClipboardButton.Click += new System.EventHandler(this.copyToClipboardButton_Click);
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toClipboardButton
+            // 
+            this.toClipboardButton.Image = ((System.Drawing.Image)(resources.GetObject("toClipboardButton.Image")));
+            this.toClipboardButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toClipboardButton.Name = "toClipboardButton";
+            this.toClipboardButton.Size = new System.Drawing.Size(94, 22);
+            this.toClipboardButton.Text = "To Clipboard";
+            this.toClipboardButton.Click += new System.EventHandler(this.copyToClipboardButton_Click);
             // 
             // fromClipboardButton
             // 
             this.fromClipboardButton.Image = ((System.Drawing.Image)(resources.GetObject("fromClipboardButton.Image")));
-            this.fromClipboardButton.Location = new System.Drawing.Point(489, 3);
+            this.fromClipboardButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.fromClipboardButton.Name = "fromClipboardButton";
-            this.fromClipboardButton.Size = new System.Drawing.Size(71, 30);
-            this.fromClipboardButton.TabIndex = 4;
-            this.fromClipboardButton.Text = "Paste";
-            this.fromClipboardButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.fromClipboardButton.UseVisualStyleBackColor = true;
+            this.fromClipboardButton.Size = new System.Drawing.Size(110, 22);
+            this.fromClipboardButton.Text = "From Clipboard";
             this.fromClipboardButton.Click += new System.EventHandler(this.fromClipboardButton_Click);
             // 
-            // switchModeButton
+            // toolStripSeparator2
             // 
-            this.switchModeButton.Image = ((System.Drawing.Image)(resources.GetObject("switchModeButton.Image")));
-            this.switchModeButton.Location = new System.Drawing.Point(566, 3);
-            this.switchModeButton.Name = "switchModeButton";
-            this.switchModeButton.Size = new System.Drawing.Size(105, 30);
-            this.switchModeButton.TabIndex = 4;
-            this.switchModeButton.Text = "Switch Mode";
-            this.switchModeButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.switchModeButton.UseVisualStyleBackColor = true;
-            this.switchModeButton.Click += new System.EventHandler(this.switchModeButton_Click);
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // sizeModeButton
+            // 
+            this.sizeModeButton.Image = ((System.Drawing.Image)(resources.GetObject("sizeModeButton.Image")));
+            this.sizeModeButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.sizeModeButton.Name = "sizeModeButton";
+            this.sizeModeButton.Size = new System.Drawing.Size(81, 22);
+            this.sizeModeButton.Text = "Size Mode";
+            this.sizeModeButton.Click += new System.EventHandler(this.switchModeButton_Click);
             // 
             // MainForm
             // 
@@ -173,13 +172,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(826, 450);
             this.Controls.Add(this.imageViewer);
-            this.Controls.Add(this.flowLayoutPanel1);
+            this.Controls.Add(this.toolStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "Filter Workshop";
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.imageViewer)).EndInit();
-            this.flowLayoutPanel1.ResumeLayout(false);
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -188,14 +188,17 @@
         #endregion
 
         private PictureBox imageViewer;
-        private Button loadButton;
-        private Button saveButton;
-        private Button applyFilterButton;
-        private FlowLayoutPanel flowLayoutPanel1;
-        private Button useGeneratorButton;
-        private Button copyToClipboardButton;
-        private Button fromClipboardButton;
-        private Button analyzeButton;
-        private Button switchModeButton;
+        private ToolStrip toolStrip1;
+        private ToolStripButton saveButton;
+        private ToolStripButton loadButton;
+        private ToolStripDropDownButton toolsButton;
+        private ToolStripMenuItem filterToolStripMenuItem;
+        private ToolStripMenuItem generateToolStripMenuItem;
+        private ToolStripMenuItem analyzeToolStripMenuItem;
+        private ToolStripSeparator toolStripSeparator1;
+        private ToolStripButton toClipboardButton;
+        private ToolStripButton fromClipboardButton;
+        private ToolStripSeparator toolStripSeparator2;
+        private ToolStripButton sizeModeButton;
     }
 }
