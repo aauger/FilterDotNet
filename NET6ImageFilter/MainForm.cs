@@ -101,7 +101,6 @@ namespace NET6ImageFilter
                 }
                 catch (Exception ex)
                 {
-                    throw ex;
                     pd.CloseForm();
                     MessageBox.Show("There was an error applying the filter.");
                 }

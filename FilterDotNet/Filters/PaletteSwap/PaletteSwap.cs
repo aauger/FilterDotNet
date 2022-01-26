@@ -35,27 +35,10 @@ namespace FilterDotNet.Filters
             if ((input.Width * input.Height) != (this._colorSource.Width * this._colorSource.Height))
                 throw new BadConfigurationException("Source & destination must have same number of pixels");
 
-            List<Node> inputNodes = new();
-            List<Node> sourceNodes = new();
             IImage output = this._engine.CreateImage(input.Width, input.Height);
 
-            //Collect input nodes
-            for (int x = 0; x < input.Width; x++)
-            {
-                for (int y = 0; y < input.Height; y++)
-                {
-                    inputNodes.Add(new() { X = x, Y = y, Color = input.GetPixel(x, y) });
-                }
-            }
-
-            //Collect source nodes
-            for (int x = 0; x < this._colorSource.Width; x++)
-            {
-                for (int y = 0; y < this._colorSource.Height; y++)
-                {
-                    sourceNodes.Add(new() { X = x, Y = y, Color = this._colorSource.GetPixel(x, y) });
-                }
-            }
+            IEnumerable<Node> inputNodes = CollectNodes(input);
+            IEnumerable<Node> sourceNodes = CollectNodes(this._colorSource);
 
             //sort image nodes by radiance
             IEnumerable<Node> sortedInputNodes = inputNodes.OrderBy(px => Radiance(px.Color!));
@@ -70,9 +53,16 @@ namespace FilterDotNet.Filters
             return output;
         }
 
-        private float Radiance(IColor color)
+        private static float Radiance(IColor color)
         {
             return color.R * 0.265f + color.G * 0.67f + color.B * 0.065f;
+        }
+
+        private static IEnumerable<Node> CollectNodes(IImage image)
+        {
+            return Enumerable.Range(0, image.Width)
+                .SelectMany(x => Enumerable.Range(0, image.Height)
+                                    .Select(y => new Node() { X = x, Y = y, Color = image.GetPixel(x, y)}));
         }
 
         public IFilter Initialize()
