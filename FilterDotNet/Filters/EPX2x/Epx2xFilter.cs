@@ -51,7 +51,6 @@ namespace FilterDotNet.Filters
                     output.SetPixel(ox + 1, oy, top.Equivalent(right) ? top : origin);
                     output.SetPixel(ox, oy + 1, bottom.Equivalent(left) ? bottom : origin);
                     output.SetPixel(ox + 1, oy + 1, bottom.Equivalent(right) ? bottom : origin);
-
                 });
             });
 
