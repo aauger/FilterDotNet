@@ -90,7 +90,7 @@ namespace FilterDotNet.Filters
                      {
                          if (input.OutOfBounds(xz + x, yz + y) || patchSource.OutOfBounds(xz + pc.Item1, yz + pc.Item2))
                          {
-                             sumErrors += 441;
+                             sumErrors += (int)Math.Sqrt((this._engine.MaxValue-this._engine.MinValue)*3);
                              continue;
                          }
 
