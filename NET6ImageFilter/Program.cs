@@ -30,6 +30,7 @@ namespace NET6ImageFilter
                 new ChromaticAberrationFilter(FiEngine),
                 new CirclePaintingFilter(new WinformThreeIntConfigurator(), FiEngine),
                 new ClippingRectangleFilter(new WinformsClippingRectConfigurator(filters), FiEngine),
+                new ColorMatrixFilter(new ColorMatrixConfigurator(), FiEngine),
                 new ColorOverlayFilter(new WinformGetImageDialog(), FiEngine),
                 new ConvolutionFilter(new WinformsConvolutionConfigurator(), FiEngine),
                 new DifferenceFilter(new WinformsDifferenceConfigurator(), FiEngine),
