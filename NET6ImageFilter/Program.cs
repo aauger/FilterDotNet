@@ -26,9 +26,9 @@ namespace NET6ImageFilter
             // Filters
             filters.AddRange(new IFilter[]
             {
-                new BasReliefFilter(new WinformIntConfigurator("Height:"), FiEngine),
+                new BasReliefFilter(new WinformIntConfigurator("Bas Relief", "Height:"), FiEngine),
                 new ChromaticAberrationFilter(FiEngine),
-                new CirclePaintingFilter(new WinformThreeIntConfigurator(), FiEngine),
+                new CirclePaintingFilter(new WinformThreeIntConfigurator("Circle Painting", "Max Difference:", "Minimum Radius:", "Maximum Radius:"), FiEngine),
                 new ClippingRectangleFilter(new WinformsClippingRectConfigurator(filters), FiEngine),
                 new ColorMatrixFilter(new ColorMatrixConfigurator(), FiEngine),
                 new ColorOverlayFilter(new WinformGetImageDialog(), FiEngine),
@@ -43,7 +43,7 @@ namespace NET6ImageFilter
                     FiEngine.CreateColor(0, 0, 255, 255), //blue
                     FiEngine.CreateColor(255,255,255,255) //white
                 }), FiEngine),
-                new GlassFilter(new WinformIntConfigurator("Maximum distance:"), FiEngine),
+                new GlassFilter(new WinformIntConfigurator("Glass", "Maximum distance:"), FiEngine),
                 new GreyscaleFilter(FiEngine),
                 new InvertFilter(FiEngine),
                 new LineDrawingFilter(new LineDrawingConfigurator(), FiEngine),
@@ -51,14 +51,14 @@ namespace NET6ImageFilter
                 new NormalMap(new WinformsNormalMapConfigurator(), FiEngine),
                 new PaletteSwap(new WinformGetImageDialog(), FiEngine),
                 new PatchMatchFilter(new ImageTwoIntConfigurator(), FiEngine),
-                new PosterizeFilter(new WinformIntConfigurator("Levels:"), FiEngine),
-                new PixelateFilter(new WinformTwoIntConfigurator("Block width:", "Block height:"), FiEngine),
+                new PosterizeFilter(new WinformIntConfigurator("Posterize", "Levels:"), FiEngine),
+                new PixelateFilter(new WinformTwoIntConfigurator("Pixelate", "Block width:", "Block height:"), FiEngine),
                 new ReversibleSplittingFilter(FiEngine),
-                new SolarizeFilter(new WinformIntConfigurator("Solarize threshold:"), FiEngine),
+                new SolarizeFilter(new WinformIntConfigurator("Solarize", "Threshold:"), FiEngine),
                 new SobelFilter(FiEngine),
                 new StatisticalFilter(new WinformsStatisticalConfigurator(), FiEngine),
-                new ThresholdFilter(new WinformIntConfigurator("Threshold:"), FiEngine),
-                new VoronoiSketchFilter(new WinformIntConfigurator("Number of nodes:"), FiEngine)
+                new ThresholdFilter(new WinformIntConfigurator("Threshold", "Threshold:"), FiEngine),
+                new VoronoiSketchFilter(new WinformIntConfigurator("Voronoi Sketch", "Number of nodes:"), FiEngine)
             });
 
             // Generators

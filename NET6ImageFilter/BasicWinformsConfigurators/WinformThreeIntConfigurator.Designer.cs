@@ -29,51 +29,84 @@
         private void InitializeComponent()
         {
             this.okButton = new System.Windows.Forms.Button();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.promptLabelFirst = new System.Windows.Forms.Label();
+            this.inputBoxFirst = new System.Windows.Forms.TextBox();
+            this.promptLabelSecond = new System.Windows.Forms.Label();
+            this.inputBoxSecond = new System.Windows.Forms.TextBox();
+            this.promptLabelThird = new System.Windows.Forms.Label();
+            this.inputBoxThird = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // okButton
             // 
-            this.okButton.Location = new System.Drawing.Point(85, 97);
+            this.okButton.Location = new System.Drawing.Point(247, 148);
             this.okButton.Name = "okButton";
-            this.okButton.Size = new System.Drawing.Size(75, 23);
+            this.okButton.Size = new System.Drawing.Size(75, 24);
             this.okButton.TabIndex = 7;
             this.okButton.Text = "OK";
             this.okButton.UseVisualStyleBackColor = true;
             this.okButton.Click += new System.EventHandler(this.okButton_Click);
             // 
-            // textBox3
+            // promptLabelFirst
             // 
-            this.textBox3.Location = new System.Drawing.Point(12, 68);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(148, 23);
-            this.textBox3.TabIndex = 6;
+            this.promptLabelFirst.AutoSize = true;
+            this.promptLabelFirst.Location = new System.Drawing.Point(12, 9);
+            this.promptLabelFirst.Name = "promptLabelFirst";
+            this.promptLabelFirst.Size = new System.Drawing.Size(113, 15);
+            this.promptLabelFirst.TabIndex = 10;
+            this.promptLabelFirst.Text = "promptLabelDefault";
             // 
-            // textBox2
+            // inputBoxFirst
             // 
-            this.textBox2.Location = new System.Drawing.Point(12, 39);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(148, 23);
-            this.textBox2.TabIndex = 5;
+            this.inputBoxFirst.Location = new System.Drawing.Point(12, 27);
+            this.inputBoxFirst.Name = "inputBoxFirst";
+            this.inputBoxFirst.Size = new System.Drawing.Size(310, 23);
+            this.inputBoxFirst.TabIndex = 9;
             // 
-            // textBox1
+            // promptLabelSecond
             // 
-            this.textBox1.Location = new System.Drawing.Point(12, 10);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(148, 23);
-            this.textBox1.TabIndex = 4;
+            this.promptLabelSecond.AutoSize = true;
+            this.promptLabelSecond.Location = new System.Drawing.Point(12, 53);
+            this.promptLabelSecond.Name = "promptLabelSecond";
+            this.promptLabelSecond.Size = new System.Drawing.Size(113, 15);
+            this.promptLabelSecond.TabIndex = 10;
+            this.promptLabelSecond.Text = "promptLabelDefault";
+            // 
+            // inputBoxSecond
+            // 
+            this.inputBoxSecond.Location = new System.Drawing.Point(12, 71);
+            this.inputBoxSecond.Name = "inputBoxSecond";
+            this.inputBoxSecond.Size = new System.Drawing.Size(310, 23);
+            this.inputBoxSecond.TabIndex = 9;
+            // 
+            // promptLabelThird
+            // 
+            this.promptLabelThird.AutoSize = true;
+            this.promptLabelThird.Location = new System.Drawing.Point(12, 97);
+            this.promptLabelThird.Name = "promptLabelThird";
+            this.promptLabelThird.Size = new System.Drawing.Size(113, 15);
+            this.promptLabelThird.TabIndex = 10;
+            this.promptLabelThird.Text = "promptLabelDefault";
+            // 
+            // inputBoxThird
+            // 
+            this.inputBoxThird.Location = new System.Drawing.Point(12, 115);
+            this.inputBoxThird.Name = "inputBoxThird";
+            this.inputBoxThird.Size = new System.Drawing.Size(310, 23);
+            this.inputBoxThird.TabIndex = 9;
             // 
             // WinformThreeIntConfigurator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(170, 130);
+            this.ClientSize = new System.Drawing.Size(334, 181);
+            this.Controls.Add(this.promptLabelThird);
+            this.Controls.Add(this.promptLabelSecond);
+            this.Controls.Add(this.promptLabelFirst);
+            this.Controls.Add(this.inputBoxThird);
+            this.Controls.Add(this.inputBoxSecond);
+            this.Controls.Add(this.inputBoxFirst);
             this.Controls.Add(this.okButton);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
             this.Name = "WinformThreeIntConfigurator";
             this.Text = "WinformThreeIntConfigurator";
             this.ResumeLayout(false);
@@ -84,8 +117,11 @@
         #endregion
 
         private Button okButton;
-        private TextBox textBox3;
-        private TextBox textBox2;
-        private TextBox textBox1;
+        private Label promptLabelFirst;
+        private TextBox inputBoxFirst;
+        private Label promptLabelSecond;
+        private TextBox inputBoxSecond;
+        private Label promptLabelThird;
+        private TextBox inputBoxThird;
     }
 }

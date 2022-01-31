@@ -13,10 +13,11 @@ namespace NET6ImageFilter.BasicWinformsConfigurators
 {
     public partial class WinformIntConfigurator : Form, IPluginConfigurator<int>
     {
-        public WinformIntConfigurator(string message)
+        public WinformIntConfigurator(string title, string message)
         {
             InitializeComponent();
             this.Text = message;
+            this.promptLabel.Text = message;
         }
 
         public int GetPluginConfiguration()

@@ -13,18 +13,23 @@ namespace NET6ImageFilter.BasicWinformsConfigurators
 {
     public partial class WinformTwoIntConfigurator : Form, IPluginConfigurator<(int, int)>
     {
-        public WinformTwoIntConfigurator(string firstMessage, string secondMessage)
+        public WinformTwoIntConfigurator(string title, string firstMessage, string secondMessage)
         {
             InitializeComponent();
-            this.fLabel.Text = firstMessage;
-            this.sLabel.Text = secondMessage;
+            this.Text = title;
+            this.promptLabelFirst.Text = firstMessage;
+            this.promptLabelSecond.Text = secondMessage;
         }
 
         public (int, int) GetPluginConfiguration()
         {
             if (this.ShowDialog() == DialogResult.OK)
-            { 
-                return (int.Parse(fInput.Text), int.Parse(sInput.Text));
+            {
+                return
+                (
+                    int.Parse(inputBoxFirst.Text),
+                    int.Parse(inputBoxSecond.Text)
+                );
             }
             return (default, default);
         }
@@ -33,16 +38,6 @@ namespace NET6ImageFilter.BasicWinformsConfigurators
         {
             this.DialogResult = DialogResult.OK;
             this.Close();
-        }
-
-        private void WinformTwoIntConfigurator_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void fInput_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

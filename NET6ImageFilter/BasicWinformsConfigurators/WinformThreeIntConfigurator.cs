@@ -13,19 +13,24 @@ namespace NET6ImageFilter.BasicWinformsConfigurators
 {
     public partial class WinformThreeIntConfigurator : Form, IPluginConfigurator<(int,int,int)>
     {
-        public WinformThreeIntConfigurator()
+        public WinformThreeIntConfigurator(string title, string firstMessage, string secondMessage, string thirdMessage)
         {
             InitializeComponent();
+            this.Text = title;
+            this.promptLabelFirst.Text = firstMessage;
+            this.promptLabelSecond.Text = secondMessage;
+            this.promptLabelThird.Text = thirdMessage;
         }
 
         public (int, int, int) GetPluginConfiguration()
         {
             if (this.ShowDialog() == DialogResult.OK)
             {
-               return (
-                int.Parse(textBox1.Text),
-                int.Parse(textBox2.Text),
-                int.Parse(textBox3.Text)
+               return 
+               (
+                int.Parse(inputBoxFirst.Text),
+                int.Parse(inputBoxSecond.Text),
+                int.Parse(inputBoxThird.Text)
                );
             }
             return (default, default, default);
