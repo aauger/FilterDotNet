@@ -49,14 +49,14 @@
             this.inputBoxFirst.Location = new System.Drawing.Point(12, 26);
             this.inputBoxFirst.Name = "inputBoxFirst";
             this.inputBoxFirst.Size = new System.Drawing.Size(310, 23);
-            this.inputBoxFirst.TabIndex = 4;
+            this.inputBoxFirst.TabIndex = 0;
             // 
             // okButton
             // 
             this.okButton.Location = new System.Drawing.Point(247, 99);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(75, 24);
-            this.okButton.TabIndex = 3;
+            this.okButton.TabIndex = 2;
             this.okButton.Text = "OK";
             this.okButton.UseVisualStyleBackColor = true;
             this.okButton.Click += new System.EventHandler(this.okButton_Click);
@@ -75,7 +75,7 @@
             this.inputBoxSecond.Location = new System.Drawing.Point(12, 70);
             this.inputBoxSecond.Name = "inputBoxSecond";
             this.inputBoxSecond.Size = new System.Drawing.Size(310, 23);
-            this.inputBoxSecond.TabIndex = 4;
+            this.inputBoxSecond.TabIndex = 1;
             // 
             // WinformTwoIntConfigurator
             // 

@@ -42,7 +42,7 @@
             this.okButton.Location = new System.Drawing.Point(247, 148);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(75, 24);
-            this.okButton.TabIndex = 7;
+            this.okButton.TabIndex = 3;
             this.okButton.Text = "OK";
             this.okButton.UseVisualStyleBackColor = true;
             this.okButton.Click += new System.EventHandler(this.okButton_Click);
@@ -61,7 +61,7 @@
             this.inputBoxFirst.Location = new System.Drawing.Point(12, 27);
             this.inputBoxFirst.Name = "inputBoxFirst";
             this.inputBoxFirst.Size = new System.Drawing.Size(310, 23);
-            this.inputBoxFirst.TabIndex = 9;
+            this.inputBoxFirst.TabIndex = 0;
             // 
             // promptLabelSecond
             // 
@@ -77,7 +77,7 @@
             this.inputBoxSecond.Location = new System.Drawing.Point(12, 71);
             this.inputBoxSecond.Name = "inputBoxSecond";
             this.inputBoxSecond.Size = new System.Drawing.Size(310, 23);
-            this.inputBoxSecond.TabIndex = 9;
+            this.inputBoxSecond.TabIndex = 1;
             // 
             // promptLabelThird
             // 
@@ -93,7 +93,7 @@
             this.inputBoxThird.Location = new System.Drawing.Point(12, 115);
             this.inputBoxThird.Name = "inputBoxThird";
             this.inputBoxThird.Size = new System.Drawing.Size(310, 23);
-            this.inputBoxThird.TabIndex = 9;
+            this.inputBoxThird.TabIndex = 2;
             // 
             // WinformThreeIntConfigurator
             // 

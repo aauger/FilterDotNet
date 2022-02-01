@@ -25,11 +25,13 @@ namespace NET6ImageFilter.BasicWinformsConfigurators
         {
             if (this.ShowDialog() == DialogResult.OK)
             {
-                return
-                (
-                    int.Parse(inputBoxFirst.Text),
-                    int.Parse(inputBoxSecond.Text)
-                );
+                int firstValue = default;
+                int secondValue = default;
+                bool parsed = int.TryParse(inputBoxFirst.Text, out firstValue) 
+                    && int.TryParse(inputBoxSecond.Text, out secondValue);
+
+                if (parsed)
+                    return (firstValue, secondValue);
             }
             return (default, default);
         }

@@ -24,14 +24,18 @@ namespace NET6ImageFilter.BasicWinformsConfigurators
 
         public (int, int, int) GetPluginConfiguration()
         {
+
             if (this.ShowDialog() == DialogResult.OK)
             {
-               return 
-               (
-                int.Parse(inputBoxFirst.Text),
-                int.Parse(inputBoxSecond.Text),
-                int.Parse(inputBoxThird.Text)
-               );
+                int firstValue  = default;
+                int secondValue = default;
+                int thirdValue  = default;
+                bool parsed = int.TryParse(inputBoxFirst.Text, out firstValue) 
+                    && int.TryParse(inputBoxSecond.Text, out secondValue) 
+                    && int.TryParse(inputBoxThird.Text, out thirdValue);
+
+                if (parsed)
+                    return (firstValue, secondValue, thirdValue);
             }
             return (default, default, default);
         }
