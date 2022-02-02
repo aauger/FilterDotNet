@@ -54,8 +54,9 @@ namespace NET6ImageFilter
                 new PosterizeFilter(new WinformIntConfigurator("Posterize", "Levels:"), FiEngine),
                 new PixelateFilter(new WinformTwoIntConfigurator("Pixelate", "Block width:", "Block height:"), FiEngine),
                 new ReversibleSplittingFilter(FiEngine),
-                new SolarizeFilter(new WinformIntConfigurator("Solarize", "Threshold:"), FiEngine),
                 new SobelFilter(FiEngine),
+                new SolarizeFilter(new WinformIntConfigurator("Solarize", "Threshold:"), FiEngine),
+                new SortPixelsFilter(FiEngine),
                 new StatisticalFilter(new WinformsStatisticalConfigurator(), FiEngine),
                 new ThresholdFilter(new WinformIntConfigurator("Threshold", "Threshold:"), FiEngine),
                 new VoronoiSketchFilter(new WinformIntConfigurator("Voronoi Sketch", "Number of nodes:"), FiEngine)
