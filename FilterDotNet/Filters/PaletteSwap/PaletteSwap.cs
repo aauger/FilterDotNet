@@ -32,8 +32,8 @@ namespace FilterDotNet.Filters
 
             IImage output = this._engine.CreateImage(input.Width, input.Height);
 
-            IEnumerable<Node> inputNodes = CollectNodes(input);
-            IEnumerable<Node> sourceNodes = CollectNodes(this._colorSource);
+            IEnumerable<Node> inputNodes = Node.Collect(input);
+            IEnumerable<Node> sourceNodes = Node.Collect(this._colorSource);
 
             //sort image nodes by radiance
             IEnumerable<Node> sortedInputNodes = inputNodes.OrderBy(px => Radiance(px.Color!));
@@ -51,13 +51,6 @@ namespace FilterDotNet.Filters
         private static float Radiance(IColor color)
         {
             return color.R * 0.265f + color.G * 0.67f + color.B * 0.065f;
-        }
-
-        private static IEnumerable<Node> CollectNodes(IImage image)
-        {
-            return Enumerable.Range(0, image.Width)
-                .SelectMany(x => Enumerable.Range(0, image.Height)
-                                    .Select(y => new Node() { X = x, Y = y, Color = image.GetPixel(x, y) }));
         }
 
         public IFilter Initialize()

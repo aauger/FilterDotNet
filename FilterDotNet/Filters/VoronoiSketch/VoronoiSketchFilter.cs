@@ -28,7 +28,7 @@ namespace FilterDotNet.Filters
                 throw new NotReadyException();
 
             IImage output = this._engine.CreateImage(input.Width, input.Height);
-            List<Node> nodes = GenerateNodes(input);
+            IEnumerable<Node> nodes = NodeGenerator(input);
             Parallel.For(0, input.Width, (int x) => 
             {
                 Parallel.For(0, input.Height, (int y) =>
@@ -44,22 +44,20 @@ namespace FilterDotNet.Filters
             return output;
         }
 
-        private List<Node> GenerateNodes(IImage input)
+        private IEnumerable<Node> NodeGenerator(IImage input)
         {
-            List<Node> voronoiNodes = new();
             Random rnd = new();
             for (int i = 0; i < this._voronoiNodeCount; i++)
             {
                 int x = rnd.Next(0, input.Width);
                 int y = rnd.Next(0, input.Height);
-                voronoiNodes.Add(new()
+                yield return new()
                 {
                     X = x,
                     Y = y,
                     Color = input.GetPixel(x, y)
-                });
+                };
             }
-            return voronoiNodes;
         }
 
         public IFilter Initialize()

@@ -19,7 +19,7 @@ namespace FilterDotNet.Filters
         {
             IImage output = this._engine.CreateImage(input.Width, input.Height);
 
-            IEnumerable<Node> sortedNodes = CollectNodes(input)
+            IEnumerable<Node> sortedNodes = Node.Collect(input)
                 .OrderBy(n => n.Color!.R)
                 .ThenBy(n => n.Color!.G)
                 .ThenBy(n => n.Color!.B);
@@ -38,13 +38,6 @@ namespace FilterDotNet.Filters
             }
 
             return output;
-        }
-
-        public IEnumerable<Node> CollectNodes(IImage image)
-        {
-            return Enumerable.Range(0, image.Width)
-                .SelectMany(x => Enumerable.Range(0, image.Height)
-                                    .Select(y => new Node() { X = x, Y = y, Color = image.GetPixel(x, y) }));
         }
     }
 }
