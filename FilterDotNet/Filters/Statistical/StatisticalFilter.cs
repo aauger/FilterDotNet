@@ -118,9 +118,10 @@ namespace FilterDotNet.Filters
         {
             var c = xs.Count;
             var cm = c % 2;
+            var cmid = c / 2;
             if (cm == 0 && c >= 2)
-                return (xs[cm] + xs[cm + 1]) / 2;
-            return xs[cm];
+                return (xs[cmid] + xs[cmid + 1]) / 2;
+            return xs[cmid];
         }
 
         private static int Mode(List<int> xs)

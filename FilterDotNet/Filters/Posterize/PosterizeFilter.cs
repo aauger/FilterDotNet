@@ -22,7 +22,6 @@ namespace FilterDotNet.Filters
             this._engine = engine;
         }
 
-
         public IImage Apply(IImage input)
         {
             if (!this._ready)
