@@ -34,6 +34,7 @@ namespace NET6ImageFilter
                 new ColorOverlayFilter(new WinformGetImageDialog(), FiEngine),
                 new ConvolutionFilter(new WinformsConvolutionConfigurator(), FiEngine),
                 new DifferenceFilter(new WinformsDifferenceConfigurator(), FiEngine),
+                new DivideFilter(new WinformGetImageDialog(), FiEngine),
                 new Epx2xFilter(FiEngine),
                 new FloydSteinbergDitherFilter(new LambdaPluginConfigurator<List<IColor>>(() => new()
                 {
