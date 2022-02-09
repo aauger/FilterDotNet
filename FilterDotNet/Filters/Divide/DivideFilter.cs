@@ -54,7 +54,7 @@ namespace FilterDotNet.Filters
         {
             if (c1 == 0)
                 return c1;
-            return this._engine.Clamp((int)Math.Round((float)(c0 / c1)));
+            return this._engine.Clamp((int)Math.Round(((float)c0 / c1)));
         }
 
         public IFilter Initialize()
