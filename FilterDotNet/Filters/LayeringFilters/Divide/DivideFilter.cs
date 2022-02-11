@@ -39,9 +39,9 @@ namespace FilterDotNet.Filters
                     IColor cc = input.GetPixel(x, y);
                     IColor oc = this._other.GetPixel(x, y);
 
-                    int nr = DivClamp(cc.R, oc.R);
-                    int ng = DivClamp(cc.G, oc.G);
-                    int nb = DivClamp(cc.B, oc.B);
+                    int nr = DivClamp(oc.R, cc.R);
+                    int ng = DivClamp(oc.G, cc.G);
+                    int nb = DivClamp(oc.B, cc.B);
 
                     output.SetPixel(x, y, this._engine.CreateColor(nr, ng, nb, this._engine.MaxValue));
                 });

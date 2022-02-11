@@ -31,7 +31,7 @@ namespace NET6ImageFilter
                 new CirclePaintingFilter(new WinformThreeIntConfigurator("Circle Painting", "Max Difference:", "Minimum Radius:", "Maximum Radius:"), FiEngine),
                 new ClippingRectangleFilter(new WinformsClippingRectConfigurator(filters), FiEngine),
                 new ColorMatrixFilter(new ColorMatrixConfigurator(), FiEngine),
-                new ColorOverlayFilter(new WinformGetImageDialog(), FiEngine),
+                new ColorMaskingFilter(new WinformGetImageDialog(), FiEngine),
                 new ConvolutionFilter(new WinformsConvolutionConfigurator(), FiEngine),
                 new DifferenceFilter(new WinformsDifferenceConfigurator(), FiEngine),
                 new DivideFilter(new WinformGetImageDialog(), FiEngine),

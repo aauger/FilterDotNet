@@ -3,7 +3,7 @@ using FilterDotNet.Interfaces;
 
 namespace FilterDotNet.Filters
 {
-    public class ColorOverlayFilter : IFilter, IConfigurableFilter
+    public class ColorMaskingFilter : IFilter, IConfigurableFilter
     {
         /* DI */
         private readonly IPluginConfigurator<IImage> _pluginConfigurator;
@@ -16,7 +16,7 @@ namespace FilterDotNet.Filters
         /* Properties */
         public string Name => "Color Overlay";
 
-        public ColorOverlayFilter(IPluginConfigurator<IImage> pluginConfigurator, IEngine engine)
+        public ColorMaskingFilter(IPluginConfigurator<IImage> pluginConfigurator, IEngine engine)
         {
             this._pluginConfigurator = pluginConfigurator;
             this._engine = engine;
