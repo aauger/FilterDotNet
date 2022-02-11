@@ -49,6 +49,7 @@ namespace NET6ImageFilter
                 new InvertFilter(FiEngine),
                 new LineDrawingFilter(new LineDrawingConfigurator(), FiEngine),
                 new MeltingFilter(FiEngine),
+                new MultiplyFilter(new WinformGetImageDialog(), FiEngine),
                 new NormalMap(new WinformsNormalMapConfigurator(), FiEngine),
                 new PaletteSwap(new WinformGetImageDialog(), FiEngine),
                 new PatchMatchFilter(new ImageTwoIntConfigurator(), FiEngine),
