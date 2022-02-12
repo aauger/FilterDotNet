@@ -5,7 +5,7 @@ using FilterDotNet.Extensions;
 
 namespace FilterDotNet.Filters
 {
-    public class MultiplyFilter : IFilter, IConfigurableFilter
+    public class ScreenFilter : IFilter, IConfigurableFilter
     {
         /* DI */
         private readonly IPluginConfigurator<IImage> _pluginConfigurator;
@@ -16,9 +16,9 @@ namespace FilterDotNet.Filters
         private IImage _other;
 
         /* Properties */
-        public string Name => "Multiply";
+        public string Name => "Screen";
 
-        public MultiplyFilter(IPluginConfigurator<IImage> pluginConfigurator, IEngine engine)
+        public ScreenFilter(IPluginConfigurator<IImage> pluginConfigurator, IEngine engine)
         {
             this._pluginConfigurator = pluginConfigurator;
             this._engine = engine;
@@ -41,9 +41,9 @@ namespace FilterDotNet.Filters
                     IColor cc = input.GetPixel(x, y);
                     IColor oc = this._other.GetPixel(x, y);
 
-                    int nr = MulClamp(oc.R, cc.R);
-                    int ng = MulClamp(oc.G, cc.G);
-                    int nb = MulClamp(oc.B, cc.B);
+                    int nr = ScreenClamp(oc.R, cc.R);
+                    int ng = ScreenClamp(oc.G, cc.G);
+                    int nb = ScreenClamp(oc.B, cc.B);
 
                     output.SetPixel(x, y, this._engine.CreateColor(nr, ng, nb, this._engine.MaxValue));
                 });
@@ -52,12 +52,12 @@ namespace FilterDotNet.Filters
             return output;
         }
 
-        private int MulClamp(int c0, int c1)
+        private int ScreenClamp(int c0, int c1)
         {
             double d0 = this._engine.ScaleValueToFractional(c0);
             double d1 = this._engine.ScaleValueToFractional(c1);
 
-            double result = d0 * d1;
+            double result = 1 - ((1 - d0) * (1 - d1));
 
             int value = this._engine.ClampedScaledFromFractional(result);
             return value;
@@ -71,4 +71,3 @@ namespace FilterDotNet.Filters
         }
     }
 }
-
