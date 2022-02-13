@@ -28,7 +28,7 @@ namespace FilterDotNet.Extensions
 
         public static int Average(this IColor c)
         {
-            return c.R + c.G + c.B / 3;
+            return (c.R + c.G + c.B) / 3;
         }
     }
 }

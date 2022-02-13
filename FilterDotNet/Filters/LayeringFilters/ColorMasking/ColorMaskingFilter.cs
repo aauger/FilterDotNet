@@ -14,7 +14,7 @@ namespace FilterDotNet.Filters
         private bool _ready = false;
 
         /* Properties */
-        public string Name => "Color Overlay";
+        public string Name => "Color Masking";
 
         public ColorMaskingFilter(IPluginConfigurator<IImage> pluginConfigurator, IEngine engine)
         {
