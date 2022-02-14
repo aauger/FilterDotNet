@@ -1,8 +1,8 @@
-﻿using FilterDotNet.Interfaces;
+﻿using FastImageProvider;
+using FilterDotNet.Interfaces;
 using FilterDotNet.Utils;
-using NET6ImageFilter.ImageProviders;
 
-namespace NET6ImageFilter
+namespace FastImageProvider
 {
     public class FastImageEngine : IEngine
     {

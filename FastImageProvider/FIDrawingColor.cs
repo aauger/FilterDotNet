@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NET6ImageFilter.ImageProviders
+namespace FastImageProvider
 {
     public class FIDrawingColor : IColor
     {

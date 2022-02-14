@@ -4,8 +4,9 @@ using NET6ImageFilter.BasicWinformsConfigurators;
 using NET6ImageFilter.SpecificConfigurators;
 using FilterDotNet.Generators;
 using FilterDotNet.Analyzers;
-using static NET6ImageFilter.Injectables;
 using FilterDotNet.LibraryConfigurators;
+using static FastImageProvider.Injectables;
+
 
 namespace NET6ImageFilter
 {

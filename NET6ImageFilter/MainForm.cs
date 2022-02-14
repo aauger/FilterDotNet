@@ -1,3 +1,4 @@
+using FastImageProvider;
 using FilterDotNet.Filters;
 using FilterDotNet.Interfaces;
 using NET6ImageFilter.Dialogs;

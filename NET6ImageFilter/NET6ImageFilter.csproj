@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FastImageLibrary\FastImageLibrary.csproj" />
+    <ProjectReference Include="..\FastImageProvider\FastImageProvider.csproj" />
     <ProjectReference Include="..\FilterDotNet\FilterDotNet.csproj" />
   </ItemGroup>
 
