@@ -28,7 +28,7 @@ namespace NET6ImageFilter.SpecificConfigurators
                 {
                     Thresholding = this.thresholdCheckbox.Checked,
                     Threshold = int.Parse(this.thresholdTextBox.Text),
-                    BlockSize = int.Parse(this.blockSizeTextBox.Text),
+                    BlockMask = new[,] { { true } },
                     Mode = this.modeGroupBox.Controls.OfType<RadioButton>().First(rb => rb.Checked) switch
                     {
                         { Name: "averageRadioButton" } => StatisticalFilterMode.AVERAGE,

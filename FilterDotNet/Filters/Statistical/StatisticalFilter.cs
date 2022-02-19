@@ -16,7 +16,7 @@ namespace FilterDotNet.Filters
         public StatisticalFilterMode Mode { get; set; } = StatisticalFilterMode.AVERAGE;
         public bool Thresholding { get; set; } = false;
         public int Threshold { get; set; } = 0;
-        public int BlockSize { get; set; } = 0;
+        public bool[,] BlockMask { get; set; } = new bool[,] { { true } };
     }
 
     public class StatisticalFilter : IFilter, IConfigurableFilter
@@ -55,16 +55,16 @@ namespace FilterDotNet.Filters
                     List<int> blues = new();
                     IColor home = input.GetPixel(x, y);
 
-                    foreach (int xOff in Enumerable.Range(-cfg.BlockSize / 2, cfg.BlockSize))
+                    foreach (int xOff in Enumerable.Range(-cfg.BlockMask.GetLength(0) / 2, cfg.BlockMask.GetLength(0)))
                     {
-                        foreach (int yOff in Enumerable.Range(-cfg.BlockSize / 2, cfg.BlockSize))
+                        foreach (int yOff in Enumerable.Range(-cfg.BlockMask.GetLength(1) / 2, cfg.BlockMask.GetLength(1)))
                         {
-                            if (input.OutOfBounds(x + xOff, y + yOff))
+                            if (input.OutOfBounds(x + xOff, y + yOff) || cfg.BlockMask[xOff + cfg.BlockMask.GetLength(0)/2, yOff + cfg.BlockMask.GetLength(1)/2] == false)
                                 continue;
 
                             IColor c = input.GetPixel(x + xOff, y + yOff);
 
-                            if (cfg.Thresholding && home.Difference(c) > cfg.Threshold)
+                            if ((cfg.Thresholding && home.Difference(c) > cfg.Threshold))
                                 continue;
 
                             reds.Add(c.R);
