@@ -54,8 +54,8 @@ namespace FilterDotNet.Filters
 
                     for (int deg = 0; deg < 360; deg += 10)
                     {
-                        int rx = (int)(c.Radius * Math.Cos(MathUtils.DegToRad(deg)) + originX);
-                        int ry = (int)(c.Radius * Math.Sin(MathUtils.DegToRad(deg)) + originY);
+                        int rx = (int)(c.Radius * Math.Cos(Utilities.DegToRad(deg)) + originX);
+                        int ry = (int)(c.Radius * Math.Sin(Utilities.DegToRad(deg)) + originY);
 
                         if (rx >= 0 && rx < input.Width
                             && ry >= 0 && ry < input.Height

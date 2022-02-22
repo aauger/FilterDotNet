@@ -40,7 +40,7 @@ namespace FilterDotNet.Generators
                 {
                     double col = Turbulence(noise, (double)x, (double)y, (double)this._size);
                     int cval = (int)col;
-                    IColor c = this._engine.CreateColor(cval, cval, (int)MathUtils.Map(col, this._engine.MinValue, this._engine.MaxValue, this._engine.MaxValue/2, this._engine.MaxValue), this._engine.MaxValue);
+                    IColor c = this._engine.CreateColor(cval, cval, (int)Utilities.Map(col, this._engine.MinValue, this._engine.MaxValue, this._engine.MaxValue/2, this._engine.MaxValue), this._engine.MaxValue);
 
                     output.SetPixel(x, y, c);
                 });

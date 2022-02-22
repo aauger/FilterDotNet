@@ -29,10 +29,10 @@ namespace FilterDotNet.Filters
                     int oy = y * 2;
 
                     IColor origin = input.GetPixel(x, y);
-                    IColor top    = input.GetPixel(x, MathUtils.Clamp(y - 1, 0, input.Height - 1));
-                    IColor left   = input.GetPixel(MathUtils.Clamp(x - 1, 0, input.Width - 1), y);
-                    IColor right  = input.GetPixel(MathUtils.Clamp(x + 1, 0, input.Width - 1), y);
-                    IColor bottom = input.GetPixel(x, MathUtils.Clamp(y + 1, 0, input.Height - 1));
+                    IColor top    = input.GetPixel(x, Utilities.Clamp(y - 1, 0, input.Height - 1));
+                    IColor left   = input.GetPixel(Utilities.Clamp(x - 1, 0, input.Width - 1), y);
+                    IColor right  = input.GetPixel(Utilities.Clamp(x + 1, 0, input.Width - 1), y);
+                    IColor bottom = input.GetPixel(x, Utilities.Clamp(y + 1, 0, input.Height - 1));
 
                     if (SameRegion(new[] { top, left, bottom, right }) > 2)
                     {

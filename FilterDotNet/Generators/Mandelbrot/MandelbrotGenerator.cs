@@ -43,8 +43,8 @@ namespace FilterDotNet.Generators
             {
                 Parallel.For(0, this._height, (int y) =>
                 {
-                    double x0 = MathUtils.Map(x, 0, this._width, -2.00, 0.47);
-                    double y0 = MathUtils.Map(y, 0, this._height, -1.12, 1.12);
+                    double x0 = Utilities.Map(x, 0, this._width, -2.00, 0.47);
+                    double y0 = Utilities.Map(y, 0, this._height, -1.12, 1.12);
                     double zx = 0.0;
                     double zy = 0.0;
                     int iter = 0;

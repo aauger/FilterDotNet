@@ -8,11 +8,9 @@ namespace FilterDotNet.Filters
         public int Y { get; set; }
         public IColor? Color { get; set; }
 
-        public static IEnumerable<Node> Collect(IImage image)
-        {
-            return Enumerable.Range(0, image.Width)
-                    .SelectMany(x => Enumerable.Range(0, image.Height)
-                        .Select(y => new Node() { X = x, Y = y, Color = image.GetPixel(x, y) }));
-        }
+        public static IEnumerable<Node> Collect(IImage image) =>
+            from x in Enumerable.Range(0, image.Width)
+            from y in Enumerable.Range(0, image.Height)
+            select new Node { X = x, Y = y, Color = image.GetPixel(x, y) };
     }
 }

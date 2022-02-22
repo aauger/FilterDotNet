@@ -73,9 +73,9 @@ namespace FilterDotNet.Filters
                     int ri, gi, bi;
                     if (cfg.Normalize)
                     {
-                        ri = this._engine.Clamp((int)MathUtils.Map(r, 0, sumCoeffRGBMax, 0, this._engine.MaxValue));
-                        gi = this._engine.Clamp((int)MathUtils.Map(g, 0, sumCoeffRGBMax, 0, this._engine.MaxValue));
-                        bi = this._engine.Clamp((int)MathUtils.Map(b, 0, sumCoeffRGBMax, 0, this._engine.MaxValue));
+                        ri = this._engine.Clamp((int)Utilities.Map(r, 0, sumCoeffRGBMax, 0, this._engine.MaxValue));
+                        gi = this._engine.Clamp((int)Utilities.Map(g, 0, sumCoeffRGBMax, 0, this._engine.MaxValue));
+                        bi = this._engine.Clamp((int)Utilities.Map(b, 0, sumCoeffRGBMax, 0, this._engine.MaxValue));
                     }
                     else 
                     { 

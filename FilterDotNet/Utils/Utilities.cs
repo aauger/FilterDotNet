@@ -1,6 +1,6 @@
 ﻿namespace FilterDotNet.Utils
 {
-    public class MathUtils
+    public class Utilities
     {
         public static double Map(double x, double a, double b, double c, double d)
         {
@@ -16,7 +16,7 @@
             return input;
         }
 
-        public static float floatClamp(int input)
+        public static float FloatClamp(int input)
         {
             return Clamp(input, 0.0f, 1.0f);
         }

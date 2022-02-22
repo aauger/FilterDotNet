@@ -35,8 +35,8 @@ namespace FilterDotNet.Filters
             {
                 Parallel.For(0, input.Height, (int y) =>
                 {
-                    int x2 = MathUtils.Clamp(x + rnd.Next(-this._glassDistance, this._glassDistance), 0, input.Width - 1);
-                    int y2 = MathUtils.Clamp(y + rnd.Next(-this._glassDistance, this._glassDistance), 0, input.Height - 1);
+                    int x2 = Utilities.Clamp(x + rnd.Next(-this._glassDistance, this._glassDistance), 0, input.Width - 1);
+                    int y2 = Utilities.Clamp(y + rnd.Next(-this._glassDistance, this._glassDistance), 0, input.Height - 1);
                     IColor here = input.GetPixel(x, y);
                     IColor there = input.GetPixel(x2, y2);
 

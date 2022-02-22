@@ -122,8 +122,8 @@ namespace FilterDotNet.Filters
                 segmentLine.Add(
                     new Point
                     {
-                        X = (int)MathUtils.Clamp(MathUtils.Lerp(p1.X, p2.X, i/dSeg) + this._random.Next(-segHDist,segHDist+1), 0, input.Width-1),
-                        Y = (int)MathUtils.Clamp(MathUtils.Lerp(p1.Y, p2.Y, i/dSeg) + this._random.Next(-segVDist,segVDist+1), 0, input.Height-1)
+                        X = (int)Utilities.Clamp(Utilities.Lerp(p1.X, p2.X, i/dSeg) + this._random.Next(-segHDist,segHDist+1), 0, input.Width-1),
+                        Y = (int)Utilities.Clamp(Utilities.Lerp(p1.Y, p2.Y, i/dSeg) + this._random.Next(-segVDist,segVDist+1), 0, input.Height-1)
                     }
                 );
             }

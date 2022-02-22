@@ -4,10 +4,8 @@ namespace FilterDotNet.Extensions
 {
     public static class IColorExtensions
     {
-        public static bool Equivalent(this IColor c, IColor other)
-        {
-            return (c.R == other.R && c.G == other.G && c.B == other.B);
-        }
+        public static bool Equivalent(this IColor c, IColor other) => 
+            (c.R == other.R && c.G == other.G && c.B == other.B);
 
         public static IColor Inverse(this IColor c, IEngine engine)
         {
@@ -26,9 +24,7 @@ namespace FilterDotNet.Extensions
                 + Math.Abs((c.B - other.B));
         }
 
-        public static int Average(this IColor c)
-        {
-            return (c.R + c.G + c.B) / 3;
-        }
+        public static int Average(this IColor c) =>
+            (c.R + c.G + c.B) / 3;
     }
 }

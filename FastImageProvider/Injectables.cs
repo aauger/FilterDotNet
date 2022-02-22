@@ -8,7 +8,7 @@ namespace FastImageProvider
     {
         public Func<int, int, IImage> CreateImage => (int x, int y) => new FIDrawingImage(x,y);
         public Func<int, int, int, int, IColor> CreateColor => (int r, int g, int b, int a) => new FIDrawingColor(r,g,b,a);
-        public Func<int, int> Clamp => (int i) => MathUtils.Clamp(i, MinValue, MaxValue);
+        public Func<int, int> Clamp => (int i) => Utilities.Clamp(i, MinValue, MaxValue);
         public int MaxValue => 255;
         public int MinValue => 0;
     }
