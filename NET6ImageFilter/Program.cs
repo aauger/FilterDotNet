@@ -27,6 +27,7 @@ namespace NET6ImageFilter
             // Filters
             filters.AddRange(new IFilter[]
             {
+                new AddFilter(new WinformGetImageDialog(), FiEngine),
                 new BasReliefFilter(new WinformIntConfigurator("Bas Relief", "Height:"), FiEngine),
                 new ChromaticAberrationFilter(FiEngine),
                 new CirclePaintingFilter(new WinformThreeIntConfigurator("Circle Painting", "Max Difference:", "Minimum Radius:", "Maximum Radius:"), FiEngine),
