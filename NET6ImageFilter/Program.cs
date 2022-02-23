@@ -70,6 +70,7 @@ namespace NET6ImageFilter
             // Generators
             generators.AddRange(new IGenerator[]
             {
+                new CircleFillTestGenerator(FiEngine),
                 new LineDrawTestGenerator(FiEngine),
                 new MandelbrotGenerator(new WinformsGeneratorConfigurators.GeneratorThreeIntConfigurator(), FiEngine),
                 new PerlinNoiseGenerator(new WinformsGeneratorConfigurators.GeneratorThreeIntConfigurator(), FiEngine),

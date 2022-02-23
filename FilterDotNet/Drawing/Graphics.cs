@@ -1,4 +1,5 @@
-﻿using FilterDotNet.Interfaces;
+﻿using FilterDotNet.Extensions;
+using FilterDotNet.Interfaces;
 
 namespace FilterDotNet.Drawing
 {
@@ -6,11 +7,12 @@ namespace FilterDotNet.Drawing
     {
         private IImage _instance;
 
-        public static Graphics FromIImage(IImage input) => new Graphics(input);
         private Graphics(IImage input)
         {
             this._instance = input;
         }
+
+        public static Graphics FromIImage(IImage input) => new(input);
 
         /// <summary>
         /// This is merely a convenience, and you should theoretically never need it.
@@ -47,7 +49,8 @@ namespace FilterDotNet.Drawing
             (yi, dy) = dy < 0 ? (-1, -dy) : (yi, dy);
             for (int x = first.X, y = first.Y, d = (2 * dy) - dx; x <= second.X; x++)
             {
-                _instance.SetPixel(x, y, color);
+                if (!_instance.OutOfBounds(x,y))
+                    _instance.SetPixel(x, y, color);
                 (y, d) = d > 0 ? (y + yi, d + 2 * (dy - dx)) : (y, d + 2 * dy);
             }
         }
@@ -60,11 +63,48 @@ namespace FilterDotNet.Drawing
             (xi, dx) = dx < 0 ? (-1, -dx) : (xi, dx);
             for (int y = first.Y, x = first.X, d = (2 * dx) - dy; y <= second.Y; y++)
             {
-                _instance.SetPixel(x, y, color);
+                if(!_instance.OutOfBounds(x,y))
+                    _instance.SetPixel(x, y, color);
                 (x, d) = d > 0 ? (x + xi, d + 2 * (dx - dy)) : (x, d + 2 * dx);
             }
         }
 
+        #endregion
+
+        #region Bresenham's Circle Filling
+
+        public void FillCircle(Point point, int radius, IColor color)
+        {
+            int x = 0;
+            int y = radius;
+            int m = 5 - 4 * radius;
+
+            while (x <= y)
+            { 
+                DrawLine(new Point { X = point.X - x, Y = point.Y - y }, 
+                    new Point { X = point.X + x, Y = point.Y - y }, 
+                    color);
+                DrawLine(new Point { X = point.X - y, Y = point.Y - x }, 
+                    new Point { X = point.X + y, Y = point.Y - x }, 
+                    color);
+                DrawLine(new Point { X = point.X - y, Y = point.Y + x }, 
+                    new Point { X = point.X + y, Y = point.Y + x }, 
+                    color);
+                DrawLine(new Point { X = point.X - x, Y = point.Y + y }, 
+                    new Point { X = point.X + x, Y = point.Y + y }, 
+                    color);
+
+                if (m > 0)
+                {
+                    y--;
+                    m -= 8 * y;
+                }
+
+                x++;
+                m += 8 * x + 4;
+            }
+        }
+        
         #endregion
 
         public void Fill(IColor color)
