@@ -33,7 +33,7 @@ namespace FilterDotNet.Generators
                 if(rnd.NextDouble() < 0.5)
                     g.FillCircle(first, radius, RandomColor(rnd));
                 else
-                    g.PlotCircle(first, radius, RandomColor(rnd));
+                    g.DrawCircle(first, radius, RandomColor(rnd));
             }
 
             return output;

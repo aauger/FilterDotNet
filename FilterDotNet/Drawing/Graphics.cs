@@ -73,7 +73,7 @@ namespace FilterDotNet.Drawing
 
         #region Bresenham's Circle Plotting/Filling
 
-        public void PlotCircle(Point point, int radius, IColor color) => CircleInternal(point, PlotPoints, radius, color);
+        public void DrawCircle(Point point, int radius, IColor color) => CircleInternal(point, DrawPoints, radius, color);
         public void FillCircle(Point point, int radius, IColor color) => CircleInternal(point, FillLine, radius, color);
 
         private void CircleInternal(Point point, Action<Point, Point, IColor> fn, int radius, IColor color)
@@ -109,7 +109,7 @@ namespace FilterDotNet.Drawing
         }
 
         private void FillLine(Point first, Point second, IColor color) => DrawLine(first, second, color);
-        private void PlotPoints(Point first, Point second, IColor color)
+        private void DrawPoints(Point first, Point second, IColor color)
         { 
             if(!_instance.OutOfBounds(first.X,first.Y))
                 _instance.SetPixel(first.X, first.Y, color);
