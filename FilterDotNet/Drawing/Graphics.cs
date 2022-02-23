@@ -37,19 +37,19 @@ namespace FilterDotNet.Drawing
                     DrawLineHigh(second, first, color);
                 else
                     DrawLineHigh(first, second, color);
-                   
+
             }
         }
 
         private void DrawLineLow(Point first, Point second, IColor color)
-        { 
+        {
             int dx = second.X - first.X;
             int dy = second.Y - first.Y;
             int yi = 1;
             (yi, dy) = dy < 0 ? (-1, -dy) : (yi, dy);
             for (int x = first.X, y = first.Y, d = (2 * dy) - dx; x <= second.X; x++)
             {
-                if (!_instance.OutOfBounds(x,y))
+                if (!_instance.OutOfBounds(x, y))
                     _instance.SetPixel(x, y, color);
                 (y, d) = d > 0 ? (y + yi, d + 2 * (dy - dx)) : (y, d + 2 * dy);
             }
@@ -63,7 +63,7 @@ namespace FilterDotNet.Drawing
             (xi, dx) = dx < 0 ? (-1, -dx) : (xi, dx);
             for (int y = first.Y, x = first.X, d = (2 * dx) - dy; y <= second.Y; y++)
             {
-                if(!_instance.OutOfBounds(x,y))
+                if (!_instance.OutOfBounds(x, y))
                     _instance.SetPixel(x, y, color);
                 (x, d) = d > 0 ? (x + xi, d + 2 * (dx - dy)) : (x, d + 2 * dx);
             }
@@ -71,27 +71,30 @@ namespace FilterDotNet.Drawing
 
         #endregion
 
-        #region Bresenham's Circle Filling
+        #region Bresenham's Circle Plotting/Filling
 
-        public void FillCircle(Point point, int radius, IColor color)
+        public void PlotCircle(Point point, int radius, IColor color) => CircleInternal(point, PlotPoints, radius, color);
+        public void FillCircle(Point point, int radius, IColor color) => CircleInternal(point, FillLine, radius, color);
+
+        private void CircleInternal(Point point, Action<Point, Point, IColor> fn, int radius, IColor color)
         {
             int x = 0;
             int y = radius;
             int m = 5 - 4 * radius;
 
             while (x <= y)
-            { 
-                DrawLine(new Point { X = point.X - x, Y = point.Y - y }, 
-                    new Point { X = point.X + x, Y = point.Y - y }, 
+            {
+                fn(new Point { X = point.X - x, Y = point.Y - y },
+                    new Point { X = point.X + x, Y = point.Y - y },
                     color);
-                DrawLine(new Point { X = point.X - y, Y = point.Y - x }, 
-                    new Point { X = point.X + y, Y = point.Y - x }, 
+                fn(new Point { X = point.X - y, Y = point.Y - x },
+                    new Point { X = point.X + y, Y = point.Y - x },
                     color);
-                DrawLine(new Point { X = point.X - y, Y = point.Y + x }, 
-                    new Point { X = point.X + y, Y = point.Y + x }, 
+                fn(new Point { X = point.X - y, Y = point.Y + x },
+                    new Point { X = point.X + y, Y = point.Y + x },
                     color);
-                DrawLine(new Point { X = point.X - x, Y = point.Y + y }, 
-                    new Point { X = point.X + x, Y = point.Y + y }, 
+                fn(new Point { X = point.X - x, Y = point.Y + y },
+                    new Point { X = point.X + x, Y = point.Y + y },
                     color);
 
                 if (m > 0)
@@ -103,6 +106,15 @@ namespace FilterDotNet.Drawing
                 x++;
                 m += 8 * x + 4;
             }
+        }
+
+        private void FillLine(Point first, Point second, IColor color) => DrawLine(first, second, color);
+        private void PlotPoints(Point first, Point second, IColor color)
+        { 
+            if(!_instance.OutOfBounds(first.X,first.Y))
+                _instance.SetPixel(first.X, first.Y, color);
+            if(!_instance.OutOfBounds(second.X,second.Y))
+                _instance.SetPixel(second.X, second.Y, color);
         }
         
         #endregion

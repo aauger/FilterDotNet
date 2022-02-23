@@ -30,7 +30,10 @@ namespace FilterDotNet.Generators
                     Y = rnd.Next(0, output.Height)
                 };
                 int radius = rnd.Next(2, 40);
-                g.FillCircle(first, radius, RandomColor(rnd));
+                if(rnd.NextDouble() < 0.5)
+                    g.FillCircle(first, radius, RandomColor(rnd));
+                else
+                    g.PlotCircle(first, radius, RandomColor(rnd));
             }
 
             return output;
