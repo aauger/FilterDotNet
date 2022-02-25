@@ -24,16 +24,16 @@ namespace FilterDotNet.Generators
             int count = rnd.Next(1500, 5000);
             for (int i = 0; i < count; i++)
             {
-                Point first = new()
-                {
-                    X = rnd.Next(0, output.Width),
-                    Y = rnd.Next(0, output.Height)
-                };
-                Point second = new()
-                {
-                    X = rnd.Next(0, output.Width),
-                    Y = rnd.Next(0, output.Height)
-                };
+                Point first = new
+                (
+                    rnd.Next(0, output.Width),
+                    rnd.Next(0, output.Height)
+                );
+                Point second = new
+                (
+                    rnd.Next(0, output.Width),
+                    rnd.Next(0, output.Height)
+                );
                 g.DrawLine(first, second, RandomColor(rnd));
             }
 

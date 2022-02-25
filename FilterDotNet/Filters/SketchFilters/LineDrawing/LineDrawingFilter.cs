@@ -50,7 +50,7 @@ namespace FilterDotNet.Filters
             {
                 IColor cPoint = input.GetPixel(point.X, point.Y);
                 int bestDistance = this._engine.MaxValue * 3;
-                Point secondPoint = new() { X = 0, Y = 0 };
+                Point secondPoint = new(0, 0);
 
                 IEnumerable<(int, int)> pointsRandom = 
                     Enumerable.Range(-cfg.PixelDistanceHorizontal/2, cfg.PixelDistanceHorizontal)
@@ -71,7 +71,7 @@ namespace FilterDotNet.Filters
                     if (!input.OutOfBounds(ox, oy) &&
                         (tempDistance = cPoint.Difference(input.GetPixel(ox, oy))) < bestDistance)
                     {
-                        (secondPoint, bestDistance) = (new() { X = ox, Y = oy }, tempDistance);
+                        (secondPoint, bestDistance) = (new(ox, oy), tempDistance);
                     }
 
                     if (bestDistance <= cfg.ColorDistance)
@@ -98,11 +98,11 @@ namespace FilterDotNet.Filters
             List<Point> points = new List<Point>();
             for (int i = 0; i < cfg.Count; i++)
             {
-                Point p = new()
-                {
-                    X = _random.Next(0, input.Width),
-                    Y = _random.Next(0, input.Height)
-                };
+                Point p = new
+                (
+                    _random.Next(0, input.Width),
+                    _random.Next(0, input.Height)
+                );
                 points.Add(p);
             }
             return points;
@@ -121,10 +121,10 @@ namespace FilterDotNet.Filters
             {
                 segmentLine.Add(
                     new Point
-                    {
-                        X = (int)Utilities.Clamp(Utilities.Lerp(p1.X, p2.X, i/dSeg) + this._random.Next(-segHDist,segHDist+1), 0, input.Width-1),
-                        Y = (int)Utilities.Clamp(Utilities.Lerp(p1.Y, p2.Y, i/dSeg) + this._random.Next(-segVDist,segVDist+1), 0, input.Height-1)
-                    }
+                    (
+                        (int)Utilities.Clamp(Utilities.Lerp(p1.X, p2.X, i/dSeg) + this._random.Next(-segHDist,segHDist+1), 0, input.Width-1),
+                        (int)Utilities.Clamp(Utilities.Lerp(p1.Y, p2.Y, i/dSeg) + this._random.Next(-segVDist,segVDist+1), 0, input.Height-1)
+                    )
                 );
             }
             segmentLine.Add(p2);

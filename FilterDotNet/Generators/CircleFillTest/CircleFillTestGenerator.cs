@@ -24,11 +24,11 @@ namespace FilterDotNet.Generators
             int count = rnd.Next(1500, 5000);
             for (int i = 0; i < count; i++)
             {
-                Point first = new()
-                {
-                    X = rnd.Next(0, output.Width),
-                    Y = rnd.Next(0, output.Height)
-                };
+                Point first = new
+                (
+                    rnd.Next(0, output.Width),
+                    rnd.Next(0, output.Height)
+                );
                 int radius = rnd.Next(2, 40);
                 if(rnd.NextDouble() < 0.5)
                     g.FillCircle(first, radius, RandomColor(rnd));

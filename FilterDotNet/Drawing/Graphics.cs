@@ -5,7 +5,7 @@ namespace FilterDotNet.Drawing
 {
     public class Graphics
     {
-        private IImage _instance;
+        private readonly IImage _instance;
 
         private Graphics(IImage input)
         {
@@ -84,17 +84,17 @@ namespace FilterDotNet.Drawing
 
             while (x <= y)
             {
-                fn(new Point { X = point.X - x, Y = point.Y - y },
-                    new Point { X = point.X + x, Y = point.Y - y },
+                fn(new Point(point.X - x, point.Y - y),
+                    new Point(point.X + x, point.Y - y),
                     color);
-                fn(new Point { X = point.X - y, Y = point.Y - x },
-                    new Point { X = point.X + y, Y = point.Y - x },
+                fn(new Point(point.X - y, point.Y - x),
+                    new Point(point.X + y, point.Y - x),
                     color);
-                fn(new Point { X = point.X - y, Y = point.Y + x },
-                    new Point { X = point.X + y, Y = point.Y + x },
+                fn(new Point(point.X - y, point.Y + x),
+                    new Point(point.X + y, point.Y + x),
                     color);
-                fn(new Point { X = point.X - x, Y = point.Y + y },
-                    new Point { X = point.X + x, Y = point.Y + y },
+                fn(new Point(point.X - x, point.Y + y),
+                    new Point(point.X + x, point.Y + y),
                     color);
 
                 if (m > 0)
@@ -110,13 +110,13 @@ namespace FilterDotNet.Drawing
 
         private void FillLine(Point first, Point second, IColor color) => DrawLine(first, second, color);
         private void DrawPoints(Point first, Point second, IColor color)
-        { 
-            if(!_instance.OutOfBounds(first.X,first.Y))
+        {
+            if (!_instance.OutOfBounds(first.X, first.Y))
                 _instance.SetPixel(first.X, first.Y, color);
-            if(!_instance.OutOfBounds(second.X,second.Y))
+            if (!_instance.OutOfBounds(second.X, second.Y))
                 _instance.SetPixel(second.X, second.Y, color);
         }
-        
+
         #endregion
 
         public void Fill(IColor color)
