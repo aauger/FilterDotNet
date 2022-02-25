@@ -1,4 +1,5 @@
-﻿using FilterDotNet.Drawing;
+﻿using FilterDotNet.Common;
+using FilterDotNet.Drawing;
 using FilterDotNet.Interfaces;
 
 namespace FilterDotNet.Generators

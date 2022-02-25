@@ -1,4 +1,4 @@
-﻿namespace FilterDotNet.Drawing
+﻿namespace FilterDotNet.Common
 {
     public readonly struct Point
     {

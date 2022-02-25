@@ -42,7 +42,7 @@ namespace FilterDotNet.Filters
 
             foreach ((Node inNode, Node scNode) in zippedNodes)
             {
-                output.SetPixel(inNode.X, inNode.Y, scNode.Color!);
+                output.SetPixel(inNode.Point.X, inNode.Point.Y, scNode.Color!);
             }
 
             return output;

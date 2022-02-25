@@ -3,6 +3,7 @@ using FilterDotNet.Interfaces;
 using FilterDotNet.Drawing;
 using FilterDotNet.Extensions;
 using FilterDotNet.Utils;
+using FilterDotNet.Common;
 
 namespace FilterDotNet.Filters
 {

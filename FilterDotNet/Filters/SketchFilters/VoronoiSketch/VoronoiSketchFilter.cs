@@ -29,14 +29,14 @@ namespace FilterDotNet.Filters
 
             IImage output = this._engine.CreateImage(input.Width, input.Height);
             IEnumerable<Node> nodes = NodeGenerator(input);
-            Parallel.For(0, input.Width, (int x) => 
+            Parallel.For(0, input.Width, (int x) =>
             {
                 Parallel.For(0, input.Height, (int y) =>
                 {
                     // Euclidean distance, but Manhattan distance is also interesting.
                     Node vNode = nodes
                         .AsParallel()
-                        .MinBy(vn => Math.Sqrt(Math.Pow(x - vn.X, 2) + Math.Pow(y - vn.Y, 2)))!;
+                        .MinBy(vn => Math.Sqrt(Math.Pow(x - vn.Point.X, 2) + Math.Pow(y - vn.Point.Y, 2)))!;
                     output.SetPixel(x, y, vNode!.Color!);
                 });
             });
@@ -53,8 +53,7 @@ namespace FilterDotNet.Filters
                 int y = rnd.Next(0, input.Height);
                 yield return new()
                 {
-                    X = x,
-                    Y = y,
+                    Point = new(x, y),
                     Color = input.GetPixel(x, y)
                 };
             }
