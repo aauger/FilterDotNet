@@ -12,8 +12,8 @@ namespace NET6ImageFilter.SpecificConfigurators
     {
         public (IImage, int, int) GetPluginConfiguration()
         {
-            IImage image = new WinformGetImageDialog().GetPluginConfiguration();
-            (int first, int second) = new WinformTwoIntConfigurator("Configuration", "Width:", "Height:").GetPluginConfiguration();
+            IImage image = new WinformsGetImageConfigurator().GetPluginConfiguration();
+            (int first, int second) = new WinformsTwoIntConfigurator("Configuration", "Width:", "Height:").GetPluginConfiguration();
             return (image, first, second);
         }
     }

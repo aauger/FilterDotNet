@@ -11,9 +11,9 @@ using FilterDotNet.Interfaces;
 
 namespace NET6ImageFilter.BasicWinformsConfigurators
 {
-    public partial class WinformIntConfigurator : Form, IPluginConfigurator<int>
+    public partial class WinformsOneIntConfigurator : Form, IPluginConfigurator<int>
     {
-        public WinformIntConfigurator(string title, string message)
+        public WinformsOneIntConfigurator(string title, string message)
         {
             InitializeComponent();
             this.Text = message;

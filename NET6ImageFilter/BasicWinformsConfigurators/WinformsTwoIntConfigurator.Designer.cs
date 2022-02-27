@@ -1,6 +1,6 @@
 ﻿namespace NET6ImageFilter.BasicWinformsConfigurators
 {
-    partial class WinformTwoIntConfigurator
+    partial class WinformsTwoIntConfigurator
     {
         /// <summary>
         /// Required designer variable.
