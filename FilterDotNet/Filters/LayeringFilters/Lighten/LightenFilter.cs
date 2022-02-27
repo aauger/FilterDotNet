@@ -4,7 +4,7 @@ using FilterDotNet.Interfaces;
 
 namespace FilterDotNet.Filters
 {
-    public class SoftLightFilter : IFilter, IConfigurableFilter
+    public class LightenFilter : IFilter, IConfigurableFilter
     {
         /* DI */
         private readonly IPluginConfigurator<IImage> _pluginConfigurator;
@@ -15,9 +15,9 @@ namespace FilterDotNet.Filters
         private IImage _other;
 
         /* Properties */
-        public string Name => "Soft Light";
+        public string Name => "Lighten";
 
-        public SoftLightFilter(IPluginConfigurator<IImage> pluginConfigurator, IEngine engine)
+        public LightenFilter(IPluginConfigurator<IImage> pluginConfigurator, IEngine engine)
         {
             this._pluginConfigurator = pluginConfigurator;
             this._engine = engine;
@@ -40,9 +40,9 @@ namespace FilterDotNet.Filters
                     IColor cc = input.GetPixel(x, y);
                     IColor oc = this._other.GetPixel(x, y);
 
-                    int nr = SoftLightClamp(oc.R, cc.R);
-                    int ng = SoftLightClamp(oc.G, cc.G);
-                    int nb = SoftLightClamp(oc.B, cc.B);
+                    int nr = LightenClamp(oc.R, cc.R);
+                    int ng = LightenClamp(oc.G, cc.G);
+                    int nb = LightenClamp(oc.B, cc.B);
 
                     output.SetPixel(x, y, this._engine.CreateColor(nr, ng, nb, this._engine.MaxValue));
                 });
@@ -51,12 +51,12 @@ namespace FilterDotNet.Filters
             return output;
         }
 
-        private int SoftLightClamp(int c0, int c1)
+        private int LightenClamp(int c0, int c1)
         {
             double d0 = this._engine.ScaleValueToFractional(c0);
             double d1 = this._engine.ScaleValueToFractional(c1);
 
-            double result = d1 < 0.5 ? ((2*d0*d1) + (d0*d0*(1-2*d1))) : ((2*d0*(1-d1) + Math.Sqrt(d0)*((2*d1)-1)));
+            double result = Math.Max(d0, d1);
 
             int value = this._engine.ClampedScaledFromFractional(result);
             return value;
