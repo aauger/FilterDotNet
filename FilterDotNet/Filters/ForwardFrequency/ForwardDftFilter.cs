@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FilterDotNet.Extensions;
+using System.Numerics;
 
 namespace FilterDotNet.Filters
 {
@@ -30,9 +31,9 @@ namespace FilterDotNet.Filters
             {
                 Parallel.For(0, input.Width, (int y) => 
                 {
-                    double dr = 0;
-                    double dg = 0;
-                    double db = 0;
+                    Complex dr = 0;
+                    Complex dg = 0;
+                    Complex db = 0;
                     for (int w = 0; w < input.Width; w++)
                     {
                         for (int z = 0; z < input.Height; z++)
@@ -47,8 +48,10 @@ namespace FilterDotNet.Filters
                             double idg = this._engine.ScaleValueToFractional(inputColor.G);
                             double idb = this._engine.ScaleValueToFractional(inputColor.B);
 
-                            double exp = 2 * Math.PI * (((k*i)/(double)input.Width) + ((l*j)/(double)input.Height));
-                            double baseFunc = Math.Pow(Math.E, exp);
+                            Complex p = Complex.Sqrt(-1.0);
+
+                            Complex exp = -p * 2 * Math.PI * (((k*i)/(double)input.Width) + ((l*j)/(double)input.Height));
+                            Complex baseFunc = Complex.Pow(Math.E, exp);
                             dr += baseFunc * idr;
                             dg += baseFunc * idg;
                             db += baseFunc * idb;
