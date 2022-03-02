@@ -10,7 +10,7 @@ using FastImageProvider;
 
 namespace NET6ImageFilter.BasicWinformsConfigurators
 {
-    public class WinformGetImageDialog : IPluginConfigurator<IImage>, IAnalyzerConfigurator<IImage>
+    public class WinformsGetImageConfigurator : IPluginConfigurator<IImage>, IAnalyzerConfigurator<IImage>
     {
         public IImage GetAnalyzerConfiguration()
         {

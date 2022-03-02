@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace NET6ImageFilter.BasicWinformsConfigurators
 {
-    public partial class WinformThreeIntConfigurator : Form, IPluginConfigurator<(int,int,int)>
+    public partial class WinformsThreeIntConfigurator : Form, IPluginConfigurator<(int,int,int)>
     {
-        public WinformThreeIntConfigurator(string title, string firstMessage, string secondMessage, string thirdMessage)
+        public WinformsThreeIntConfigurator(string title, string firstMessage, string secondMessage, string thirdMessage)
         {
             InitializeComponent();
             this.Text = title;

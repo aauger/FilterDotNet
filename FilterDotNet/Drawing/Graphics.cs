@@ -120,6 +120,22 @@ namespace FilterDotNet.Drawing
 
         #endregion
 
+        #region Bresenham's Triangle Plotting/Filling
+
+        public void DrawTriangle(Point first, Point second, Point third, IColor color)
+        {
+            DrawLine(first, second, color);
+            DrawLine(second, third, color);
+            DrawLine(first, third, color);
+        }
+
+        public void FillTriangle(Point first, Point second, Point third, IColor color)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
         public void Fill(IColor color)
         {
             for (int x = 0; x < _instance.Width; x++)
