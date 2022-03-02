@@ -47,6 +47,7 @@ namespace NET6ImageFilter
                     FiEngine.CreateColor(0, 0, 255, 255), //blue
                     FiEngine.CreateColor(255,255,255,255) //white
                 }), FiEngine),
+                new ForwardDftFilter(FiEngine),
                 new GlassFilter(new WinformsOneIntConfigurator("Glass", "Maximum distance:"), FiEngine),
                 new GreyscaleFilter(FiEngine),
                 new InvertFilter(FiEngine),
