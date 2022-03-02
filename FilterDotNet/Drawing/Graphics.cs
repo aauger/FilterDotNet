@@ -124,7 +124,9 @@ namespace FilterDotNet.Drawing
 
         public void DrawTriangle(Point first, Point second, Point third, IColor color)
         {
-            throw new NotImplementedException();
+            DrawLine(first, second, color);
+            DrawLine(second, third, color);
+            DrawLine(first, third, color);
         }
 
         public void FillTriangle(Point first, Point second, Point third, IColor color)
