@@ -22,7 +22,7 @@ namespace FilterDotNet.Filters
         private readonly IEngine _engine;
 
         /* Properties */
-        public string Name => "Forward Dft";
+        public string Name => "Forward DFT";
 
         public ForwardDftFilter(IEngine engine)
         {
@@ -58,7 +58,6 @@ namespace FilterDotNet.Filters
                             double idg = this._engine.ScaleValueToFractional(inputColor.G);
                             double idb = this._engine.ScaleValueToFractional(inputColor.B);
 
-
                             Complex exp = -p * 2 * Math.PI * (((k*i)/width) + ((l*j)/height));
                             Complex baseFunc = Complex.Pow(Math.E, exp);
                             Complex compDr = baseFunc * idr;
@@ -88,18 +87,65 @@ namespace FilterDotNet.Filters
                 if (c.B.Magnitude > magMax)
                     magMax = c.B.Magnitude;
             }
-            double scaleConstant = this._engine.MaxValue / Math.Log(1 + Math.Abs(magMax));
+            double scaleConstant = this._engine.MaxValue / Math.Log(Math.Abs(magMax));
             for (int x = 0; x < output.Width; x++)
             {
                 for (int y = 0; y < output.Height; y++)
                 {
-                    double nr = (scaleConstant * Math.Log(1 + Math.Abs(result[x, y].R.Magnitude)));
-                    double ng = (scaleConstant * Math.Log(1 + Math.Abs(result[x, y].G.Magnitude)));
-                    double nb = (scaleConstant * Math.Log(1 + Math.Abs(result[x, y].B.Magnitude)));
+                    double nr = (scaleConstant * Math.Log(Math.Abs(result[x, y].R.Magnitude)));
+                    double ng = (scaleConstant * Math.Log(Math.Abs(result[x, y].G.Magnitude)));
+                    double nb = (scaleConstant * Math.Log(Math.Abs(result[x, y].B.Magnitude)));
                     int nri = this._engine.Clamp((int)nr);
                     int ngi = this._engine.Clamp((int)ng);
                     int nbi = this._engine.Clamp((int)nb);
-                    output.SetPixel(x, y, this._engine.CreateColor((int)nr, (int)ng, (int)nb, this._engine.MaxValue));
+                    output.SetPixel(x, y, this._engine.CreateColor(nri, ngi, nbi, this._engine.MaxValue));
+                }
+            }
+
+            return Reorient(output);
+        }
+
+        private IImage Reorient(IImage image)
+        {
+            IImage output = this._engine.CreateImage(image.Width, image.Height);
+
+            // Top Left
+            for (int x = 0; x < image.Width / 2; x++)
+            {
+                for (int y = 0; y < image.Height / 2; y++)
+                {
+                    // Get bottom right
+                    output.SetPixel(x, y, image.GetPixel(image.Width / 2 + x, image.Height / 2 + y));
+                }
+            }
+
+            // Top Right
+            for (int x = image.Width / 2; x < image.Width; x++)
+            {
+                for (int y = 0; y < image.Height / 2; y++)
+                {
+                    // Get bottom left
+                    output.SetPixel(x, y, image.GetPixel(x - image.Width / 2, image.Height / 2 + y));
+                }
+            }
+
+            // Bottom Left
+            for (int x = 0; x < image.Width / 2; x++)
+            {
+                for (int y = image.Height / 2; y < image.Height; y++)
+                {
+                    // Get top right
+                    output.SetPixel(x, y, image.GetPixel(image.Width / 2 + x, y - image.Height / 2));
+                }
+            }
+
+            // Bottom Right
+            for (int x = image.Width / 2; x < image.Width; x++)
+            {
+                for (int y = image.Height / 2; y < image.Height; y++)
+                { 
+                    // Get top left
+                    output.SetPixel(x, y, image.GetPixel(x - image.Width / 2, y - image.Height / 2));
                 }
             }
 
