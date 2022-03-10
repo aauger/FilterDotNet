@@ -131,7 +131,57 @@ namespace FilterDotNet.Drawing
 
         public void FillTriangle(Point first, Point second, Point third, IColor color)
         {
-            throw new NotImplementedException();
+            IEnumerable<Point> orderedPoints = (new List<Point>() { first, second, third }).OrderBy(p => p.Y);
+
+            Point v1 = orderedPoints.At(0);
+            Point v2 = orderedPoints.At(1);
+            Point v3 = orderedPoints.At(2);
+
+            if (v2.Y == v3.Y)
+                FillBottomFlatTriangle(v1, v2, v3, color);
+            else if (v1.Y == v2.Y)
+                FillTopFlatTriangle(v1, v2, v3, color);
+            else
+            {
+                Point v4 = new Point(
+                    (int)(v1.X + ((double)(v2.Y - v1.Y) / (double)(v3.Y - v1.Y)) * (v3.X - v1.X)), 
+                    v2.Y
+                );
+                FillBottomFlatTriangle(v1, v2, v4, color);
+                FillTopFlatTriangle(v2, v4, v3, color);
+            }
+        }
+
+        private void FillTopFlatTriangle(Point first, Point second, Point third, IColor color)
+        {
+            double invSlopeTF = (double)(third.X - first.X) / (double)(third.Y - first.Y);
+            double invSlopeTS = (double)(third.X - second.X) / (double)(third.Y - second.Y);
+
+            double curXF = third.X;
+            double curXS = third.X;
+
+            for (int scanlineY = third.Y; scanlineY > first.Y; scanlineY--)
+            {
+                DrawLine(new Point((int)curXF, scanlineY), new Point((int)curXS, scanlineY), color);
+                curXF -= invSlopeTF;
+                curXS -= invSlopeTS;
+            }
+        }
+
+        private void FillBottomFlatTriangle(Point first, Point second, Point third, IColor color)
+        {
+            double invSlopeTF = (double)(third.X - first.X) / (double)(third.Y - first.Y);
+            double invSlopeTS = (double)(third.X - second.X) / (double)(third.Y - second.Y);
+
+            double curXF = first.X;
+            double curXS = first.X;
+
+            for (int scanlineY = first.Y; scanlineY <= second.Y; scanlineY++)
+            {
+                DrawLine(new Point((int)curXF, scanlineY), new Point((int)curXS, scanlineY), color);
+                curXF += invSlopeTF;
+                curXS += invSlopeTS;
+            }
         }
 
         #endregion
