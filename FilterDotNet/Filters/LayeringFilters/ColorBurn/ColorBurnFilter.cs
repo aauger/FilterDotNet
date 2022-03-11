@@ -4,7 +4,7 @@ using FilterDotNet.Interfaces;
 
 namespace FilterDotNet.Filters
 {
-    public class AddFilter : IFilter, IConfigurableFilter
+    public class ColorBurnFilter : IFilter, IConfigurableFilter
     {
         /* DI */
         private readonly IPluginConfigurator<IImage> _pluginConfigurator;
@@ -15,9 +15,9 @@ namespace FilterDotNet.Filters
         private IImage _other;
 
         /* Properties */
-        public string Name => "Add";
+        public string Name => "Color Burn";
 
-        public AddFilter(IPluginConfigurator<IImage> pluginConfigurator, IEngine engine)
+        public ColorBurnFilter(IPluginConfigurator<IImage> pluginConfigurator, IEngine engine)
         {
             this._pluginConfigurator = pluginConfigurator;
             this._engine = engine;
@@ -40,9 +40,9 @@ namespace FilterDotNet.Filters
                     IColor cc = input.GetPixel(x, y);
                     IColor oc = this._other.GetPixel(x, y);
 
-                    int nr = AddClamp(oc.R, cc.R);
-                    int ng = AddClamp(oc.G, cc.G);
-                    int nb = AddClamp(oc.B, cc.B);
+                    int nr = ColorBurnClamp(oc.R, cc.R);
+                    int ng = ColorBurnClamp(oc.G, cc.G);
+                    int nb = ColorBurnClamp(oc.B, cc.B);
 
                     output.SetPixel(x, y, this._engine.CreateColor(nr, ng, nb, this._engine.MaxValue));
                 });
@@ -51,11 +51,11 @@ namespace FilterDotNet.Filters
             return output;
         }
 
-        private int AddClamp(int c0, int c1)
+        private int ColorBurnClamp(int c0, int c1)
         {
             double d0 = this._engine.ScaleValueToFractional(c0);
             double d1 = this._engine.ScaleValueToFractional(c1);
-            double result = d0 + d1;
+            double result = 1 - (1 - d0) / d1;
 
             int value = this._engine.ClampedScaledFromFractional(result);
             return value;
