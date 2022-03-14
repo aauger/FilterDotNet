@@ -80,6 +80,7 @@ namespace NET6ImageFilter
                 new MandelbrotGenerator(new WinformsGeneratorConfigurators.GeneratorThreeIntConfigurator(), FiEngine),
                 new PerlinNoiseGenerator(new WinformsGeneratorConfigurators.GeneratorThreeIntConfigurator(), FiEngine),
                 new TriangleDrawTestGenerator(FiEngine),
+                new TriangleFillTestGenerator(FiEngine),
                 new XyModGenerator(new WinformsGeneratorConfigurators.GeneratorThreeIntConfigurator(), FiEngine),
             });
 
