@@ -170,8 +170,8 @@ namespace FilterDotNet.Drawing
 
         private void FillBottomFlatTriangle(Point first, Point second, Point third, IColor color)
         {
-            double invSlopeTF = (double)(third.X - first.X) / (double)(third.Y - first.Y);
-            double invSlopeTS = (double)(third.X - second.X) / (double)(third.Y - second.Y);
+            double invSlopeTF = (double)(second.X - first.X) / (double)(second.Y - first.Y);
+            double invSlopeTS = (double)(third.X - first.X) / (double)(third.Y - first.Y);
 
             double curXF = first.X;
             double curXS = first.X;

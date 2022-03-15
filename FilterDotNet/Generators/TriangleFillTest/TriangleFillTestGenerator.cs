@@ -22,7 +22,7 @@ namespace FilterDotNet.Generators
             Random rnd = new Random();
             IImage output = this._engine.CreateImage(1920, 1080);
             Graphics g = Graphics.FromIImage(output);
-            int count = rnd.Next(20, 40);
+            int count = rnd.Next(1000,2000);
             for (int i = 0; i < count; i++)
             {
                 Point first = new
