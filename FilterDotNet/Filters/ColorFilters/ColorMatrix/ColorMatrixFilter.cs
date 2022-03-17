@@ -24,7 +24,7 @@ namespace FilterDotNet.Filters
 
         public IImage Apply(IImage input)
         {
-            if (!_ready)
+            if (!this._ready)
                 throw new NotReadyException();
 
             float[,] m = this._matrix!;
