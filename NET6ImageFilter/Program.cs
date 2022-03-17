@@ -40,6 +40,7 @@ namespace NET6ImageFilter
                 new DivideFilter(new WinformsGetImageConfigurator(), FiEngine),
                 new Epx2xFilter(FiEngine),
                 new ExclusionFilter(new WinformsGetImageConfigurator(), FiEngine),
+                new FixChromaticAberrationFilter(new WinformsOneIntConfigurator("Fix Chromatic Aberration", "Distance:"), FiEngine),
                 new FloydSteinbergDitherFilter(new LambdaPluginConfigurator<List<IColor>>(() => new()
                 {
                     FiEngine.CreateColor(0, 0, 0, 255), //black 

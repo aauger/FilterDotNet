@@ -9,7 +9,7 @@ namespace FilterDotNet.Filters
         private readonly IEngine _engine;
 
         /* Properties */
-        public string Name => "Chromatic Abberation";
+        public string Name => "Chromatic Aberration";
 
         public ChromaticAberrationFilter(IEngine engine)
         {

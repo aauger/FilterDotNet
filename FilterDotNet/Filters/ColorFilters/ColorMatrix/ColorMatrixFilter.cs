@@ -6,8 +6,8 @@ namespace FilterDotNet.Filters
     public class ColorMatrixFilter : IFilter, IConfigurableFilter
     {
         /* DI */
-        private readonly IPluginConfigurator<float[,]>? _pluginConfigurator;
-        private readonly IEngine? _engine;
+        private readonly IPluginConfigurator<float[,]> _pluginConfigurator;
+        private readonly IEngine _engine;
 
         /* Internals */
         private bool _ready = false;
@@ -16,7 +16,7 @@ namespace FilterDotNet.Filters
         /* Properties */
         public string Name => "Color Matrix";
 
-        public ColorMatrixFilter(IPluginConfigurator<float[,]>? pluginConfigurator, IEngine? engine)
+        public ColorMatrixFilter(IPluginConfigurator<float[,]> pluginConfigurator, IEngine engine)
         {
             this._pluginConfigurator = pluginConfigurator;
             this._engine = engine;
