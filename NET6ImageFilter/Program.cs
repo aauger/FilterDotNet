@@ -32,6 +32,7 @@ namespace NET6ImageFilter
                 new ChromaticAberrationFilter(FiEngine),
                 new CirclePaintingFilter(new WinformsThreeIntConfigurator("Circle Painting", "Max Difference:", "Minimum Radius:", "Maximum Radius:"), FiEngine),
                 new ColorBurnFilter(new WinformsGetImageConfigurator(), FiEngine),
+                new ColorDodgeFilter(new WinformsGetImageConfigurator(), FiEngine),
                 new ColorMatrixFilter(new ColorMatrixConfigurator(), FiEngine),
                 new ColorMaskingFilter(new WinformsGetImageConfigurator(), FiEngine),
                 new ConvolutionFilter(new WinformsConvolutionConfigurator(), FiEngine),
