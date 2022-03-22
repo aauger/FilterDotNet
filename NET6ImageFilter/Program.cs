@@ -57,6 +57,8 @@ namespace NET6ImageFilter
                 new LightenFilter(new WinformsGetImageConfigurator(), FiEngine),
                 new LineDrawingFilter(new LineDrawingConfigurator(), FiEngine),
                 new MeltingFilter(FiEngine),
+                new MirrorHorizontalFilter(FiEngine),
+                new MirrorVerticalFilter(FiEngine),
                 new MultiplyFilter(new WinformsGetImageConfigurator(), FiEngine),
                 new NormalMap(new WinformsNormalMapConfigurator(), FiEngine),
                 new OverlayFilter(new WinformsGetImageConfigurator(), FiEngine),
