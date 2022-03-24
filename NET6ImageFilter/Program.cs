@@ -67,6 +67,7 @@ namespace NET6ImageFilter
                 new PosterizeFilter(new WinformsOneIntConfigurator("Posterize", "Levels:"), FiEngine),
                 new PixelateFilter(new WinformsTwoIntConfigurator("Pixelate", "Block width:", "Block height:"), FiEngine),
                 new ReversibleSplittingFilter(FiEngine),
+                new RotateNinetyCounterClockwiseFilter(FiEngine),
                 new ScreenFilter(new WinformsGetImageConfigurator(), FiEngine),
                 new SobelFilter(FiEngine),
                 new SolarizeFilter(new WinformsOneIntConfigurator("Solarize", "Threshold:"), FiEngine),
