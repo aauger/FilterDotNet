@@ -29,6 +29,7 @@ namespace NET6ImageFilter
             {
                 new AddFilter(new WinformsGetImageConfigurator(), FiEngine),
                 new BasReliefFilter(new WinformsOneIntConfigurator("Bas Relief", "Height:"), FiEngine),
+                new BrightnessFilter(new WinformsOneIntConfigurator("Brightness", "Percent"), FiEngine),
                 new ChromaticAberrationFilter(FiEngine),
                 new CirclePaintingFilter(new WinformsThreeIntConfigurator("Circle Painting", "Max Difference:", "Minimum Radius:", "Maximum Radius:"), FiEngine),
                 new ColorBurnFilter(new WinformsGetImageConfigurator(), FiEngine),
