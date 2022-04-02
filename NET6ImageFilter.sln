@@ -9,9 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastImageLibrary", "FastIma
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilterDotNet", "FilterDotNet\FilterDotNet.csproj", "{1D82DA16-1E88-4116-8FC6-9C29B835E30D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastImageProvider", "FastImageProvider\FastImageProvider.csproj", "{6123F429-C534-4FEC-A8FB-58297299E513}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Optional", "Optional\Optional.csproj", "{0D27BFFB-3D38-46B6-99A3-4B867BAF70AA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastImageProvider", "FastImageProvider\FastImageProvider.csproj", "{6123F429-C534-4FEC-A8FB-58297299E513}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +33,6 @@ Global
 		{6123F429-C534-4FEC-A8FB-58297299E513}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6123F429-C534-4FEC-A8FB-58297299E513}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6123F429-C534-4FEC-A8FB-58297299E513}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0D27BFFB-3D38-46B6-99A3-4B867BAF70AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0D27BFFB-3D38-46B6-99A3-4B867BAF70AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0D27BFFB-3D38-46B6-99A3-4B867BAF70AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0D27BFFB-3D38-46B6-99A3-4B867BAF70AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
