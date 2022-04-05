@@ -31,15 +31,16 @@
             this.filterListBox = new System.Windows.Forms.ListBox();
             this.applyButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
+            this.searchTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // filterListBox
             // 
             this.filterListBox.FormattingEnabled = true;
             this.filterListBox.ItemHeight = 15;
-            this.filterListBox.Location = new System.Drawing.Point(12, 12);
+            this.filterListBox.Location = new System.Drawing.Point(12, 42);
             this.filterListBox.Name = "filterListBox";
-            this.filterListBox.Size = new System.Drawing.Size(364, 364);
+            this.filterListBox.Size = new System.Drawing.Size(364, 334);
             this.filterListBox.TabIndex = 0;
             // 
             // applyButton
@@ -62,11 +63,20 @@
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
+            // searchTextBox
+            // 
+            this.searchTextBox.Location = new System.Drawing.Point(12, 13);
+            this.searchTextBox.Name = "searchTextBox";
+            this.searchTextBox.Size = new System.Drawing.Size(364, 23);
+            this.searchTextBox.TabIndex = 2;
+            this.searchTextBox.TextChanged += new System.EventHandler(this.searchTextBox_TextChanged);
+            // 
             // FilterDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(388, 450);
+            this.Controls.Add(this.searchTextBox);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.applyButton);
             this.Controls.Add(this.filterListBox);
@@ -74,6 +84,7 @@
             this.Name = "FilterDialog";
             this.Text = "Filters";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -82,5 +93,6 @@
         private ListBox filterListBox;
         private Button applyButton;
         private Button cancelButton;
+        private TextBox searchTextBox;
     }
 }

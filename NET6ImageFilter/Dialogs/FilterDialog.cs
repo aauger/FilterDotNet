@@ -37,5 +37,10 @@ namespace NET6ImageFilter.Dialogs
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
+
+        private void searchTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

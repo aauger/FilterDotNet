@@ -1,6 +1,6 @@
 ﻿namespace NET6ImageFilter.SpecificConfigurators
 {
-    partial class LineDrawingConfigurator
+    partial class WinformsLineDrawingConfigurator
     {
         /// <summary>
         /// Required designer variable.

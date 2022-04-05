@@ -12,9 +12,9 @@ using System.Windows.Forms;
 
 namespace NET6ImageFilter.SpecificConfigurators
 {
-    public partial class LineDrawingConfigurator : Form, IPluginConfigurator<LineDrawingConfiguration>
+    public partial class WinformsLineDrawingConfigurator : Form, IPluginConfigurator<LineDrawingConfiguration>
     {
-        public LineDrawingConfigurator()
+        public WinformsLineDrawingConfigurator()
         {
             InitializeComponent();
         }

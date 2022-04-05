@@ -1,6 +1,6 @@
 ﻿namespace NET6ImageFilter.SpecificConfigurators
 {
-    partial class ColorMatrixConfigurator
+    partial class WinformsColorMatrixConfigurator
     {
         /// <summary>
         /// Required designer variable.

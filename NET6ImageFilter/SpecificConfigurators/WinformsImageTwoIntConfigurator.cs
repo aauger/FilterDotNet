@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace NET6ImageFilter.SpecificConfigurators
 {
-    public class ImageTwoIntConfigurator : IPluginConfigurator<(IImage, int, int)>
+    public class WinformsImageTwoIntConfigurator : IPluginConfigurator<(IImage, int, int)>
     {
         public (IImage, int, int) GetPluginConfiguration()
         {

@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace NET6ImageFilter.SpecificConfigurators
 {
-    public partial class ColorMatrixConfigurator : Form, IPluginConfigurator<float[,]>
+    public partial class WinformsColorMatrixConfigurator : Form, IPluginConfigurator<float[,]>
     {
         readonly float[,] IDENTITY = new float[,] 
         {
@@ -20,7 +20,7 @@ namespace NET6ImageFilter.SpecificConfigurators
             { 0.0F, 0.0F, 1.0F },
         };
 
-        public ColorMatrixConfigurator()
+        public WinformsColorMatrixConfigurator()
         {
             InitializeComponent();
         }
