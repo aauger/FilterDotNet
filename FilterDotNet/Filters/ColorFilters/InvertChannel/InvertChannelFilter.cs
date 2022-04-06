@@ -17,7 +17,7 @@ namespace FilterDotNet.Filters
         private readonly IPluginConfigurator<InversionChannel> _configurator;
         private readonly IEngine _engine;
 
-        /* internals */
+        /* Internals */
         private bool _ready = false;
         private InversionChannel _channel = InversionChannel.None;
 
