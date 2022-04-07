@@ -1,21 +1,9 @@
 ﻿using FilterDotNet.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FilterDotNet.Extensions;
 using System.Numerics;
 
 namespace FilterDotNet.Filters
 {
-    class ComplexContainer
-    {
-        public Complex R { get; set; }
-        public Complex G { get; set; }
-        public Complex B { get; set; }
-    }
-
     public class ForwardDftFilter : IFilter
     {
         /* DI */
