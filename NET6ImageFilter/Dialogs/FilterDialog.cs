@@ -19,16 +19,18 @@ namespace NET6ImageFilter.Dialogs
 
         public FilterDialog(List<IFilter> filters)
         {
-            _filters = filters;
-            InitializeComponent();
-            filterListBox.Items.AddRange(_filters.Select(f => f.Name).ToArray());
+            this._filters = filters;
+            this.InitializeComponent();
+            this.filterListBox.DataSource = _filters;
+            this.filterListBox.DisplayMember = "Name";
+            this.filterListBox.Update();
         }
 
         private void applyButton_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.OK;
             if(this.filterListBox.SelectedIndex != -1)
-                this.SelectedFilter = _filters[filterListBox.SelectedIndex];
+                this.SelectedFilter = (IFilter?)this.filterListBox.SelectedItem;
             this.Close();
         }
 
@@ -40,7 +42,10 @@ namespace NET6ImageFilter.Dialogs
 
         private void searchTextBox_TextChanged(object sender, EventArgs e)
         {
-
+                this.filterListBox.DataSource = _filters
+                    .Where(f => string.IsNullOrWhiteSpace(searchTextBox.Text) || f.Name.ToLower().Contains(searchTextBox.Text.ToLower()))
+                    .ToList();
+                this.filterListBox.Update();
         }
     }
 }
