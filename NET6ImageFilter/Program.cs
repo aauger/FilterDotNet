@@ -54,6 +54,7 @@ namespace NET6ImageFilter
                 new ForwardDftFilter(FiEngine),
                 new GlassFilter(new WinformsOneIntConfigurator("Glass", "Maximum distance:"), FiEngine),
                 new GreyscaleFilter(FiEngine),
+                new HardLightFilter(new WinformsGetImageConfigurator(), FiEngine),
                 new InvertFilter(FiEngine),
                 new InvertChannelFilter(new WinformsChannelInversionConfigurator(), FiEngine),
                 new LightenFilter(new WinformsGetImageConfigurator(), FiEngine),
