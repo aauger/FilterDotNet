@@ -40,6 +40,7 @@ namespace NET6ImageFilter
                 new DarkenFilter(new WinformsGetImageConfigurator(), FiEngine),
                 new DifferenceFilter(new WinformsDifferenceConfigurator(), FiEngine),
                 new DivideFilter(new WinformsGetImageConfigurator(), FiEngine),
+                new DissolveFilter(new WinformsImageOneIntConfigurator(), FiEngine),
                 new Epx2xFilter(FiEngine),
                 new ExclusionFilter(new WinformsGetImageConfigurator(), FiEngine),
                 new FixChromaticAberrationFilter(new WinformsOneIntConfigurator("Fix Chromatic Aberration", "Distance:"), FiEngine),

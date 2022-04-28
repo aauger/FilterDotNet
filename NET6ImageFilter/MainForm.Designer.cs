@@ -53,7 +53,7 @@
             this.imageViewer.Location = new System.Drawing.Point(0, 25);
             this.imageViewer.Name = "imageViewer";
             this.imageViewer.Size = new System.Drawing.Size(826, 425);
-            this.imageViewer.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.imageViewer.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.imageViewer.TabIndex = 0;
             this.imageViewer.TabStop = false;
             // 
