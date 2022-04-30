@@ -10,9 +10,13 @@ namespace FilterDotNet.Filters
         private readonly IEngine _engine;
 
         /* Internals */
+        private readonly int _RAND_VAL_MAX = 101;
+        private readonly int _PIX_MAP_SIZE = 100;
+
         private bool _ready = false;
         private IImage? _other;
         private int? _factor;
+        private bool[,]? _pixMap;
         
         /* Properties */
         public string Name => "Dissolve";
@@ -39,11 +43,12 @@ namespace FilterDotNet.Filters
             {
                 Parallel.For(0, input.Height, (int y) =>
                 {
-                    IColor color = (DateTime.Now.Ticks % 101 < this._factor) switch
+                    IColor color = (this._pixMap[x % this._PIX_MAP_SIZE, y % this._PIX_MAP_SIZE]) switch
                     {
-                        (true) => this._other.GetPixel(x, y),
-                        (_) => input.GetPixel(x, y)
+                        true => input.GetPixel(x, y),
+                        false => this._other.GetPixel(x, y),
                     };
+
                     output.SetPixel(x, y, color);
                 });
             });
@@ -53,7 +58,16 @@ namespace FilterDotNet.Filters
 
         public IFilter Initialize()
         {
+            Random random = new Random();
             (this._other, this._factor) = _pluginConfigurator.GetPluginConfiguration();                
+            this._pixMap = new bool[this._PIX_MAP_SIZE, this._PIX_MAP_SIZE];
+            for (int x = 0; x < this._PIX_MAP_SIZE; x++)
+            {
+                for (int y = 0; y < this._PIX_MAP_SIZE; y++)
+                {
+                    this._pixMap[x, y] = random.Next(this._RAND_VAL_MAX) > this._factor;
+                }
+            }
             this._ready = true;
             return this;
         }
