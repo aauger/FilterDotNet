@@ -33,7 +33,8 @@ namespace FilterDotNet.Filters
                 throw new NotReadyException();
 
             if (this._other is null 
-                || this._factor is null 
+                || this._factor is null
+                || this._pixMap is null
                 || !(input.Width == this._other.Width && input.Height == this._other.Height))
                 throw new BadConfigurationException("input and configured image have different dimensions");
 
