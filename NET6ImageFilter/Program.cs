@@ -28,22 +28,10 @@ namespace NET6ImageFilter
             FilterInitializer.AddFilters(filters);
 
             // Generators
-            generators.AddRange(new IGenerator[]
-            {
-                new CircleFillTestGenerator(FiEngine),
-                new LineDrawTestGenerator(FiEngine),
-                new MandelbrotGenerator(new WinformsGeneratorConfigurators.GeneratorThreeIntConfigurator(), FiEngine),
-                new PerlinNoiseGenerator(new WinformsGeneratorConfigurators.GeneratorThreeIntConfigurator(), FiEngine),
-                new TriangleDrawTestGenerator(FiEngine),
-                new TriangleFillTestGenerator(FiEngine),
-                new XyModGenerator(new WinformsGeneratorConfigurators.GeneratorThreeIntConfigurator(), FiEngine),
-            });
+            GeneratorInitializer.AddGenerators(generators);
 
             // Analyzers
-            analyzers.AddRange(new IAnalyzer[]
-            {
-                new DifferenceAnalyzer(new WinformsGetImageConfigurator(), FiEngine)
-            });
+            AnalyzerInitializer.AddAnalyzers(analyzers);
 
             Application.Run(new MainForm(filters, generators, analyzers));
         }
